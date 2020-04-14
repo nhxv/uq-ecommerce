@@ -1,0 +1,33 @@
+<div class="container mt-5 pb-5">
+  <div class="row justify-content-center">
+    <div class="col-xl-4 col-md-6 col-8">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title mb-4">Sign in</h4>
+          <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+            <div class="form-group">
+              <div class="alert alert-danger mb-3 border-0" *ngIf="errorMessage">{{this.errorMessage}}</div>
+              <label>Email</label>
+              <input name="" class="form-control" type="email" formControlName="email">
+              <span class="text-danger" *ngIf="isInvalidField('email')">Invalid email</span>
+            </div> <!-- form-group// -->
+            <div class="form-group">
+              <label>Password</label>
+              <input class="form-control" type="password" formControlName="password">
+              <span class="text-danger" *ngIf="isInvalidField('password')">Invalid password</span>
+            </div> <!-- form-group// -->
+            <div class="form-group">
+              <label class="custom-control custom-checkbox"> <input type="checkbox" class="custom-control-input" checked=""> <div class="custom-control-label"> Remember </div> </label>
+            </div> <!-- form-group form-check .// -->
+            <div class="form-group">
+              <button class="btn btn-primary btn-block">Login</button>
+            </div> <!-- form-group// -->
+          </form>
+        </div> <!-- card-body.// -->
+        <div class="card-footer text-center">Don't have an account? <a [routerLink]="['/register']">Sign up</a></div>
+      </div> <!-- card .// -->
+    </div>
+  </div>
+</div>
+
+

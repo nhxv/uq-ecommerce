@@ -1,0 +1,75 @@
+<div class="container mt-5 pb-5">
+  <div class="row justify-content-center">
+    <div class="col-xl-6 col-md-8 col-10">
+      <div class="card">
+        <article class="card-body">
+          <header class="mb-4">
+            <h4 class="card-title">Sign up</h4>
+          </header>
+          <form class="block-register" [formGroup]="registerForm" (ngSubmit)="onRegister()">
+            <div class="alert alert-danger border-0 mb-3" *ngIf="errorMessage">{{this.errorMessage}}</div>
+            <div class="form-group form-row">
+              <label class="col-md-3 col-form-label">Email</label>
+              <div class="col">
+                <input type="email" class="form-control mb-2" placeholder="john@gmail.com" formControlName="email">
+                <span class="text-danger" *ngIf="isInvalidField('email')">Invalid email</span>
+              </div>
+            </div>
+
+            <div class="form-group form-row">
+              <label class="col-md-3 col-form-label">Password</label>
+              <div class="col">
+                <input type="password" class="form-control" placeholder="Create password" formControlName="password">
+                <span class="text-danger" *ngIf="isInvalidField('password')">Invalid password</span>
+              </div>
+            </div>
+
+            <div class="form-group form-row">
+              <label class="col-md-3 col-form-label">Full name</label>
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Your full name" formControlName="name">
+                <span class="text-danger" *ngIf="isInvalidField('name')">Invalid full name</span>
+              </div>
+            </div>
+
+            <div class="form-group form-row">
+              <label class="col-md-3 col-form-label">Address</label>
+              <div class="col-xl-6 col-md-6 col-8">
+                <input type="text" class="form-control" placeholder="Street, Province" formControlName="street">
+                <span class="text-danger" *ngIf="isInvalidField('street')">Invalid street address</span>
+              </div>
+              <div class="col-xl-3 col-md-3 col-4">
+                <input type="text" class="form-control" placeholder="City" formControlName="city">
+                <span class="text-danger" *ngIf="isInvalidField('city')">Invalid city</span>
+              </div>
+            </div>
+
+            <div class="form-group form-row">
+              <label class="col-md-3 col-form-label">Phone</label>
+              <div class="col">
+                <input class="form-control" placeholder="Phone number" type="text" formControlName="phone">
+                <span class="text-danger" *ngIf="isInvalidField('phone')">Invalid phone number</span>
+              </div>
+            </div>
+
+            <div class="form-group form-row">
+              <div class="col-sm-9 offset-sm-3">
+                <label class="custom-control custom-checkbox">
+                  <input type="checkbox"  class="custom-control-input" id="customCheck1" formControlName="agreement">
+                  <div class="custom-control-label" for="customCheck1">I agree with <a href="#" target="_blank">terms and conditions</a></div>
+                </label>
+              </div>
+            </div>
+            <div class="form-row mb-2">
+              <div class="col-sm-9 offset-sm-3">
+                <button type="submit" class="btn btn-block btn-primary">Register</button>
+              </div>
+            </div>
+          </form>
+        </article> <!-- card-body end .// -->
+        <div class="card-footer text-center">Have an account? <a [routerLink]="['/login']">Sign in</a></div>
+      </div> <!-- card.// -->
+    </div>
+  </div>
+</div>
+

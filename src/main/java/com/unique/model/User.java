@@ -27,7 +27,7 @@ public class User {
     @Column
     private String phone;
 
-    // set employee role
+    // set user role
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "USER_ROLES",
             joinColumns = {@JoinColumn(name = "USER_ID") },
@@ -70,8 +70,8 @@ public class User {
         return name;
     }
 
-    public void setName(String fullname) {
-        this.name = fullname;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getAddress() {

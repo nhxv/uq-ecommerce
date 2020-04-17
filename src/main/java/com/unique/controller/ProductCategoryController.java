@@ -5,6 +5,7 @@ import com.unique.model.ProductCategory;
 import com.unique.repository.ProductCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -22,22 +23,24 @@ public class ProductCategoryController {
         this.categoryRepository = categoryRepository;
     }
 
-    @GetMapping("/categories/views")
+    @GetMapping("/categories")
     public List<ProductCategory> getAllCategories() {
         return categoryRepository.findAll();
     }
 
-    @GetMapping("/categories/views/{categoryId}")
+    @GetMapping("/categories/{categoryId}")
     public ResponseEntity<ProductCategory> getProduct(@PathVariable long categoryId) throws ResourceNotFoundException {
         ProductCategory category = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("ProductCategory not found for this id: " + categoryId));
         return ResponseEntity.ok().body(category);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
     @PostMapping("/categories")
     public ProductCategory createCategory(@Valid @RequestBody ProductCategory category) {
         return categoryRepository.save(category);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
     @PutMapping("/categories/{id}")
     public ResponseEntity<ProductCategory> updateCategory(@PathVariable(value="id") Long categoryId, @Valid @RequestBody ProductCategory productUpdate) throws ResourceNotFoundException {
         ProductCategory category = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category not found for this id: " + categoryId));
@@ -45,8 +48,9 @@ public class ProductCategoryController {
         return ResponseEntity.ok(categoryRepository.save(category));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
     @DeleteMapping("/categories/{id}")
-    public Map<String, Boolean> deleteProduct(@PathVariable(value = "id") Long categoryId) throws ResourceNotFoundException {
+    public Map<String, Boolean> deleteCategory(@PathVariable(value = "id") Long categoryId) throws ResourceNotFoundException {
         ProductCategory category = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category not found for this id: " + categoryId));
         categoryRepository.delete(category);
         Map<String, Boolean> response = new HashMap<>();

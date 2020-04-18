@@ -17,7 +17,7 @@
         </div> <!-- col.// -->
         <div class="col-lg-5 col-xl-4 col-sm-8 col-md-4 col-7">
           <div class="d-flex justify-content-end">
-            <a href="#" class="widget-header mr-3" *ngIf="!isGuest()">
+            <a [routerLink]="['/cart']" class="widget-header mr-3">
               <div class="icon">
                 <i class="icon-sm rounded-circle border fa fa-shopping-cart"></i>
                 <span class="notify">0</span>
@@ -86,7 +86,7 @@
             </div>
           </li>
           <li class="nav-item"> <a class="nav-link" href="page-deal.html">Hot deals</a></li>
-          <li class="nav-item"> <a class="nav-link" href="page-deal.html">New deals</a></li>
+          <li class="nav-item"> <a class="nav-link" [routerLink]="['/deal']">New deals</a></li>
         </ul>
 
         <ul class="navbar-nav" *ngIf="isAdminOrStaff()">

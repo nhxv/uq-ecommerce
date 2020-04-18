@@ -1,16 +1,18 @@
 import {NgModule} from "@angular/core";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
-import {RouterModule} from "@angular/router";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {RegisterRoutingModule} from "./register-routing.module";
+import {RegisterComponent} from "./register.component";
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    RegisterComponent
+  ],
   imports: [
+    FormsModule,
     ReactiveFormsModule,
     CommonModule,
-    RouterModule,
     RegisterRoutingModule,
     NgbModule
   ]

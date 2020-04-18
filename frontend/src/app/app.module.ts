@@ -6,18 +6,13 @@ import {AppRoutingModule} from "./app-routing.module";
 import {TokenInterceptor} from "./auth/token-interceptor.service";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
 import { FooterComponent } from './footer/footer.component';
-import { UserComponent } from './user/user.component';
+import {SharedModule} from "./shared/shared.module";
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    RegisterComponent,
-    FooterComponent,
-    UserComponent
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +20,8 @@ import { UserComponent } from './user/user.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    SharedModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}],
   bootstrap: [AppComponent]

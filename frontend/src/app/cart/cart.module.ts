@@ -1,24 +1,25 @@
 import {NgModule} from "@angular/core";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
-import {HomeRoutingModule} from "./home-routing.module";
-import {HomeComponent} from "./home.component";
 import {SharedModule} from "../shared/shared.module";
+import {CartComponent} from "./cart.component";
+import {CartRoutingModule} from "./cart-routing.module";
+import { CartItemComponent } from './cart-item/cart-item.component';
 
 @NgModule({
   declarations: [
-    HomeComponent
+    CartComponent,
+    CartItemComponent
   ],
   imports: [
-    FormsModule,
     ReactiveFormsModule,
     CommonModule,
     RouterModule,
-    HomeRoutingModule,
+    CartRoutingModule,
     NgbModule,
     SharedModule
   ]
 })
-export class HomeModule {}
+export class CartModule {}

@@ -4,13 +4,15 @@ import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {LoginRoutingModule} from "./login-routing.module";
+import {LoginComponent} from "./login.component";
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    LoginComponent
+  ],
   imports: [
     ReactiveFormsModule,
     CommonModule,
-    RouterModule,
     LoginRoutingModule,
     NgbModule
   ]

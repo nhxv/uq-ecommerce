@@ -269,7 +269,7 @@ $embed-responsive-aspect-ratios: join(
 // Font, line-height, and color for body text, headings, and more.
 
 // stylelint-disable value-keyword-case
-$font-family-sans-serif:      'Inter', Arial, "Helvetica Neue", "Segoe UI", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+$font-family-sans-serif:      'Montserrat', Arial, "Helvetica Neue", "Segoe UI", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
 $font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
 $font-family-base:            $font-family-sans-serif !default;
 // stylelint-enable value-keyword-case
@@ -1104,9 +1104,9 @@ $print-body-min-width:              map-get($grid-breakpoints, "lg") !default;
 /* ==================== GLOBAL STYLES ======================= */
 // @import url('../fonts/roboto/font.css');
 
-@import url('https://rsms.me/inter/inter.css');
+//@import url('https://rsms.me/inter/inter.css');
 
-html { font-family: 'Inter', sans-serif; font-size: 15px; }
+html { font-family: 'Montserrat', sans-serif; font-size: 16px; }
 
 // @supports (font-variation-settings: normal) {
 //   html { font-family: 'Inter var', sans-serif; }
@@ -1149,7 +1149,6 @@ INCLUDE STYLES AND COMPONENTS
 @import "../frontend/src/assets/ui-assets/pages/page-listing";
 @import "../frontend/src/assets/ui-assets/pages/page-order";
 
-
 /* ============ MY CUSTOM =================*/
 .btn:focus, .btn:active {
   outline: none !important;
@@ -1164,6 +1163,14 @@ INCLUDE STYLES AND COMPONENTS
   text-shadow: none !important;
   opacity: 100% !important;
   font-weight: inherit;
+}
+
+.navbar-main .nav-link {
+  font-weight: 500 !important;
+}
+
+.btn {
+  font-weight: 500 !important;
 }
 
 @import "~bootstrap/scss/bootstrap";

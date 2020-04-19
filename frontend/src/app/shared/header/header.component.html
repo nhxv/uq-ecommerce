@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row align-items-center">
         <div class="col-lg-3 col-sm-4 col-md-4 col-5">
-          <h4>UNIQUE</h4>
+          <a [routerLink]="['/home']" class="navbar-brand"><img src="../../../assets/ui-assets/images/logo4.png" alt=""></a>
         </div>
         <div class="col-lg-4 col-xl-5 col-sm-8 col-md-4 d-none d-md-block">
           <form class="search">
@@ -60,7 +60,7 @@
   </section> <!-- header-main .// -->
 
 
-  <nav class="navbar navbar-expand-md navbar-main border-top border-bottom">
+  <nav class="navbar navbar-expand-md navbar-main navbar-dark bg-dark">
     <div class="container">
       <form class="d-md-none my-2">
         <div class="input-group">
@@ -70,14 +70,14 @@
           </div>
         </div>
       </form>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainnav" (click)="onMenu()" style="outline: none;">
+      <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#mainnav" (click)="onMenu()" style="outline: none;">
         <i class='fas fa-times' *ngIf="isOpen"></i>
         <i class="fas fa-bars" *ngIf="!isOpen"></i>
       </button>
       <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="mainnav">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item dropdown" ngbDropdown>
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" style="cursor:pointer;" ngbDropdownToggle>All categories</a>
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" style="cursor:pointer;" ngbDropdownToggle>All categories </a>
             <div class="dropdown-menu" ngbDropdownMenu>
               <a class="dropdown-item" style="cursor:pointer;" ngbDropdownItem>Shirts</a>
               <a class="dropdown-item" style="cursor:pointer;" ngbDropdownItem>Pants</a>
@@ -85,8 +85,8 @@
               <a class="dropdown-item" style="cursor:pointer;" ngbDropdownItem>Accessories</a>
             </div>
           </li>
-          <li class="nav-item"> <a class="nav-link" href="page-deal.html">Hot deals</a></li>
-          <li class="nav-item"> <a class="nav-link" [routerLink]="['/deal']">New deals</a></li>
+          <li class="nav-item"> <a class="nav-link">Hot deals</a></li>
+          <li class="nav-item"> <a class="nav-link">New deals</a></li>
         </ul>
 
         <ul class="navbar-nav" *ngIf="isAdminOrStaff()">

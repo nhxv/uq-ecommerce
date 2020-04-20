@@ -10,9 +10,11 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private long id;
+
     @OneToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "account_id")
+    private Account account;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "CART_PRODUCTS",
             joinColumns = {@JoinColumn(name = "CART_ID") },
@@ -27,12 +29,12 @@ public class Cart {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public Set<Product> getProducts() {

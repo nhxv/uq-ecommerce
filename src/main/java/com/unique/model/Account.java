@@ -9,8 +9,8 @@ import java.util.Set;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-@Table(name = "user")
-public class User {
+@Table(name = "account")
+public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -29,8 +29,8 @@ public class User {
 
     // set user role
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "USER_ROLES",
-            joinColumns = {@JoinColumn(name = "USER_ID") },
+    @JoinTable(name = "ACCOUNT_ROLES",
+            joinColumns = {@JoinColumn(name = "ACCOUNT_ID") },
             inverseJoinColumns = {@JoinColumn(name = "ROLE_ID") })
     private Set<Role> roles;
 

@@ -1,7 +1,7 @@
 package com.unique.config;
 
 import com.unique.model.Constants;
-import com.unique.service.impl.UserServiceImpl;
+import com.unique.service.impl.AccountServiceImpl;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
-    private UserServiceImpl userServiceImpl;
+    private AccountServiceImpl accountServiceImpl;
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
@@ -46,7 +46,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-            UserDetails userDetails = userServiceImpl.loadUserByUsername(username);
+            UserDetails userDetails = accountServiceImpl.loadUserByUsername(username);
 
             if (jwtTokenUtil.validateToken(authToken, userDetails)) {
                 UsernamePasswordAuthenticationToken authentication = jwtTokenUtil.getAuthentication(authToken, SecurityContextHolder.getContext().getAuthentication(), userDetails);

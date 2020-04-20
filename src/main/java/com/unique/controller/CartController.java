@@ -37,7 +37,7 @@ public class CartController {
     @PutMapping("/cart/{id}")
     public ResponseEntity<Cart> updateCart(@PathVariable(value="id") Long cartId, @Valid @RequestBody Cart cartUpdate) throws ResourceNotFoundException {
         Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new ResourceNotFoundException("Cart not found for this id: " + cartId));
-        cart.setProducts(cart.getProducts());
+        cart.setProducts(cartUpdate.getProducts());
         return ResponseEntity.ok(cartRepository.save(cart));
     }
 }

@@ -1,11 +1,11 @@
 package com.unique.controller;
 
 import com.unique.config.JwtTokenUtil;
+import com.unique.model.Account;
 import com.unique.model.ApiResponse;
 import com.unique.model.AuthToken;
-import com.unique.model.User;
-import com.unique.model.LoginUser;
-import com.unique.service.UserService;
+import com.unique.model.AccountLogin;
+import com.unique.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,26 +22,26 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
     private AuthenticationManager authenticationManager;
     private JwtTokenUtil jwtTokenUtil;
-    private UserService userService;
+    private AccountService accountService;
 
     @Autowired
-    public AuthenticationController(AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil, UserService userService) {
+    public AuthenticationController(AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil, AccountService accountService) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenUtil = jwtTokenUtil;
-        this.userService = userService;
+        this.accountService = accountService;
     }
 
     @PostMapping(value = "/login")
-    public ApiResponse<AuthToken> getToken(@RequestBody LoginUser loginUser) throws AuthenticationException {
+    public ApiResponse<AuthToken> getToken(@RequestBody AccountLogin accountLogin) throws AuthenticationException {
         final Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                        loginUser.getEmail(),
-                        loginUser.getPassword()
+                        accountLogin.getEmail(),
+                        accountLogin.getPassword()
                 )
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        final User user = userService.findOne(loginUser.getEmail());
+        final Account account = accountService.findOne(accountLogin.getEmail());
         final String token = jwtTokenUtil.generateToken(authentication);
-        return new ApiResponse<>(200, "success", new AuthToken(token, user.getRoles()));
+        return new ApiResponse<>(200, "success", new AuthToken(token, account.getRoles()));
     }
 }
 

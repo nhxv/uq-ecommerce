@@ -5,6 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="product")
@@ -13,19 +14,31 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private long id;
+
     @ManyToOne
     @JoinColumn(name = "category_id", nullable =  false)
-    private ProductCategory category;
+    private Category category;
+
+    @OneToMany
+    @JoinColumn(name = "product_id")
+    private List<Image> images;
+
+    @OneToMany
+    @JoinColumn(name = "product_id")
+    private List<Color> colors;
+
     @Column
     private String name;
+
     @Column
     private String description;
+
     @Column
     private BigDecimal unitPrice;
-    @Column
-    private String imageUrl;
+
     @Column
     private String unitsInStock;
+
     @Column(name="date_created")
     @CreationTimestamp
     private Date dateCreated;
@@ -62,12 +75,28 @@ public class Product {
         this.unitPrice = unitPrice;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
+
+    public List<Color> getColors() {
+        return colors;
+    }
+
+    public void setColors(List<Color> colors) {
+        this.colors = colors;
     }
 
     public String getUnitsInStock() {

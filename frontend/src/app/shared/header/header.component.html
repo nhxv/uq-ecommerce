@@ -17,7 +17,7 @@
         </div> <!-- col.// -->
         <div class="col-lg-5 col-xl-4 col-sm-8 col-md-4 col-7">
           <div class="d-flex justify-content-end">
-            <a [routerLink]="['/cart']" class="widget-header mr-3">
+            <a [routerLink]="['/cart']" class="widget-header mr-3" *ngIf="!isGuest()">
               <div class="icon">
                 <i class="icon-sm rounded-circle border fa fa-shopping-cart"></i>
                 <span class="notify">0</span>
@@ -39,9 +39,7 @@
 
             <div class="widget-header dropdown" *ngIf="!isGuest()" ngbDropdown>
               <a style="cursor:pointer;" data-toggle="dropdown" class="dropdown-toggle"  data-offset="20,10" ngbDropdownToggle>
-                <div class="icon icon-sm rounded-circle border">
-                  <i class="fa fa-user"></i>
-                </div>
+                <div class="icon icon-sm rounded-circle border"><i class="fa fa-user"></i></div>
                 <span class="sr-only">Profile actions</span>
               </a>
               <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
@@ -90,7 +88,7 @@
         </ul>
 
         <ul class="navbar-nav" *ngIf="isAdminOrStaff()">
-          <li class="nav-item"><a href="#" class="btn btn-primary ml-md-4"><i class="fa fa-plus"></i> Post item</a></li>
+          <li class="nav-item"><a href="#" class="btn btn-light ml-md-4">Dashboard</a></li>
         </ul>
       </div> <!-- collapse .// -->
     </div> <!-- container .// -->

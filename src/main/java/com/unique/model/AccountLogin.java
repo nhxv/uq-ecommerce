@@ -1,6 +1,6 @@
 package com.unique.model;
 
-public class LoginUser {
+public class AccountLogin {
     private String email;
     private String password;
 

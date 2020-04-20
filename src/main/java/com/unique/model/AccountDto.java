@@ -1,6 +1,6 @@
 package com.unique.model;
 
-public class UserDto {
+public class AccountDto {
     private String email;
     private String password;
     private String name;

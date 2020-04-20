@@ -1,8 +1,8 @@
 package com.unique.controller;
 
 import com.unique.exception.ResourceNotFoundException;
-import com.unique.model.ProductCategory;
-import com.unique.repository.ProductCategoryRepository;
+import com.unique.model.Category;
+import com.unique.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,35 +15,35 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*")
-public class ProductCategoryController {
-    private ProductCategoryRepository categoryRepository;
+public class CategoryController {
+    private CategoryRepository categoryRepository;
 
     @Autowired
-    public ProductCategoryController(ProductCategoryRepository categoryRepository) {
+    public CategoryController(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
 
     @GetMapping("/categories")
-    public List<ProductCategory> getAllCategories() {
+    public List<Category> getAllCategories() {
         return categoryRepository.findAll();
     }
 
     @GetMapping("/categories/{categoryId}")
-    public ResponseEntity<ProductCategory> getProduct(@PathVariable long categoryId) throws ResourceNotFoundException {
-        ProductCategory category = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("ProductCategory not found for this id: " + categoryId));
+    public ResponseEntity<Category> getProduct(@PathVariable long categoryId) throws ResourceNotFoundException {
+        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("ProductCategory not found for this id: " + categoryId));
         return ResponseEntity.ok().body(category);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
     @PostMapping("/categories")
-    public ProductCategory createCategory(@Valid @RequestBody ProductCategory category) {
+    public Category createCategory(@Valid @RequestBody Category category) {
         return categoryRepository.save(category);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
     @PutMapping("/categories/{id}")
-    public ResponseEntity<ProductCategory> updateCategory(@PathVariable(value="id") Long categoryId, @Valid @RequestBody ProductCategory productUpdate) throws ResourceNotFoundException {
-        ProductCategory category = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category not found for this id: " + categoryId));
+    public ResponseEntity<Category> updateCategory(@PathVariable(value="id") Long categoryId, @Valid @RequestBody Category productUpdate) throws ResourceNotFoundException {
+        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category not found for this id: " + categoryId));
         category.setName(productUpdate.getName());
         return ResponseEntity.ok(categoryRepository.save(category));
     }
@@ -51,7 +51,7 @@ public class ProductCategoryController {
     @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
     @DeleteMapping("/categories/{id}")
     public Map<String, Boolean> deleteCategory(@PathVariable(value = "id") Long categoryId) throws ResourceNotFoundException {
-        ProductCategory category = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category not found for this id: " + categoryId));
+        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category not found for this id: " + categoryId));
         categoryRepository.delete(category);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);

@@ -15,10 +15,6 @@ public class Order {
     @JoinColumn(name = "order_id")
     private List<OrderItem> orderItem;
 
-    @OneToOne
-    @JoinColumn(name = "account_id")
-    private Account account;
-
     public long getId() {
         return id;
     }
@@ -33,13 +29,5 @@ public class Order {
 
     public void setOrderItem(List<OrderItem> orderItem) {
         this.orderItem = orderItem;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
     }
 }

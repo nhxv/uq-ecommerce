@@ -3,8 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 
 @Injectable({providedIn: 'root'})
-export class UserApiService {
-  private baseUrl = 'http://localhost:8080/users';
+export class AccountApiService {
+  private baseUrl = 'http://localhost:8080/accounts';
 
   constructor(private http: HttpClient) {}
 

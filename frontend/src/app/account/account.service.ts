@@ -14,14 +14,14 @@ export class AccountService {
   constructor(private accountApiService: AccountApiService, private authService: AuthService) {}
 
   getUserList() {
-    this.accountApiService.getUserList().subscribe((userData: Account[]) => {
+    this.accountApiService.getAccountList().subscribe((userData: Account[]) => {
       this.users = userData;
       this.usersChanged.next(this.users.slice());
     });
   }
 
   getAccount(email: string) {
-    this.accountApiService.getUserByEmail(email).subscribe((userData: Account) => {
+    this.accountApiService.getAccountByEmail(email).subscribe((userData: Account) => {
       this.setAccount(userData);
     });
   }
@@ -32,16 +32,16 @@ export class AccountService {
   }
 
   createAccount(account: Account) {
-    this.accountApiService.createUser(account).subscribe(data => {
+    this.accountApiService.createAccount(account).subscribe(data => {
       console.log(data);
     });
   }
 
-  updateAccount(id: number, userUpdate: Account) {
-    this.accountApiService.updateUser(id, userUpdate);
+  updateAccount(id: number, accountUpdate: Account) {
+    this.accountApiService.updateAccount(id, accountUpdate);
   }
 
   deleteAccount(id: number) {
-    this.accountApiService.deleteUser(id);
+    this.accountApiService.deleteAccount(id);
   }
 }

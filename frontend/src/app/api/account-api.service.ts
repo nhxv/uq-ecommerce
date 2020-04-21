@@ -8,27 +8,27 @@ export class AccountApiService {
 
   constructor(private http: HttpClient) {}
 
-  getUser(id: number): Observable<Object> {
+  getAccount(id: number): Observable<Object> {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
-  getUserByEmail(email: string): Observable<Object> {
+  getAccountByEmail(email: string): Observable<Object> {
     return this.http.get(`${this.baseUrl}/profile/${email}`);
   }
 
-  getUserList(): Observable<any> {
+  getAccountList(): Observable<any> {
     return this.http.get(`${this.baseUrl}`);
   }
 
-  createUser(user: Object): Observable<Object> {
+  createAccount(user: Object): Observable<Object> {
     return this.http.post('http://localhost:8080/register', user);
   }
 
-  updateUser(id: number, value: any): Observable<Object> {
+  updateAccount(id: number, value: any): Observable<Object> {
     return this.http.put(`${this.baseUrl}/${id}`, value);
   }
 
-  deleteUser(id: number): Observable<any> {
+  deleteAccount(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`, {responseType: 'text'});
   }
 }

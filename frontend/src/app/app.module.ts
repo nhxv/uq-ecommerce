@@ -9,12 +9,14 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { FooterComponent } from './footer/footer.component';
 import {SharedModule} from "./shared/shared.module";
 import { AccountComponent } from './account/account.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
-    AccountComponent
+    AccountComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

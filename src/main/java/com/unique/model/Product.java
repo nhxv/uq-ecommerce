@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name="product")
+@Table(name = "product")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +16,7 @@ public class Product {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "category_id", nullable =  false)
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
     @OneToMany
@@ -25,7 +25,7 @@ public class Product {
 
     @OneToMany
     @JoinColumn(name = "product_id")
-    private List<Color> colors;
+    private List<Attribute> attributes;
 
     @Column
     private String name;
@@ -35,9 +35,6 @@ public class Product {
 
     @Column
     private BigDecimal unitPrice;
-
-    @Column
-    private String unitsInStock;
 
     @Column(name="date_created")
     @CreationTimestamp
@@ -91,20 +88,12 @@ public class Product {
         this.images = images;
     }
 
-    public List<Color> getColors() {
-        return colors;
+    public List<Attribute> getAttributes() {
+        return attributes;
     }
 
-    public void setColors(List<Color> colors) {
-        this.colors = colors;
-    }
-
-    public String getUnitsInStock() {
-        return unitsInStock;
-    }
-
-    public void setUnitsInStock(String unitsInStock) {
-        this.unitsInStock = unitsInStock;
+    public void setAttributes(List<Attribute> attributes) {
+        this.attributes = attributes;
     }
 
     public Date getDateCreated() {

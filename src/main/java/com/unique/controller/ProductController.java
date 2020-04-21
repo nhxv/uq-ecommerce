@@ -38,7 +38,7 @@ public class ProductController {
 
     @GetMapping("/products/search")
     public Page<Product> findProduct(@RequestParam("name") String name, Pageable pageable) {
-        return this.productRepository.findByNameContaining(name ,pageable);
+        return this.productRepository.findByNameContaining(name, pageable);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
@@ -51,11 +51,10 @@ public class ProductController {
     @PutMapping("/products/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable(value="id") Long productId, @Valid @RequestBody Product productUpdate) throws ResourceNotFoundException {
         Product product = productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product not found for this id: " + productId));
+        product.setImages(productUpdate.getImages());
         product.setName(productUpdate.getName());
         product.setDescription(productUpdate.getDescription());
-        product.setImageUrl(productUpdate.getImageUrl());
         product.setUnitPrice(productUpdate.getUnitPrice());
-        product.setUnitsInStock(productUpdate.getUnitsInStock());
         return ResponseEntity.ok(productRepository.save(product));
     }
 

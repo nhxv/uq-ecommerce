@@ -2,6 +2,7 @@ package com.unique.controller;
 
 import com.unique.exception.ResourceNotFoundException;
 import com.unique.model.Cart;
+import com.unique.repository.AccountRepository;
 import com.unique.repository.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +22,9 @@ public class CartController {
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'STAFF', 'CUSTOMER')")
-    @GetMapping("/cart/{cartId}")
-    public ResponseEntity<Cart> getProduct(@PathVariable long cartId) throws ResourceNotFoundException {
-        Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new ResourceNotFoundException("Cart not found for this id: " + cartId));
+    @GetMapping("/cart/{accountEmail}")
+    public ResponseEntity<Cart> getCart(@PathVariable String accountEmail) {
+        Cart cart = cartRepository.findByAccount_Email(accountEmail);
         return ResponseEntity.ok().body(cart);
     }
 
@@ -31,13 +32,5 @@ public class CartController {
     @PostMapping("/cart")
     public Cart createCart(@Valid @RequestBody Cart cart) {
         return cartRepository.save(cart);
-    }
-
-    @PreAuthorize("hasAnyRole('ADMIN', 'STAFF', 'CUSTOMER')")
-    @PutMapping("/cart/{id}")
-    public ResponseEntity<Cart> updateCart(@PathVariable(value="id") Long cartId, @Valid @RequestBody Cart cartUpdate) throws ResourceNotFoundException {
-        Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new ResourceNotFoundException("Cart not found for this id: " + cartId));
-        cart.setProducts(cartUpdate.getProducts());
-        return ResponseEntity.ok(cartRepository.save(cart));
     }
 }

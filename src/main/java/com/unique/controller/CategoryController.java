@@ -29,7 +29,7 @@ public class CategoryController {
     }
 
     @GetMapping("/categories/{categoryId}")
-    public ResponseEntity<Category> getProduct(@PathVariable long categoryId) throws ResourceNotFoundException {
+    public ResponseEntity<Category> getCategory(@PathVariable long categoryId) throws ResourceNotFoundException {
         Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("ProductCategory not found for this id: " + categoryId));
         return ResponseEntity.ok().body(category);
     }

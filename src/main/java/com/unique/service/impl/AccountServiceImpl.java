@@ -49,25 +49,9 @@ public class AccountServiceImpl implements UserDetailsService, AccountService {
         return authorities;
     }
 
-    public List<Account> findAll() {
-        List<Account> list = new ArrayList<>();
-        accountRepository.findAll().iterator().forEachRemaining(list::add);
-        return list;
-    }
-
-    @Override
-    public void delete(long id) {
-        accountRepository.deleteById(id);
-    }
-
     @Override
     public Account findOne(String email) {
         return accountRepository.findByEmail(email);
-    }
-
-    @Override
-    public Account findById(Long id) {
-        return accountRepository.findById(id).get();
     }
 
     @Override

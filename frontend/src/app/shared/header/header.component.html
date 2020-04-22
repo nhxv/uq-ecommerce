@@ -88,7 +88,7 @@
         </ul>
 
         <ul class="navbar-nav" *ngIf="isAdminOrStaff()">
-          <li class="nav-item"><a href="#" class="btn btn-light ml-md-4">Dashboard</a></li>
+          <li class="nav-item"><a [routerLink]="['/dashboard']" class="btn btn-light ml-md-4">Dashboard</a></li>
         </ul>
       </div> <!-- collapse .// -->
     </div> <!-- container .// -->

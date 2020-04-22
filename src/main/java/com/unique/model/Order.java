@@ -13,7 +13,7 @@ public class Order {
 
     @OneToMany
     @JoinColumn(name = "order_id")
-    private List<OrderItem> orderItem;
+    private List<ProductOrder> productOrder;
 
     public long getId() {
         return id;
@@ -23,11 +23,11 @@ public class Order {
         this.id = id;
     }
 
-    public List<OrderItem> getOrderItem() {
-        return orderItem;
+    public List<ProductOrder> getProductOrder() {
+        return productOrder;
     }
 
-    public void setOrderItem(List<OrderItem> orderItem) {
-        this.orderItem = orderItem;
+    public void setProductOrder(List<ProductOrder> productOrder) {
+        this.productOrder = productOrder;
     }
 }

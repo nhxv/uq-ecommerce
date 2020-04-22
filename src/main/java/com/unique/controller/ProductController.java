@@ -51,7 +51,10 @@ public class ProductController {
     @PutMapping("/products/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable(value="id") Long productId, @Valid @RequestBody Product productUpdate) throws ResourceNotFoundException {
         Product product = productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product not found for this id: " + productId));
+        product.setCategory(productUpdate.getCategory());
         product.setImages(productUpdate.getImages());
+        product.setColors(productUpdate.getColors());
+        product.setSizes(productUpdate.getSizes());
         product.setName(productUpdate.getName());
         product.setDescription(productUpdate.getDescription());
         product.setUnitPrice(productUpdate.getUnitPrice());

@@ -6,15 +6,17 @@ import java.util.List;
 
 @Entity
 @Table(name = "order_item")
-public class OrderItem {
+public class ProductOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private long id;
 
-    @OneToMany
-    @JoinColumn(name = "order_item_id")
-    private List<Attribute> attributes;
+    @Column
+    private String color;
+
+    @Column
+    private String size;
 
     @Column
     private String imageUrl;
@@ -36,12 +38,20 @@ public class OrderItem {
         this.id = id;
     }
 
-    public List<Attribute> getAttributes() {
-        return attributes;
+    public String getColor() {
+        return color;
     }
 
-    public void setAttributes(List<Attribute> attributes) {
-        this.attributes = attributes;
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
     }
 
     public String getImageUrl() {

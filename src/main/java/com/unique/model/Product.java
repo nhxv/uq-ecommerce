@@ -23,15 +23,19 @@ public class Product {
     @JoinColumn(name = "product_id")
     private List<Image> images;
 
-    @OneToMany
-    @JoinColumn(name = "product_id")
-    private List<Attribute> attributes;
-
     @Column
     private String name;
 
     @Column
     private String description;
+
+    @OneToMany
+    @JoinColumn(name = "product_id")
+    private List<Color> colors;
+
+    @OneToMany
+    @JoinColumn(name = "product_id")
+    private List<Size> sizes;
 
     @Column
     private BigDecimal unitPrice;
@@ -88,12 +92,20 @@ public class Product {
         this.images = images;
     }
 
-    public List<Attribute> getAttributes() {
-        return attributes;
+    public List<Color> getColors() {
+        return colors;
     }
 
-    public void setAttributes(List<Attribute> attributes) {
-        this.attributes = attributes;
+    public void setColors(List<Color> colors) {
+        this.colors = colors;
+    }
+
+    public List<Size> getSizes() {
+        return sizes;
+    }
+
+    public void setSizes(List<Size> sizes) {
+        this.sizes = sizes;
     }
 
     public Date getDateCreated() {

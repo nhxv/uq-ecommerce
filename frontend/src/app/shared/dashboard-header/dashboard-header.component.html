@@ -1,0 +1,20 @@
+<!-- Header -->
+<nav class="navbar navbar-expand-md navbar-main navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" [routerLink]="['/dashboard']">Dashboard</a>
+    <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#mainnav" (click)="onMenu()" style="outline: none;">
+      <i class='fas fa-times' *ngIf="isOpen"></i>
+      <i class="fas fa-bars" *ngIf="!isOpen"></i>
+    </button>
+    <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="mainnav">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" routerLinkActive="active"><a class="nav-link" [routerLink]="['/product-management']">Add product</a></li>
+        <li class="nav-item" routerLinkActive="active"><a class="nav-link">Manage staff</a></li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a class="nav-link">username@gmail.com</a></li>
+      </ul>
+    </div> <!-- collapse .// -->
+  </div> <!-- container .// -->
+</nav>
+

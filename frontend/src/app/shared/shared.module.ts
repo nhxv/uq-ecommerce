@@ -4,10 +4,12 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import { DashboardHeaderComponent } from './dashboard-header/dashboard-header.component';
 
 @NgModule({
   declarations: [
-    HeaderComponent
+    HeaderComponent,
+    DashboardHeaderComponent
   ],
   imports: [
     FormsModule,
@@ -17,7 +19,8 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
     RouterModule
   ],
   exports: [
-    HeaderComponent
+    HeaderComponent,
+    DashboardHeaderComponent
   ]
 })
 export class SharedModule {}

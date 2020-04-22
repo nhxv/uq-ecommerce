@@ -1,0 +1,57 @@
+<app-dashboard-header></app-dashboard-header>
+<div class="container mt-5 pb-5">
+  <div class="row justify-content-center">
+    <div class="col-xl-6 col-md-8 col-10">
+      <!-- Product form -->
+      <div class="card shadow-lg border-0">
+        <div class="card-body">
+          <h4 class="card-title mb-4">Product</h4>
+          <form [formGroup]="productForm" (ngSubmit)="onAddProduct()">
+            <div class="form-group">
+              <div class="alert alert-danger mb-3 border-0" *ngIf="errorMessage">{{this.errorMessage}}</div>
+              <label>Product name:</label>
+              <input name="" class="form-control" type="text" formControlName="name">
+              <span class="text-danger" *ngIf="isInvalidField('name')">Invalid name</span>
+            </div> <!-- form-group// -->
+            <div class="form-group">
+              <label>Description:</label>
+              <input class="form-control" type="text" formControlName="description">
+              <span class="text-danger" *ngIf="isInvalidField('description')">Invalid description</span>
+            </div> <!-- form-group// -->
+            <div class="form-group" formArrayName="colors">
+              <label>Color:</label>
+              <div class="mb-3" *ngFor="let color of this.productForm.get('colors').value; let i = index" [formGroupName]="i">
+                <div class="form-row">
+                  <input class="form-control ml-1 col-lg-3 col-3 mr-2" type="text" formControlName="hexcode" />
+                  <input class="form-control col-lg-8 col-7 mr-2" type="text" formControlName="name" />
+                  <a style="cursor: pointer;" class="mt-2 mr-2" *ngIf="i > 0" (click)="deleteColor(i)"><i class="fa fa-times"></i></a>
+                </div>
+              </div>
+              <button class="btn btn-light btn-sm" (click)="addColor()"><i class="fa fa-plus"></i> Add more color</button>
+            </div> <!-- form-group// -->
+            <div class="form-group">
+              <label>Category:</label>
+              <input class="form-control" type="text" formControlName="category">
+              <span class="text-danger" *ngIf="isInvalidField('category')">Invalid category</span>
+            </div> <!-- form-group// -->
+            <div class="form-group">
+              <label>Images:</label>
+              <input class="form-control" type="text" formControlName="images">
+              <span class="text-danger" *ngIf="isInvalidField('images')">Invalid images</span>
+            </div> <!-- form-group// -->
+            <div class="form-group mb-4">
+              <label>Unit price:</label>
+              <input class="form-control" type="number" formControlName="unitPrice">
+              <span class="text-danger" *ngIf="isInvalidField('unitPrice')">Invalid price</span>
+            </div> <!-- form-group// -->
+            <div class="form-group">
+              <button class="btn btn-primary btn-block">Add</button>
+            </div> <!-- form-group// -->
+          </form>
+        </div>
+      </div> <!-- product form// -->
+
+    </div>
+  </div>
+</div>
+

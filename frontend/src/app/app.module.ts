@@ -7,16 +7,13 @@ import {TokenInterceptor} from "./auth/token-interceptor.service";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { FooterComponent } from './footer/footer.component';
-import {SharedModule} from "./shared/shared.module";
 import { AccountComponent } from './account/account.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
-    AccountComponent,
-    DashboardComponent
+    AccountComponent
   ],
   imports: [
     BrowserModule,
@@ -24,8 +21,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule,
-    SharedModule
+    NgbModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}],
   bootstrap: [AppComponent]

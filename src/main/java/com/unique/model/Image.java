@@ -7,39 +7,52 @@ import java.util.Objects;
 @Table(name = "image")
 public class Image {
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column
-    private String link;
+    @Column(name = "name")
+    private String name;
 
-    public long getId() {
-        return id;
+    @Column(name = "type")
+    private String type;
+
+    //image bytes can have large lengths so we specify a value
+    //which is more than the default length for picByte column
+    @Column(name = "picByte", length = 1000)
+    private byte[] picByte;
+
+    public Image() {
+        super();
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public Image(String name, String type, byte[] picByte) {
+        this.name = name;
+        this.type = type;
+        this.picByte = picByte;
     }
 
-    public String getLink() {
-        return link;
+    public String getName() {
+        return name;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Image image = (Image) o;
-        return Objects.equals(link, image.link);
+    public String getType() {
+        return type;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(link);
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public byte[] getPicByte() {
+        return picByte;
+    }
+
+    public void setPicByte(byte[] picByte) {
+        this.picByte = picByte;
     }
 }

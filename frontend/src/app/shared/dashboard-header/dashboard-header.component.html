@@ -12,7 +12,15 @@
         <li class="nav-item" routerLinkActive="active"><a class="nav-link">Manage staff</a></li>
       </ul>
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item"><a class="nav-link">username@gmail.com</a></li>
+        <li class="nav-item dropdown" ngbDropdown>
+          <a style="cursor: pointer;" class="nav-link dropdown-toggle" ngbDropdownToggle>{{username}}</a>
+          <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
+            <a class="dropdown-item" href="#" ngbDropdownItem>Profile setting</a>
+            <a class="dropdown-item" href="#" ngbDropdownItem>My Orders</a>
+            <hr class="dropdown-divider">
+            <a class="dropdown-item" style="cursor:pointer;" (click)="onSignOut()" ngbDropdownItem>Sign out</a>
+          </div>
+        </li>
       </ul>
     </div> <!-- collapse .// -->
   </div> <!-- container .// -->

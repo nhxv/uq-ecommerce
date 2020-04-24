@@ -9,6 +9,8 @@ import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angul
 export class ProductManagementComponent implements OnInit {
   productForm: FormGroup;
   errorMessage: string = '';
+  images: File[] = [];
+  imageNames: string[] = [];
 
   constructor(private formBuilder: FormBuilder) { }
 
@@ -21,13 +23,20 @@ export class ProductManagementComponent implements OnInit {
         "hexcode": '',
         "name": '',
       })]),
-      "images": new FormControl(''),
-      "unitPrice": new FormControl('')
+      "sizes": this.formBuilder.array([this.formBuilder.group({
+        "size": ''
+      })]),
+      "unitPrice": new FormControl(''),
+      "images": new FormControl('')
     })
   }
 
   get colors() {
     return this.productForm.get('colors') as FormArray;
+  }
+
+  get sizes() {
+    return this.productForm.get('sizes') as FormArray;
   }
 
   addColor() {
@@ -37,8 +46,25 @@ export class ProductManagementComponent implements OnInit {
     }));
   }
 
+  addSize() {
+    this.sizes.push(this.formBuilder.group({
+      "size": ''
+    }));
+  }
+
   deleteColor(i) {
     this.colors.removeAt(i);
+  }
+
+  deleteSize(j) {
+    this.sizes.removeAt(j);
+  }
+
+  onImageChange(event) {
+    for (let i = 0; i < event.target.files.length; i++) {
+      this.images.push(event.target.files[i]);
+    }
+    this.imageNames = this.images.map(image => image.name);
   }
 
 

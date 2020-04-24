@@ -10,8 +10,7 @@ export class HeaderComponent implements OnInit {
   isNavbarCollapsed = true;
   isOpen = false;
 
-  constructor(private authService : AuthService) {
-  }
+  constructor(private authService : AuthService) {}
 
   ngOnInit(): void {
   }

@@ -10,6 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
@@ -27,13 +29,16 @@ public class ImageController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity.BodyBuilder uplaodImage(@RequestParam("imageFile") MultipartFile file) throws IOException {
-        System.out.println("Original Image Byte Size - " + file.getBytes().length);
-        Image img = new Image(file.getOriginalFilename(), file.getContentType(),
-                compressBytes(file.getBytes()));
-        imageRepository.save(img);
-        return ResponseEntity.status(HttpStatus.OK);
+    public ResponseEntity<List<Image>> uploadImage(@RequestParam("imageFile") MultipartFile[] files) throws IOException {
+        List<Image> images = new ArrayList<>(5);
+        for (MultipartFile file : files) {
+            System.out.println("Original Image Byte Size - " + file.getBytes().length);
+            Image img = new Image(file.getOriginalFilename(), file.getContentType(), compressBytes(file.getBytes()));
+            imageRepository.save(img);
+        }
+        return ResponseEntity.ok(images);
     }
+
     @GetMapping(path = { "/get/{imageName}" })
     public Image getImage(@PathVariable("imageName") String imageName) throws IOException {
         final Optional<Image> retrievedImage = imageRepository.findByName(imageName);

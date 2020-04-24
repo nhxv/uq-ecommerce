@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from "../../auth/auth.service";
 
 @Component({
   selector: 'app-dashboard-header',
@@ -8,15 +9,20 @@ import { Component, OnInit } from '@angular/core';
 export class DashboardHeaderComponent implements OnInit {
   isNavbarCollapsed = true;
   isOpen = false;
-  isActive: boolean = false;
+  username: string;
 
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
+    this.username = sessionStorage.getItem("username");
   }
 
   onMenu() {
     this.isNavbarCollapsed = !this.isNavbarCollapsed;
     this.isOpen = !this.isOpen;
+  }
+
+  onSignOut() {
+    this.authService.logOut();
   }
 }

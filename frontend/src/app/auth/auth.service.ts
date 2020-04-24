@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
-  constructor() { }
+  constructor(private router: Router) { }
 
   isUser(): boolean {
     let user = sessionStorage.getItem('username');
@@ -38,5 +39,6 @@ export class AuthService {
     sessionStorage.removeItem('username');
     sessionStorage.removeItem('role');
     localStorage.removeItem('token');
+    this.router.navigate(['/home']);
   }
 }

@@ -23,6 +23,10 @@ public class Product {
     @JoinColumn(name = "product_id")
     private List<Image> images;
 
+    @OneToMany
+    @JoinColumn(name = "product_id")
+    private List<ProductOrder> productOrders;
+
     @Column
     private String name;
 
@@ -114,5 +118,13 @@ public class Product {
 
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public List<ProductOrder> getProductOrders() {
+        return productOrders;
+    }
+
+    public void setProductOrders(List<ProductOrder> productOrders) {
+        this.productOrders = productOrders;
     }
 }

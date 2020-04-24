@@ -19,30 +19,31 @@
               <span class="text-danger" *ngIf="isInvalidField('description')">Invalid description</span>
             </div> <!-- form-group// -->
             <div class="form-group">
+              <label>Product category:</label>
+              <select class="form-control" (ngModelChange)="onSetCategory($event)" formControlName="category">
+                <option *ngFor="let category of categoryList" [ngValue]="category">{{category.name}}</option>
+              </select>
+            </div> <!-- form-group// -->
+            <div class="form-group">
               <label>Unit price:</label>
               <input class="form-control" type="number" formControlName="unitPrice">
               <span class="text-danger" *ngIf="isInvalidField('unitPrice')">Invalid price</span>
             </div> <!-- form-group// -->
             <div class="form-group" formArrayName="colors">
               <label>Color:</label>
-              <div class="mb-3" *ngFor="let color of this.productForm.get('colors').value; let i = index" [formGroupName]="i">
-                <div class="form-row">
-                  <input class="form-control ml-1 col-lg-3 col-3 mr-2" type="text" formControlName="hexcode" placeholder="Code" />
-                  <input class="form-control col-lg-3 col-3 mr-2" type="text" formControlName="name" placeholder="Name" />
-                  <a style="cursor: pointer;" class="mt-2 mr-2" *ngIf="i > 0" (click)="deleteColor(i)"><i class="fa fa-times"></i></a>
-                </div>
+              <div class="mb-3 form-row" *ngFor="let color of colors.controls; let i = index" [formGroupName]="i">
+                <input class="form-control col-lg-3 col-4 mr-2" type="text" formControlName="name" placeholder="Name" />
+                <a style="cursor: pointer;" class="mt-2 mr-2" *ngIf="i > 0" (click)="deleteColor(i)"><i class="fa fa-times"></i></a>
               </div>
-              <button class="btn btn-light btn-sm" (click)="addColor()"><i class="fa fa-plus"></i> Add more color</button>
+              <button type="button" class="btn btn-light btn-sm" (click)="addColor()"><i class="fa fa-plus"></i> Add more color</button>
             </div> <!-- form-group// -->
             <div class="form-group" formArrayName="sizes">
               <label>Size:</label>
-              <div class="mb-3" *ngFor="let size of this.productForm.get('sizes').value; let j = index" [formGroupName]="j">
-                <div class="form-row">
-                  <input class="form-control col-lg-3 col-4 mr-2" type="text" formControlName="size" />
-                  <a style="cursor: pointer;" class="mt-2 mr-2" *ngIf="j > 0" (click)="deleteSize(j)"><i class="fa fa-times"></i></a>
-                </div>
+              <div class="mb-3 form-row" *ngFor="let size of sizes.controls; let j = index" [formGroupName]="j">
+                <input class="form-control col-lg-3 col-4 mr-2" type="text" formControlName="size" />
+                <a style="cursor: pointer;" class="mt-2 mr-2" *ngIf="j > 0" (click)="deleteSize(j)"><i class="fa fa-times"></i></a>
               </div>
-              <button class="btn btn-light btn-sm" (click)="addSize()"><i class="fa fa-plus"></i> Add more size</button>
+              <button type="button" class="btn btn-light btn-sm" (click)="addSize()"><i class="fa fa-plus"></i> Add more size</button>
             </div> <!-- form-group// -->
             <div class="form-group mb-4">
               <label>Image:</label>

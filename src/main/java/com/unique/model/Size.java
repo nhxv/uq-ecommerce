@@ -12,6 +12,13 @@ public class Size {
 
     private String size;
 
+    public Size() {}
+
+    public Size(long id, String size) {
+        this.id = id;
+        this.size = size;
+    }
+
     public long getId() {
         return id;
     }

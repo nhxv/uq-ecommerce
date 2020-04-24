@@ -9,3 +9,11 @@ INSERT IGNORE INTO `account` VALUES
 
 INSERT IGNORE INTO `account_roles` VALUES
 (1, 1);
+
+INSERT IGNORE INTO `category` VALUES
+(1, 'T-Shirt'),
+(2, 'Shirt'),
+(3, 'Dress'),
+(4, 'Shorts'),
+(5, 'Jeans'),
+(6, 'Jacket');

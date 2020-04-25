@@ -1,7 +1,7 @@
 <!-- Header -->
 <nav class="navbar navbar-expand-md navbar-main navbar-dark bg-dark">
   <div class="container">
-    <a class="navbar-brand" [routerLink]="['/dashboard']">Dashboard</a>
+    <a class="navbar-brand" [routerLink]="['/dashboard']">Quản lý</a>
     <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#mainnav" (click)="onMenu()" style="outline: none;">
       <i class='fas fa-times' *ngIf="isOpen"></i>
       <i class="fas fa-bars" *ngIf="!isOpen"></i>
@@ -9,7 +9,7 @@
     <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="mainnav">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item" routerLinkActive="active"><a class="nav-link" [routerLink]="['/product-management']">Add product</a></li>
-        <li class="nav-item" routerLinkActive="active"><a class="nav-link">Manage staff</a></li>
+        <li class="nav-item" routerLinkActive="active"><a class="nav-link">quản lý nhân viên</a></li>
       </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown" ngbDropdown>
@@ -18,7 +18,7 @@
             <a class="dropdown-item" href="#" ngbDropdownItem>Profile setting</a>
             <a class="dropdown-item" href="#" ngbDropdownItem>My Orders</a>
             <hr class="dropdown-divider">
-            <a class="dropdown-item" style="cursor:pointer;" (click)="onSignOut()" ngbDropdownItem>Sign out</a>
+            <a class="dropdown-item" style="cursor:pointer;" (click)="onSignOut()" ngbDropdownItem>Đăng xuất</a>
           </div>
         </li>
       </ul>

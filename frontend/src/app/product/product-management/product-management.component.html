@@ -5,48 +5,48 @@
       <!-- Product form -->
       <div class="card border-0 shadow-lg">
         <div class="card-body">
-          <h4 class="card-title">Product</h4>
+          <h4 class="card-title">Sản phẩm</h4>
           <form [formGroup]="productForm" (ngSubmit)="onAddProduct()">
             <div class="form-group">
               <div class="alert alert-danger mb-3 border-0" *ngIf="errorMessage">{{this.errorMessage}}</div>
-              <label>Product name:</label>
+              <label>Tên sản phẩm:</label>
               <input name="" class="form-control" type="text" formControlName="name">
-              <span class="text-danger" *ngIf="isInvalidField('name')">Invalid name</span>
+              <span class="text-danger" *ngIf="isInvalidField('name')">Tên không hợp lệ</span>
             </div> <!-- form-group// -->
             <div class="form-group">
-              <label>Description:</label>
+              <label>Mô tả:</label>
               <textarea class="form-control" rows="6" formControlName="description"></textarea>
-              <span class="text-danger" *ngIf="isInvalidField('description')">Invalid description</span>
+              <span class="text-danger" *ngIf="isInvalidField('description')">Mô tả không hợp lệ</span>
             </div> <!-- form-group// -->
             <div class="form-group">
-              <label>Product category:</label>
+              <label>Loại sản phẩm:</label>
               <select class="form-control" (ngModelChange)="onSetCategory($event)" formControlName="category">
                 <option *ngFor="let category of categoryList" [ngValue]="category">{{category.name}}</option>
               </select>
             </div> <!-- form-group// -->
             <div class="form-group">
-              <label>Unit price:</label>
+              <label>Giá:</label>
               <input class="form-control" type="number" formControlName="unitPrice">
-              <span class="text-danger" *ngIf="isInvalidField('unitPrice')">Invalid price</span>
+              <span class="text-danger" *ngIf="isInvalidField('unitPrice')">Giá không hợp lệ</span>
             </div> <!-- form-group// -->
             <div class="form-group" formArrayName="colors">
-              <label>Color:</label>
+              <label>Màu:</label>
               <div class="mb-3 form-row" *ngFor="let color of colors.controls; let i = index" [formGroupName]="i">
                 <input class="form-control col-lg-3 col-4 mr-2" type="text" formControlName="name" placeholder="Name" />
                 <a style="cursor: pointer;" class="mt-2 mr-2" *ngIf="i > 0" (click)="deleteColor(i)"><i class="fa fa-times"></i></a>
               </div>
-              <button type="button" class="btn btn-light btn-sm" (click)="addColor()"><i class="fa fa-plus"></i> Add more color</button>
+              <button type="button" class="btn btn-light btn-sm" (click)="addColor()"><i class="fa fa-plus"></i> Thêm màu</button>
             </div> <!-- form-group// -->
             <div class="form-group" formArrayName="sizes">
-              <label>Size:</label>
+              <label>Kích cỡ:</label>
               <div class="mb-3 form-row" *ngFor="let size of sizes.controls; let j = index" [formGroupName]="j">
                 <input class="form-control col-lg-3 col-4 mr-2" type="text" formControlName="size" />
                 <a style="cursor: pointer;" class="mt-2 mr-2" *ngIf="j > 0" (click)="deleteSize(j)"><i class="fa fa-times"></i></a>
               </div>
-              <button type="button" class="btn btn-light btn-sm" (click)="addSize()"><i class="fa fa-plus"></i> Add more size</button>
+              <button type="button" class="btn btn-light btn-sm" (click)="addSize()"><i class="fa fa-plus"></i> Thêm size</button>
             </div> <!-- form-group// -->
             <div class="form-group mb-4">
-              <label>Image:</label>
+              <label>Hình ảnh:</label>
               <div>
                 <input type="file" (change)="onImageChange($event)" formControlName="images" multiple>
               </div>
@@ -55,7 +55,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <button class="btn btn-primary btn-block">Add product</button>
+              <button class="btn btn-primary btn-block">Thêm sản phẩm</button>
             </div> <!-- form-group// -->
           </form>
         </div>

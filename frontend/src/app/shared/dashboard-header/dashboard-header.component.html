@@ -8,15 +8,15 @@
     </button>
     <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="mainnav">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item" routerLinkActive="active"><a class="nav-link" [routerLink]="['/product-management']">Add product</a></li>
-        <li class="nav-item" routerLinkActive="active"><a class="nav-link">quản lý nhân viên</a></li>
+        <li class="nav-item" routerLinkActive="active"><a class="nav-link" [routerLink]="['/product-management']">Thêm sản phẩm</a></li>
+        <li class="nav-item" routerLinkActive="active"><a class="nav-link">quản lý tài khoản</a></li>
       </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown" ngbDropdown>
           <a style="cursor: pointer;" class="nav-link dropdown-toggle" ngbDropdownToggle>{{username}}</a>
           <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
-            <a class="dropdown-item" href="#" ngbDropdownItem>Profile setting</a>
-            <a class="dropdown-item" href="#" ngbDropdownItem>My Orders</a>
+            <a class="dropdown-item" href="#" ngbDropdownItem>Cài đặt thông tin</a>
+            <a class="dropdown-item" href="#" ngbDropdownItem>Đơn hàng của tôi</a>
             <hr class="dropdown-divider">
             <a class="dropdown-item" style="cursor:pointer;" (click)="onSignOut()" ngbDropdownItem>Đăng xuất</a>
           </div>

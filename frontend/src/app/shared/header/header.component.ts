@@ -1,18 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from "../../auth/auth.service";
+import {CategoryService} from "../../category/category.service";
+import {Category} from "../../category/category.model";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   isNavbarCollapsed = true;
   isOpen = false;
+  categoryList: Category[] = [];
+  categorySub: Subscription;
 
-  constructor(private authService : AuthService) {}
+  constructor(private authService : AuthService, private categoryService: CategoryService) {}
 
   ngOnInit(): void {
+    this.categoryService.getCategoryList();
+    this.categorySub = this.categoryService.categoriesChanged.subscribe((categories: Category[]) => {
+      this.categoryList = categories;
+    });
   }
 
   onMenu() {
@@ -30,5 +39,9 @@ export class HeaderComponent implements OnInit {
 
   isGuest(): boolean {
     return !this.authService.isUser();
+  }
+
+  ngOnDestroy(): void {
+    this.categorySub.unsubscribe();
   }
 }

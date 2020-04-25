@@ -22,6 +22,9 @@ public class AccountOrder {
     @CreationTimestamp
     private Date dateCreated;
 
+    @Column
+    private String status;
+
     public AccountOrder() {}
 
     public AccountOrder(long id, List<ProductOrder> productOrder, Date dateCreated) {
@@ -52,5 +55,13 @@ public class AccountOrder {
 
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

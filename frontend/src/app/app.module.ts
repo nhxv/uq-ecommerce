@@ -7,13 +7,15 @@ import {TokenInterceptor} from "./auth/token-interceptor.service";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { FooterComponent } from './footer/footer.component';
-import { AccountComponent } from './account/account.component';
+import { StaffManagementComponent } from './account/staff-management/staff-management.component';
+import { CustomerManagementComponent } from './account/customer-management/customer-management.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
-    AccountComponent
+    StaffManagementComponent,
+    CustomerManagementComponent
   ],
   imports: [
     BrowserModule,

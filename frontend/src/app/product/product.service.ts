@@ -2,13 +2,14 @@ import {Injectable} from "@angular/core";
 import {ProductApiService} from "../api/product-api.service";
 import {Product} from "./product.model";
 import {BehaviorSubject} from "rxjs";
+import {ImageService} from "./image.service";
 
 @Injectable({providedIn: 'root'})
 export class ProductService {
   products: Product[] = [];
   productsChanged = new BehaviorSubject<Product[]>(this.products.slice());
 
-  constructor(private productApiService: ProductApiService) {}
+  constructor(private productApiService: ProductApiService, private imageService: ImageService) {}
 
   getProductList() {
     this.productApiService.getProductList().subscribe((productsData: Product[]) => {
@@ -17,9 +18,10 @@ export class ProductService {
     })
   }
 
-  createProduct(product: Product) {
+  createProduct(product: Product, imageData: FormData) {
     this.productApiService.createProduct(product).subscribe((productData: Product) => {
       console.log(productData);
+      this.imageService.uploadImages(imageData, product.id);
       this.productApiService.getProductList().subscribe((productsData: Product[]) => {
         this.products = productsData;
         this.productsChanged.next(this.products.slice());

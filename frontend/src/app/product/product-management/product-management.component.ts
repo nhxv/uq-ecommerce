@@ -46,6 +46,10 @@ export class ProductManagementComponent implements OnInit {
 
   onAddProduct() {
     // create product, update category with product, set images product_id to product just created
+    const imageData = new FormData();
+    for (let i = 0; i < this.images.length; i++) {
+      imageData.append("imageFile", this.images[i], this.images[i].name);
+    }
     const product: Product = new Product(
       this.productForm.get('name').value,
       this.productForm.get('description').value,
@@ -55,7 +59,7 @@ export class ProductManagementComponent implements OnInit {
       null,
       this.productForm.get('unitPrice').value
       );
-    this.productService.createProduct(product);
+    this.productService.createProduct(product, imageData);
   }
 
   onSetCategory(category: Category) {

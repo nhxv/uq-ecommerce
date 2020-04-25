@@ -1,5 +1,8 @@
 package com.unique.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -17,18 +20,17 @@ public class Image {
     @Column(name = "type")
     private String type;
 
-    // image bytes can have large lengths so we specify a value which is more than the default length for picByte column
-    @Column(name = "picByte", length = 1000)
-    private byte[] picByte;
+    @Column(name = "image_path")
+    private String imagePath;
 
     public Image() {
         super();
     }
 
-    public Image(String name, String type, byte[] picByte) {
+    public Image(String name, String type, String imagePath) {
         this.name = name;
         this.type = type;
-        this.picByte = picByte;
+        this.imagePath = imagePath;
     }
 
     public String getName() {
@@ -47,11 +49,19 @@ public class Image {
         this.type = type;
     }
 
-    public byte[] getPicByte() {
-        return picByte;
+    public Long getId() {
+        return id;
     }
 
-    public void setPicByte(byte[] picByte) {
-        this.picByte = picByte;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }

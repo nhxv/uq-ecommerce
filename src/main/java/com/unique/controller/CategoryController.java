@@ -30,31 +30,15 @@ public class CategoryController {
 
     @GetMapping("/categories/{categoryId}")
     public ResponseEntity<Category> getCategory(@PathVariable long categoryId) throws ResourceNotFoundException {
-        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("ProductCategory not found for this id: " + categoryId));
+        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category not found for this id: " + categoryId));
         return ResponseEntity.ok().body(category);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
-    @PostMapping("/categories")
-    public Category createCategory(@Valid @RequestBody Category category) {
-        return categoryRepository.save(category);
-    }
-
-    @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
     @PutMapping("/categories/{id}")
-    public ResponseEntity<Category> updateCategory(@PathVariable(value="id") Long categoryId, @Valid @RequestBody Category productUpdate) throws ResourceNotFoundException {
+    public ResponseEntity<Category> updateCategory(@PathVariable(value = "id") long categoryId, @Valid @RequestBody Category categoryUpdate) throws ResourceNotFoundException {
         Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category not found for this id: " + categoryId));
-        category.setName(productUpdate.getName());
+        category.setProducts(category.getProducts());
         return ResponseEntity.ok(categoryRepository.save(category));
-    }
-
-    @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
-    @DeleteMapping("/categories/{id}")
-    public Map<String, Boolean> deleteCategory(@PathVariable(value = "id") Long categoryId) throws ResourceNotFoundException {
-        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category not found for this id: " + categoryId));
-        categoryRepository.delete(category);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
-        return response;
     }
 }

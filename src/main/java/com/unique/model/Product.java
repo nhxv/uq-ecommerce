@@ -1,5 +1,7 @@
 package com.unique.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -8,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Table(name = "product")
 public class Product {
     @Id
@@ -23,17 +26,21 @@ public class Product {
     @JoinColumn(name = "product_id")
     private List<Image> images;
 
+    @OneToMany
+    @JoinColumn(name = "product_id")
+    private List<ProductOrder> productOrders;
+
     @Column
     private String name;
 
     @Column
     private String description;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     @JoinColumn(name = "product_id")
     private List<Color> colors;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     @JoinColumn(name = "product_id")
     private List<Size> sizes;
 
@@ -114,5 +121,13 @@ public class Product {
 
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public List<ProductOrder> getProductOrders() {
+        return productOrders;
+    }
+
+    public void setProductOrders(List<ProductOrder> productOrders) {
+        this.productOrders = productOrders;
     }
 }

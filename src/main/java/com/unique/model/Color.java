@@ -11,10 +11,14 @@ public class Color {
     private long id;
 
     @Column
-    private String hexCode;
-
-    @Column
     private String name;
+
+    public Color() {}
+
+    public Color(long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public long getId() {
         return id;
@@ -22,14 +26,6 @@ public class Color {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getHexCode() {
-        return hexCode;
-    }
-
-    public void setHexCode(String hexCode) {
-        this.hexCode = hexCode;
     }
 
     public String getName() {

@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {ProductService} from "../product.service";
+import {Category} from "../../category/category.model";
+import {CategoryService} from "../../category/category.service";
+import {Product} from "../product.model";
 
 @Component({
   selector: 'app-product-management',
@@ -9,18 +13,27 @@ import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angul
 export class ProductManagementComponent implements OnInit {
   productForm: FormGroup;
   errorMessage: string = '';
+  categoryList: Category[] = [];
+  categorySelected: Category = null;
   images: File[] = [];
   imageNames: string[] = [];
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private productService: ProductService, private categoryService: CategoryService) {}
 
   ngOnInit(): void {
+    this.categoryService.getCategoryList();
+    this.categoryService.categoriesChanged.subscribe((categories: Category[]) => {
+      this.categoryList = categories;
+      this.initForm();
+    });
+  }
+
+  private initForm() {
     this.productForm = this.formBuilder.group({
       "name": new FormControl('', Validators.required),
       "description": new FormControl(''),
-      "category": new FormControl(''),
+      "category": new FormControl(this.categoryList[0]),
       "colors": this.formBuilder.array([this.formBuilder.group({
-        "hexcode": '',
         "name": '',
       })]),
       "sizes": this.formBuilder.array([this.formBuilder.group({
@@ -28,7 +41,29 @@ export class ProductManagementComponent implements OnInit {
       })]),
       "unitPrice": new FormControl(''),
       "images": new FormControl('')
-    })
+    });
+  }
+
+  onAddProduct() {
+    // create product, update category with product, set images product_id to product just created
+    const imageData = new FormData();
+    for (let i = 0; i < this.images.length; i++) {
+      imageData.append("imageFile", this.images[i], this.images[i].name);
+    }
+    const product: Product = new Product(
+      this.productForm.get('name').value,
+      this.productForm.get('description').value,
+      this.productForm.get('category').value,
+      this.productForm.get('colors').value,
+      this.productForm.get('sizes').value,
+      null,
+      this.productForm.get('unitPrice').value
+      );
+    this.productService.createProduct(product, imageData);
+  }
+
+  onSetCategory(category: Category) {
+    this.categorySelected = category;
   }
 
   get colors() {
@@ -41,7 +76,6 @@ export class ProductManagementComponent implements OnInit {
 
   addColor() {
     this.colors.push(this.formBuilder.group({
-      "hexcode": '',
       "name": ''
     }));
   }
@@ -65,11 +99,6 @@ export class ProductManagementComponent implements OnInit {
       this.images.push(event.target.files[i]);
     }
     this.imageNames = this.images.map(image => image.name);
-  }
-
-
-  onAddProduct() {
-
   }
 
   isInvalidField(field: string) {}

@@ -13,7 +13,7 @@ const appRoutes: Routes = [
   {path: 'customer-management', loadChildren: () => import('./account/customer-management/customer-management.module').then(m => m.CustomerManagementModule)},
   {path: 'staff-management', loadChildren: () => import('./account/staff-management/staff-management.module').then(m => m.StaffManagementModule)},
   {path: 'order-management', loadChildren: () => import('./order/order-management/order-management.module').then(m => m.OrderManagementModule)},
-  {path: 'category/new', loadChildren: () => import('./category/new/new.module').then(m => m.NewModule)},
+  {path: 'new', loadChildren: () => import('./new/new.module').then(m => m.NewModule)},
 ];
 
 @NgModule({

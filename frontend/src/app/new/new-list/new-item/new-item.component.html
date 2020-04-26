@@ -1,0 +1,19 @@
+<a style="cursor: pointer; text-decoration: none; color: black !important;" [routerLink]="[id]">
+  <div class="col-md-3">
+    <figure class="card border-0 text-center">
+      <div class="img-wrap">
+        <img [src]="getPath()"/>
+      </div>
+      <figcaption class="mt-2 mb-2">
+        <p>{{productInput.name}}</p>
+        <div class="price-wrap">
+          <span class="price">{{productInput.unitPrice}}<u>đ</u></span>
+        </div> <!-- price-wrap.// -->
+      </figcaption>
+    </figure> <!-- card // -->
+  </div>
+</a>
+
+
+
+

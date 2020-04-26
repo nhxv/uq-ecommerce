@@ -8,6 +8,8 @@ import {ImageApiService} from "../api/image-api.service";
 export class ProductService {
   products: Product[] = [];
   productsChanged = new BehaviorSubject<Product[]>(this.products.slice());
+  product: Product = null;
+  productChanged = new BehaviorSubject({...this.product});
 
   constructor(private productApiService: ProductApiService, private imageApiService: ImageApiService) {}
 
@@ -41,10 +43,21 @@ export class ProductService {
 
   private getProduct(id: number) {
     for (let product of this.products) {
-      if (product.id == id) {
+      if (product.id === id) {
         return product;
       }
     }
+  }
+
+  getProductById(id: number) {
+    this.productApiService.getProduct(id).subscribe((productData: Product) => {
+      this.setProduct(productData);
+    });
+  }
+
+  setProduct(productData: Product) {
+    this.product=  productData;
+    this.productChanged.next({...this.product});
   }
 
   deleteProduct(id: number) {

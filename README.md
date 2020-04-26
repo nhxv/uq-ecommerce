@@ -63,9 +63,3 @@
     - Thông tin hóa đơn
     
     - Xóa, sửa hóa đơn
-    
-  ### Thông tin tài khoản sẽ link tới những trang
-    
-    - Thông tin chi tiết
-    
-    - Cập nhật tài khoản

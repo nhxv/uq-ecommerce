@@ -27,9 +27,7 @@ export class NewDetailComponent implements OnInit, OnDestroy {
   }
 
   getPath(index: number): string {
-    let path = this.product.images[index].imagePath.slice(53);
-    path = "../../../../" + path.split("\\").join("/");
-    return path;
+    return "../../../../" + this.product.images[index].imagePath;
   }
 
   ngOnDestroy(): void {

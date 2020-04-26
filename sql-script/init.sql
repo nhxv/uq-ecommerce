@@ -1,4 +1,4 @@
-USE eshop;
+USE uniqueproject;
 INSERT IGNORE INTO `role` VALUES
 (1, 'Admin role', 'ADMIN'),
 (2, 'Staff role', 'STAFF'),

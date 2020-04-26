@@ -15,9 +15,7 @@ export class NewItemComponent implements OnInit {
   ngOnInit(): void {}
 
   getPath(): string {
-    let path = this.productInput.images[0].imagePath.slice(53);
-    path = "../../../../" + path.split("\\").join("/");
-    return path;
+    return "../../../../" + this.productInput.images[0].imagePath;
   }
 
 }

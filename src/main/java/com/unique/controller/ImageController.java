@@ -24,7 +24,7 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class ImageController {
     private ProductRepository productRepository;
-    private static final String UPLOAD_PATH = "H:\\Study\\Webdev\\Projects\\fpt-project\\uq\\frontend\\src\\assets\\ui-assets\\images\\upload\\";
+    private static final String UPLOAD_PATH = "frontend/src/assets/ui-assets/images/upload";
     
     @Autowired
     public ImageController(ProductRepository productRepository) {
@@ -36,16 +36,22 @@ public class ImageController {
     public ResponseEntity<List<Image>> uploadImage(@RequestParam("imageFile") MultipartFile[] files, @PathVariable long productId) throws IOException, ResourceNotFoundException {
         List<Image> images = new ArrayList<>();
         for (MultipartFile file : files) {
-            String imagePath = UPLOAD_PATH + file.getOriginalFilename();
+            String imagePath = UPLOAD_PATH + "/" + file.getOriginalFilename();
             Path path = Paths.get(imagePath);
             Files.write(path, file.getBytes());
-            Image img = new Image(file.getOriginalFilename(), file.getContentType(), imagePath);
+            Image img = new Image(file.getOriginalFilename(), file.getContentType(), slicePath(imagePath));
             images.add(img);
         }
         Product product = productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product not found for this id: " + productId));
         product.setImages(images);
         productRepository.save(product);
         return ResponseEntity.ok(images);
+    }
+
+    private static String slicePath(String path) {
+        int index = path.indexOf("assets");
+        String imagePath = path.substring(index);
+        return imagePath;
     }
 }
 

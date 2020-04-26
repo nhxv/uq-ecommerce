@@ -24,23 +24,23 @@
               </div>
             </a>
             <div class="widget-header" *ngIf="isGuest()">
-              <small class="title text-muted">Welcome guest!</small>
+              <small class="title text-muted">Kính chào quý khách!</small>
               <div>
-                <a style="cursor: pointer;" [routerLink]="['/login']">Login</a> <span class="dark-transp"> | </span>
-                <a style="cursor: pointer;" [routerLink]="['/register']"> Register</a>
+                <a style="cursor: pointer;" [routerLink]="['/login']">Đăng nhập</a> <span class="dark-transp"> | </span>
+                <a style="cursor: pointer;" [routerLink]="['/register']"> Đăng kí</a>
               </div>
             </div>
 
             <div class="widget-header dropdown" *ngIf="!isGuest()" ngbDropdown>
               <a style="cursor:pointer;" data-toggle="dropdown" class="dropdown-toggle"  data-offset="20,10" ngbDropdownToggle>
                 <div class="icon icon-sm rounded-circle border"><i class="fa fa-user"></i></div>
-                <span class="sr-only">Profile actions</span>
+                <span class="sr-only">Hồ sơ cá nhân</span>
               </a>
               <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
-                <a class="dropdown-item" style="cursor: pointer;" [routerLink]="['/profile']" ngbDropdownItem>Profile setting</a>
-                <a class="dropdown-item" href="#" ngbDropdownItem>My Orders</a>
+                <a class="dropdown-item" style="cursor: pointer;" [routerLink]="['/profile']" ngbDropdownItem>Thông tin tài khoản</a>
+                <a class="dropdown-item" href="#" ngbDropdownItem>Đơn hàng của tôi</a>
                 <hr class="dropdown-divider">
-                <a class="dropdown-item" style="cursor:pointer;" (click)="onSignOut()" ngbDropdownItem>Sign out</a>
+                <a class="dropdown-item" style="cursor:pointer;" (click)="onSignOut()" ngbDropdownItem>Đăng xuất</a>
               </div> <!--  dropdown-menu .// -->
             </div>  <!-- widget-header .// -->
 
@@ -69,17 +69,17 @@
       <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="mainnav">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item dropdown" ngbDropdown>
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" style="cursor:pointer;" ngbDropdownToggle>All categories </a>
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" style="cursor:pointer;" ngbDropdownToggle>Tất cả mặt hàng</a>
             <div class="dropdown-menu" ngbDropdownMenu>
               <a class="dropdown-item" style="cursor:pointer;" ngbDropdownItem *ngFor="let category of categoryList">{{category.name}}</a>
             </div>
           </li>
-          <li class="nav-item"> <a class="nav-link">Hot deals</a></li>
-          <li class="nav-item"> <a class="nav-link">New deals</a></li>
+          <li class="nav-item"> <a class="nav-link">Hàng hot</a></li>
+          <li class="nav-item"> <a class="nav-link">Hàng mới</a></li>
         </ul>
 
         <ul class="navbar-nav" *ngIf="isAdminOrStaff()">
-          <li class="nav-item"><a [routerLink]="['/dashboard']" class="btn btn-light ml-md-4">Dashboard</a></li>
+          <li class="nav-item"><a [routerLink]="['/dashboard']" class="btn btn-light ml-md-4">Trang quản lý</a></li>
         </ul>
       </div> <!-- collapse .// -->
     </div> <!-- container .// -->

@@ -11,9 +11,9 @@ INSERT IGNORE INTO `account_roles` VALUES
 (1, 1);
 
 INSERT IGNORE INTO `category` VALUES
-(1, 'T-Shirt'),
-(2, 'Shirt'),
-(3, 'Dress'),
-(4, 'Shorts'),
-(5, 'Jeans'),
-(6, 'Jacket');
+(1, 'Áo phông'),
+(2, 'Áo sơ mi'),
+(3, 'Váy liền'),
+(4, 'Quần ngắn'),
+(5, 'Quần jean'),
+(6, 'Áo khoác');

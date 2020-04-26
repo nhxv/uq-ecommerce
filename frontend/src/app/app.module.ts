@@ -7,15 +7,14 @@ import {TokenInterceptor} from "./auth/token-interceptor.service";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { FooterComponent } from './footer/footer.component';
-import { StaffManagementComponent } from './account/staff-management/staff-management.component';
-import { CustomerManagementComponent } from './account/customer-management/customer-management.component';
+import { ProductItemComponent } from './shared/product-item/product-item.component';
+import {SharedModule} from "./shared/shared.module";
 
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
-    StaffManagementComponent,
-    CustomerManagementComponent
+    ProductItemComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +22,8 @@ import { CustomerManagementComponent } from './account/customer-management/custo
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    SharedModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}],
   bootstrap: [AppComponent]

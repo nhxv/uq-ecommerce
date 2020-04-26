@@ -10,7 +10,8 @@ const appRoutes: Routes = [
   {path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)},
   {path: 'product-management', loadChildren: () => import('./product/product-management/product-management.module').then(m => m.ProductManagementModule)},
   {path: 'profile', loadChildren: () => import('./account/account-profile/account-profile.module').then(m => m.AccountProfileModule)},
-  {path: 'staff-management', loadChildren: () => import('./account/account-profile/account-profile.module').then(m => m.AccountProfileModule)},
+  {path: 'customer-management', loadChildren: () => import('./account/customer-management/customer-management.module').then(m => m.CustomerManagementModule)},
+  {path: 'staff-management', loadChildren: () => import('./account/staff-management/staff-management.module').then(m => m.StaffManagementModule)},
 ];
 
 @NgModule({

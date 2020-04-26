@@ -3,28 +3,28 @@
     <div class="col-xl-4 col-md-6 col-8">
       <div class="card">
         <div class="card-body">
-          <h4 class="card-title mb-4">Sign in</h4>
+          <h4 class="card-title mb-4">Đăng nhập</h4>
           <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
             <div class="form-group">
               <div class="alert alert-danger mb-3 border-0" *ngIf="errorMessage">{{this.errorMessage}}</div>
               <label>Email</label>
               <input name="" class="form-control" type="email" formControlName="email">
-              <span class="text-danger" *ngIf="isInvalidField('email')">Invalid email</span>
+              <span class="text-danger" *ngIf="isInvalidField('email')">Email không hợp lệ</span>
             </div> <!-- form-group// -->
             <div class="form-group">
               <label>Password</label>
               <input class="form-control" type="password" formControlName="password">
-              <span class="text-danger" *ngIf="isInvalidField('password')">Invalid password</span>
+              <span class="text-danger" *ngIf="isInvalidField('password')">Mật khẩu không hợp lệ</span>
             </div> <!-- form-group// -->
             <div class="form-group">
               <label class="custom-control custom-checkbox"> <input type="checkbox" class="custom-control-input" checked=""> <div class="custom-control-label"> Remember </div> </label>
             </div> <!-- form-group form-check .// -->
             <div class="form-group">
-              <button class="btn btn-primary btn-block">Login</button>
+              <button class="btn btn-primary btn-block">Đăng nhập</button>
             </div> <!-- form-group// -->
           </form>
         </div> <!-- card-body.// -->
-        <div class="card-footer text-center">Don't have an account? <a [routerLink]="['/register']">Sign up</a></div>
+        <div class="card-footer text-center">Bạn chưa có tài khoản? <a [routerLink]="['/register']">Đăng kí ngay</a></div>
       </div> <!-- card .// -->
     </div>
   </div>

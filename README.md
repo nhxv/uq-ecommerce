@@ -1,11 +1,18 @@
 # unique
-Trang chủ sẽ link tới những trang 
+Trang chủ sẽ link tới những trang
+
   .Đăng kí
+  
   .Đăng nhập
+  
   .Đăng xuất
+  
   .Thông tin tài khoản
+  
   .Danh sách sản phẩm
+  
   .Giỏ hàng
+  
   .Liên hệ
 
 Trang thông tin tài khoản sẽ link tới những trang

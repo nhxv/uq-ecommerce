@@ -31,9 +31,9 @@ Trang chủ sẽ link tới những trang
 
   - Quản lý nhân viên
   - Quản lý khác hàng
-  .Quản lý sản phẩm
-  .Quản lý hóa đơn
-  .Thông tin tài khoản
+  - Quản lý sản phẩm
+  - Quản lý hóa đơn
+  - Thông tin tài khoản
   
   ### Quản lý nhân viên sẽ linh tới những trang
     

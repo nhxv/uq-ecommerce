@@ -1,39 +1,44 @@
 # unique
-Trang chủ sẽ link tới những trang
 
-  - Đăng kí
+### Trang chủ sẽ link tới những trang
   
-  - Đăng nhập
+    - Đăng ký
+    
+    - Đăng nhập
   
-  - Đăng xuất
+    - Đăng xuất
   
-  - Thông tin tài khoản
+    - Thông tin tài khoản
   
-  - Danh sách sản phẩm
+    - Danh sách sản phẩm
   
-  - Giỏ hàng
+    - Giỏ hàng
   
-  - Liên hệ
+    - Liên hệ
 
 ### Trang thông tin tài khoản sẽ link tới những trang
 
-  - Thông tin
+    - Thông tin
   
-  - Cập nhật tài khoản
+    - Cập nhật tài khoản
   
-  - Lịch sử mua hàng
+    - Lịch sử mua hàng
  
  ### Trang danh sách sản phẩm link tới trang
   
-  - Chi tiết sản phẩm
+    - Chi tiết sản phẩm
 
 ### Trang quản lý sẽ link tới nhũng trang
 
-  - Quản lý nhân viên
-  - Quản lý khác hàng
-  - Quản lý sản phẩm
-  - Quản lý hóa đơn
-  - Thông tin tài khoản
+    - Quản lý nhân viên
+    
+    - Quản lý khác hàng
+    
+    - Quản lý sản phẩm
+    
+    - Quản lý hóa đơn
+    
+    - Thông tin tài khoản
   
   ### Quản lý nhân viên sẽ linh tới những trang
     

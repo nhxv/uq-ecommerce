@@ -6,10 +6,12 @@ import {RouterModule} from "@angular/router";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {ProductManagementRoutingModule} from "./product-management-routing.module";
 import {SharedModule} from "../../shared/shared.module";
+import { ProductFormComponent } from './product-form/product-form.component';
 
 @NgModule({
   declarations: [
-    ProductManagementComponent
+    ProductManagementComponent,
+    ProductFormComponent
   ],
   imports: [
     ReactiveFormsModule,

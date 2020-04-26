@@ -12,6 +12,7 @@ const appRoutes: Routes = [
   {path: 'profile', loadChildren: () => import('./account/account-profile/account-profile.module').then(m => m.AccountProfileModule)},
   {path: 'customer-management', loadChildren: () => import('./account/customer-management/customer-management.module').then(m => m.CustomerManagementModule)},
   {path: 'staff-management', loadChildren: () => import('./account/staff-management/staff-management.module').then(m => m.StaffManagementModule)},
+  {path: 'category/new', loadChildren: () => import('./category/new/new.module').then(m => m.NewModule)},
 ];
 
 @NgModule({

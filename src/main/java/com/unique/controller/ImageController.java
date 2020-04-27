@@ -51,6 +51,7 @@ public class ImageController {
     private static String slicePath(String path) {
         int index = path.indexOf("assets");
         String imagePath = path.substring(index);
+        imagePath = "../../../../" + imagePath;
         return imagePath;
     }
 }

@@ -1,19 +1,32 @@
 import { NgModule } from '@angular/core';
 import {Routes, RouterModule, PreloadAllModules} from '@angular/router';
+import {HomeComponent} from "./home/home.component";
+import {LoginComponent} from "./login/login.component";
+import {RegisterComponent} from "./register/register.component";
+import {CartComponent} from "./cart/cart.component";
+import {DashboardComponent} from "./dashboard/dashboard.component";
+import {ProductManagementComponent} from "./product/product-management/product-management.component";
+import {AccountProfileComponent} from "./account/account-profile/account-profile.component";
+import {CustomerManagementComponent} from "./account/customer-management/customer-management.component";
+import {StaffManagementComponent} from "./account/staff-management/staff-management.component";
+import {OrderManagementComponent} from "./order/order-management/order-management.component";
+import {NewListComponent} from "./new/new-list/new-list.component";
+import {NewDetailComponent} from "./new/new-detail/new-detail.component";
 
 const appRoutes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
-  {path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule)},
-  {path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule)},
-  {path: 'register', loadChildren: () => import('./register/register.module').then(m => m.RegisterModule)},
-  {path: 'cart', loadChildren: () => import('./cart/cart.module').then(m => m.CartModule)},
-  {path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)},
-  {path: 'product-management', loadChildren: () => import('./product/product-management/product-management.module').then(m => m.ProductManagementModule)},
-  {path: 'profile', loadChildren: () => import('./account/account-profile/account-profile.module').then(m => m.AccountProfileModule)},
-  {path: 'customer-management', loadChildren: () => import('./account/customer-management/customer-management.module').then(m => m.CustomerManagementModule)},
-  {path: 'staff-management', loadChildren: () => import('./account/staff-management/staff-management.module').then(m => m.StaffManagementModule)},
-  {path: 'order-management', loadChildren: () => import('./order/order-management/order-management.module').then(m => m.OrderManagementModule)},
-  {path: 'products', loadChildren: () => import('./new/new.module').then(m => m.NewModule)},
+  {path: 'home', component: HomeComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegisterComponent},
+  {path: 'cart', component: CartComponent},
+  {path: 'dashboard', component: DashboardComponent},
+  {path: 'product-management', component: ProductManagementComponent},
+  {path: 'profile', component: AccountProfileComponent},
+  {path: 'customer-management', component: CustomerManagementComponent},
+  {path: 'staff-management', component: StaffManagementComponent},
+  {path: 'order-management', component: OrderManagementComponent},
+  {path: 'products', component: NewListComponent},
+  {path: 'products/:id', component: NewDetailComponent},
 ];
 
 @NgModule({

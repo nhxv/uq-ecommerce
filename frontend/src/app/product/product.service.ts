@@ -13,11 +13,15 @@ export class ProductService {
 
   constructor(private productApiService: ProductApiService, private imageApiService: ImageApiService) {}
 
-  getProductList() {
+  fetchProductList() {
     this.productApiService.getProductList().subscribe((productsData: Product[]) => {
       this.products = productsData;
       this.productsChanged.next(this.products.slice());
     })
+  }
+
+  getProducts() {
+    return this.products.slice();
   }
 
   createProduct(product: Product, imageData: FormData) {

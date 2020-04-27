@@ -5,6 +5,7 @@ import {ProductService} from "../../product.service";
 import {CategoryService} from "../../../category/category.service";
 import {Product} from "../../product.model";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
+import {ProductApiService} from "../../../api/product-api.service";
 
 @Component({
   selector: 'app-product-form',
@@ -22,6 +23,7 @@ export class ProductFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private productService: ProductService,
+    private productApiService: ProductApiService,
     private categoryService: CategoryService,
     private activeModal: NgbActiveModal
   ) {}

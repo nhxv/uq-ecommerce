@@ -12,7 +12,9 @@ export class NewItemComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log("new item" + this.productInput);
+  }
 
   getPath(): string {
     return "../../../../" + this.productInput.images[0].imagePath;

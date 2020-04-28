@@ -24,6 +24,7 @@ export class NewDetailComponent implements OnInit, OnDestroy {
         this.product = productData;
       });
     });
+    console.log("product detail " + JSON.stringify(this.product));
   }
 
   getPath(index: number): string {

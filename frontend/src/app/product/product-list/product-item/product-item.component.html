@@ -1,7 +1,7 @@
 <a style="cursor: pointer; text-decoration: none; color: black !important;" routerLink="/products/{{id}}" >
   <figure class="card border-0 text-center">
     <div class="img-wrap">
-      <img src="{{ productInput.images[0].imagePath }}"/>
+      <img [src]="this.imageUrl"/>
     </div>
     <figcaption class="mt-2">
       <p class="mb-0">{{productInput.name}}</p>

@@ -8,7 +8,7 @@
           <div class="form-group">
             <div class="alert alert-danger mb-3 border-0" *ngIf="errorMessage">{{this.errorMessage}}</div>
             <label>Tên sản phẩm:</label>
-            <input name="" class="form-control" type="text" formControlName="name">
+            <input class="form-control" type="text" formControlName="name">
             <span class="text-danger" *ngIf="isInvalidField('name')">Tên không hợp lệ</span>
           </div> <!-- form-group// -->
           <div class="form-group">
@@ -53,7 +53,7 @@
             </div>
           </div>
           <div class="form-group row">
-            <button class="btn btn-primary btn-block">Thêm sản phẩm</button>
+            <button type="submit" class="btn btn-primary btn-block">Thêm sản phẩm</button>
           </div> <!-- form-group// -->
         </form>
       </div>

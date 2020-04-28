@@ -26,10 +26,12 @@ export class ProductService {
 
   createProduct(product: Product, imageData: FormData) {
     this.productApiService.createProduct(product).subscribe((productData: Product) => {
-      console.log(productData);
+      console.log("create product done");
       this.imageApiService.uploadImages(imageData, productData.id).subscribe(() => {
+        console.log("upload image done");
         this.productApiService.getProductList().subscribe((productsData: Product[]) => {
           this.products = productsData;
+          console.log(this.products.length);
           this.productsChanged.next(this.products.slice());
         });
       })

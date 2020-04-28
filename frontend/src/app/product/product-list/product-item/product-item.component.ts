@@ -9,9 +9,13 @@ import {Product} from "../../product.model";
 export class ProductItemComponent implements OnInit {
   @Input() productInput: Product;
   @Input() id: number;
+  imageUrl: string = '';
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.imageUrl = this.productInput.images[0].imagePath;
+    console.log('Image url: ' + this.imageUrl + ' from product id: ' + this.id);
+  }
 
 }

@@ -18,18 +18,17 @@ import {AccountProfileComponent} from "./account/account-profile/account-profile
 import {CustomerManagementComponent} from "./account/customer-management/customer-management.component";
 import {StaffManagementComponent} from "./account/staff-management/staff-management.component";
 import {OrderManagementComponent} from "./order/order-management/order-management.component";
-import {NewListComponent} from "./new/new-list/new-list.component";
-import {NewDetailComponent} from "./new/new-detail/new-detail.component";
 import {ProductFormComponent} from "./product/product-management/product-form/product-form.component";
 import {CartItemComponent} from "./cart/cart-item/cart-item.component";
-import {HomeItemComponent} from "./home/home-item/home-item.component";
+import { ProductListComponent } from './product/product-list/product-list.component';
+import { ProductDetailComponent } from './product/product-detail/product-detail.component';
+import { ProductItemComponent } from './product/product-list/product-item/product-item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
     HomeComponent,
-    HomeItemComponent,
     LoginComponent,
     RegisterComponent,
     CartComponent,
@@ -41,8 +40,9 @@ import {HomeItemComponent} from "./home/home-item/home-item.component";
     CustomerManagementComponent,
     StaffManagementComponent,
     OrderManagementComponent,
-    NewListComponent,
-    NewDetailComponent,
+    ProductListComponent,
+    ProductDetailComponent,
+    ProductItemComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,15 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {Product} from "../../product/product.model";
-import {ActivatedRoute} from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import {Product} from "../product.model";
+import {Image} from "../image.model";
 import {ProductApiService} from "../../api/product-api.service";
-import {Image} from "../../product/image.model";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
-  selector: 'app-new-detail',
-  templateUrl: './new-detail.component.html',
-  styleUrls: ['./new-detail.component.scss']
+  selector: 'app-product-detail',
+  templateUrl: './product-detail.component.html',
+  styleUrls: ['./product-detail.component.scss']
 })
-export class NewDetailComponent implements OnInit {
+export class ProductDetailComponent implements OnInit {
   product: Product;
   images: Image[];
   id: number;
@@ -33,5 +33,4 @@ export class NewDetailComponent implements OnInit {
       }
     )
   }
-
 }

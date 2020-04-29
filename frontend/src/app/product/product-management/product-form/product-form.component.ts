@@ -68,6 +68,7 @@ export class ProductFormComponent implements OnInit {
       this.productForm.get('unitPrice').value
     );
     this.productService.createProduct(product, imageData);
+    this.productForm.reset();
     this.activeModal.close('Close click');
   }
 

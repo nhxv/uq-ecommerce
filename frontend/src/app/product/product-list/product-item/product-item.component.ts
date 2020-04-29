@@ -11,14 +11,14 @@ import {Image} from "../../image.model";
 export class ProductItemComponent implements OnInit {
   @Input() productInput: Product;
   @Input() id: number;
-  imageUrl: string;
+  imageUrl: string = '';
 
   constructor(private imageApiService: ImageApiService) {}
 
   ngOnInit(): void {
     this.imageApiService.getImages(this.id).subscribe((imagesData: Image[]) => {
       this.imageUrl = 'data:image/jpeg;base64,' + imagesData[0].picByte;
-    })
+    });
   }
 
 }

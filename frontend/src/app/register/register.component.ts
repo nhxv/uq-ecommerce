@@ -30,7 +30,7 @@ export class RegisterComponent implements OnInit {
   onRegister() {
     // invalid form
     if (!this.registerForm.valid) {
-      this.errorMessage = "Invalid submission";
+      this.errorMessage = "Đăng kí không hợp lệ";
       setTimeout(() => {
         this.errorMessage = null;
       }, 2000);

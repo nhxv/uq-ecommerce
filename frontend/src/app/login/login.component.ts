@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
     if (!this.loginForm.valid) {
-      this.errorMessage = "Invalid submission";
+      this.errorMessage = "Đăng nhập không hợp lệ";
       setTimeout(() => {
         this.errorMessage = null;
       }, 2000);

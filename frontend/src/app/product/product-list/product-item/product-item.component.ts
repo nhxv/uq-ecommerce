@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Product} from "../../product.model";
+import {ImageApiService} from "../../../api/image-api.service";
+import {Image} from "../../image.model";
 
 @Component({
   selector: 'app-product-item',
@@ -9,9 +11,14 @@ import {Product} from "../../product.model";
 export class ProductItemComponent implements OnInit {
   @Input() productInput: Product;
   @Input() id: number;
+  imageUrl: string;
 
-  constructor() {}
+  constructor(private imageApiService: ImageApiService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.imageApiService.getImages(this.id).subscribe((imagesData: Image[]) => {
+      this.imageUrl = 'data:image/jpeg;base64,' + imagesData[0].picByte;
+    })
+  }
 
 }

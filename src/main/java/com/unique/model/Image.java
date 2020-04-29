@@ -20,17 +20,24 @@ public class Image {
     @Column(name = "type")
     private String type;
 
-    @Column(name = "image_path")
-    private String imagePath;
+    @Column(name = "picByte", length = 1000)
+    private byte[] picByte;
 
     public Image() {
         super();
     }
 
-    public Image(String name, String type, String imagePath) {
+    public Image(String name, String type, byte[] picByte) {
         this.name = name;
         this.type = type;
-        this.imagePath = imagePath;
+        this.picByte = picByte;
+    }
+
+    public Image(Long id, String name, String type, byte[] picByte) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.picByte = picByte;
     }
 
     public String getName() {
@@ -57,11 +64,11 @@ public class Image {
         this.id = id;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public byte[] getPicByte() {
+        return picByte;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setPicByte(byte[] picByte) {
+        this.picByte = picByte;
     }
 }

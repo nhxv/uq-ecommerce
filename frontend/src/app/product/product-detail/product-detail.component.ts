@@ -3,6 +3,7 @@ import {Product} from "../product.model";
 import {Image} from "../image.model";
 import {ProductApiService} from "../../api/product-api.service";
 import {ActivatedRoute} from "@angular/router";
+import {ImageApiService} from "../../api/image-api.service";
 
 @Component({
   selector: 'app-product-detail',
@@ -11,10 +12,10 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class ProductDetailComponent implements OnInit {
   product: Product;
-  images: Image[];
+  imageUrls: string[] = [];
   id: number;
 
-  constructor(private productApiService: ProductApiService, private route: ActivatedRoute) { }
+  constructor(private productApiService: ProductApiService, private imageApiService: ImageApiService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(() => {
@@ -25,12 +26,15 @@ export class ProductDetailComponent implements OnInit {
   handleProductDetails() {
     // get the "id" param string. convert string to a number using the "+" symbol
     const theProductId: number = +this.route.snapshot.paramMap.get('id');
-    this.productApiService.getProduct(theProductId).subscribe(
-      (data: Product) => {
-        this.product = data;
-        this.images = this.product.images;
-        console.log("image detail: " + JSON.stringify(this.images));
+    this.productApiService.getProduct(theProductId).subscribe((productData: Product) => {
+      this.product = productData;
+    });
+    this.imageApiService.getImages(theProductId).subscribe(
+      (imagesData: Image[]) => {
+        for (let image of imagesData) {
+          this.imageUrls.push('data:image/jpeg;base64,' + image.picByte);
+        }
       }
-    )
+    );
   }
 }

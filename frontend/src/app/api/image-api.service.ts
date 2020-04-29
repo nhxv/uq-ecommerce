@@ -11,4 +11,8 @@ export class ImageApiService {
   uploadImages(imageData: FormData, productId: number): Observable<Object> {
     return this.http.post(`${this.baseUrl}/${productId}`, imageData, {observe: "response"});
   }
+
+  getImages(productId: number): Observable<Object> {
+    return this.http.get(`${this.baseUrl}/${productId}`);
+  }
 }

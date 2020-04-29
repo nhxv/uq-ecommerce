@@ -5,10 +5,10 @@
       <aside class="col-sm-6">
         <article class="gallery-wrap">
           <div class="img-big-wrap">
-            <a href="#"><img src="{{ images[0].imagePath }}"></a>
+            <a href="#"><img src="{{ imageUrls[0] }}"></a>
           </div> <!-- img-big-wrap.// -->
           <div class="thumbs-wrap">
-            <a href="#" class="item-thumb border-0" *ngFor="let image of images"> <img src="{{ image.imagePath }}"></a>
+            <a href="#" class="item-thumb border-0" *ngFor="let image of imageUrls"> <img src="{{ image }}"></a>
           </div> <!-- thumbs-wrap.// -->
         </article> <!-- gallery-wrap .end// -->
       </aside>

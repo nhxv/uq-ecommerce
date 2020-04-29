@@ -52,7 +52,6 @@ public class ImageController {
         return ResponseEntity.ok(compressedImages);
     }
 
-<<<<<<< HEAD
     @GetMapping("/images/{productId}")
     public List<Image> getImages(@PathVariable long productId) throws IOException, ResourceNotFoundException {
         Product product = productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product not found for this id: " + productId));
@@ -62,13 +61,6 @@ public class ImageController {
             decompressedImages.add(new Image(image.getId(), image.getName(), image.getType(), decompressBytes(image.getPicByte())));
         }
         return decompressedImages;
-=======
-    private static String slicePath(String path) {
-        int index = path.indexOf("assets");
-        String imagePath = path.substring(index);
-//        imagePath = "../../../../" + imagePath;
-        return imagePath;
->>>>>>> 212d1e832bf742401c14f295a48bf3362236b847
     }
 
     // compress the image bytes before storing it in the database

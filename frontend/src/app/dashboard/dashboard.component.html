@@ -1,47 +1,126 @@
 <app-dashboard-header></app-dashboard-header>
+<!--<div class="container mt-4">-->
+<!--  <div class="row">-->
+<!--    <div class="col-12">-->
+<!--      <div class="card text-center border-0 shadow-lg mt-2">-->
+<!--        <h1 class="display-4 mt-4">Thống kê sản phẩm</h1>-->
+<!--        <div class="row">-->
+<!--          <div class="col-md-4 col-sm-6 mt-5">-->
+<!--            <p class="mb-0">Tổng sản phẩm</p>-->
+<!--            <h4>123,000</h4>-->
+<!--          </div>-->
+<!--          <div class="col-md-4 col-sm-6 mt-5">-->
+<!--            <p class="mb-0">Tổng doanh thu</p>-->
+<!--            <h4>66,000,000đ</h4>-->
+<!--          </div>-->
+<!--          <div class="col-md-4 col-sm-6 mt-5">-->
+<!--            <p class="mb-0">Tổng số đơn hàng</p>-->
+<!--            <h4>5000</h4>-->
+<!--          </div>-->
+<!--          <div class="col-md-4 col-sm-6 mt-5">-->
+<!--            <p class="mb-0">Tổng số lượng sản phẩm</p>-->
+<!--            <h4>1,000,000</h4>-->
+<!--          </div>-->
+<!--          <div class="col-md-4 col-sm-6 mt-5">-->
+<!--            <p class="mb-0">Đơn hàng cao nhất</p>-->
+<!--            <h4>10,000,000đ</h4>-->
+<!--          </div>-->
+<!--          <div class="col-md-4 col-sm-6 mt-5">-->
+<!--            <p class="mb-0">Đơn hàng thấp nhất</p>-->
+<!--            <h4>10,000đ</h4>-->
+<!--          </div>-->
+<!--          <div class="col-md-4 col-sm-6 mt-5 mb-5">-->
+<!--            <p class="mb-0">Mặt hàng đắt nhất</p>-->
+<!--            <h4>5,000,000đ</h4>-->
+<!--          </div>-->
+<!--          <div class="col-md-4 col-sm-6 mt-5 mb-5">-->
+<!--            <p class="mb-0">Mặt hàng rẻ nhất</p>-->
+<!--            <h4>5,000đ</h4>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="row justify-content-center mb-5">-->
+<!--          <button class="btn btn-outline-dark" [routerLink]="['/product-management']">Quản lý sản phẩm</button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
 <div class="container mt-4">
   <div class="row">
-    <div class="col-12">
-      <div class="card text-center border-0 shadow-lg mt-2">
-        <h1 class="display-4 mt-4">Thống kê sản phẩm</h1>
-        <div class="row">
-          <div class="col-md-4 col-sm-6 mt-5">
-            <p class="mb-0">Tổng sản phẩm</p>
-            <h4>123,000</h4>
-          </div>
-          <div class="col-md-4 col-sm-6 mt-5">
-            <p class="mb-0">Tổng doanh thu</p>
-            <h4>66,000,000đ</h4>
-          </div>
-          <div class="col-md-4 col-sm-6 mt-5">
-            <p class="mb-0">Tổng số đơn hàng</p>
-            <h4>5000</h4>
-          </div>
-          <div class="col-md-4 col-sm-6 mt-5">
-            <p class="mb-0">Tổng số lượng sản phẩm</p>
-            <h4>1,000,000</h4>
-          </div>
-          <div class="col-md-4 col-sm-6 mt-5">
-            <p class="mb-0">Đơn hàng cao nhất</p>
-            <h4>10,000,000đ</h4>
-          </div>
-          <div class="col-md-4 col-sm-6 mt-5">
-            <p class="mb-0">Đơn hàng thấp nhất</p>
-            <h4>10,000đ</h4>
-          </div>
-          <div class="col-md-4 col-sm-6 mt-5 mb-5">
-            <p class="mb-0">Mặt hàng đắt nhất</p>
-            <h4>5,000,000đ</h4>
-          </div>
-          <div class="col-md-4 col-sm-6 mt-5 mb-5">
-            <p class="mb-0">Mặt hàng rẻ nhất</p>
-            <h4>5,000đ</h4>
-          </div>
+    <div class="col-md-4 col-sm-6">
+      <div class="info-box">
+        <span class="info-box-icon bg-danger"><i class="fa fa-shopping-bag"></i></span>
+        <div class="info-box-content">
+          <span class="info-box-text">Tổng sản phẩm</span>
+          <span class="info-box-number">93,139</span>
         </div>
-        <div class="row justify-content-center mb-5">
-          <button class="btn btn-outline-dark" [routerLink]="['/product-management']">Quản lý sản phẩm</button>
-        </div>
+        <!-- /.info-box-content -->
       </div>
+      <!-- /.info-box -->
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+      <div class="info-box">
+        <span class="info-box-icon bg-success"><i class="fa fa-dollar-sign"></i></span>
+        <div class="info-box-content">
+          <span class="info-box-text">Doanh thu</span>
+          <span class="info-box-number">120,000</span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+      <div class="info-box">
+        <span class="info-box-icon bg-warning"><i class="fa fa-credit-card"></i></span>
+        <div class="info-box-content">
+          <span class="info-box-text">Số đơn hàng</span>
+          <span class="info-box-number">12,000</span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+      <div class="info-box">
+        <span class="info-box-icon bg-blue"><i class="fa fa-users"></i></span>
+        <div class="info-box-content">
+          <span class="info-box-text">Số người dùng</span>
+          <span class="info-box-number">1000</span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+      <div class="info-box">
+        <span class="info-box-icon bg-purple"><i class="fa fa-user-circle"></i></span>
+        <div class="info-box-content">
+          <span class="info-box-info">Số nhân viên</span>
+          <span class="info-box-number">1000</span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <div class="info-box bg-gradient-light">
+        <span class="info-box-icon"><i class="fa fa-shopping-bag"></i></span>
+        <div class="info-box-content">
+          <span class="info-box-number">Mục sản phẩm</span>
+          <span class="info-box-info">Vào mục sản phẩm để thêm, sửa xoá sản phẩm. Mỗi sản phẩm cần ít nhất một hình minh hoạ, một màu, một kích cỡ</span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
     </div>
   </div>
 </div>
+

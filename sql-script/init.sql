@@ -1,4 +1,8 @@
 USE uniqueproject;
+
+ALTER TABLE `uniqueproject`.`image` 
+CHANGE COLUMN `pic_byte` `pic_byte` LONGBLOB NULL DEFAULT NULL ;
+
 INSERT IGNORE INTO `role` VALUES
 (1, 'Admin role', 'ADMIN'),
 (2, 'Staff role', 'STAFF'),

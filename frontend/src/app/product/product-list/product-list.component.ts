@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Product} from "../product.model";
 import {ProductApiService} from "../../api/product-api.service";
 import {Subscription} from "rxjs";
@@ -10,19 +10,20 @@ import {ActivatedRoute} from "@angular/router";
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss']
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit, OnDestroy {
   products: Product[] = [];
   public news: any;
   productsSub: Subscription;
 
-  constructor(private productApiService: ProductApiService, private productService: ProductService, private route: ActivatedRoute) { }
+  constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
-    // this.productsSub = this.productService.productsChanged.subscribe((productsData: Product[]) => {
-    //   this.products = productsData;
-    // });
-    this.productApiService.getProductList().subscribe((productsData: Product[]) => {
+    this.productsSub = this.productService.productsChanged.subscribe((productsData: Product[]) => {
       this.products = productsData;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.productsSub.unsubscribe();
   }
 }

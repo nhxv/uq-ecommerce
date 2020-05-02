@@ -44,7 +44,7 @@ export class ProductService {
     })
   }
 
-  private getProduct(id: number) {
+  getProduct(id: number) {
     for (let product of this.products) {
       if (product.id === id) {
         return product;
@@ -52,7 +52,7 @@ export class ProductService {
     }
   }
 
-  getProductById(id: number) {
+  fetchProductById(id: number) {
     this.productApiService.getProduct(id).subscribe((productData: Product) => {
       this.setProduct(productData);
     });

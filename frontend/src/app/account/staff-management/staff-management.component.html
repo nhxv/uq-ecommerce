@@ -1,5 +1,5 @@
 <app-dashboard-header></app-dashboard-header>
-
+<div class="container">
   <div class="row mt-4">
     <div class="col-12">
       <div class="table-responsive">
@@ -15,61 +15,21 @@
           </thead>
 
           <tbody>
-            <tr>
-              <th>1</th>
-              <td>Trần Hải Triều</td>
-              <td>trieu@yahoo.com</td>
-              <td>+84 903 906 999</td>
-              <td>
-                <i class="fa fa-edit text text-success mr-2"></i>
-                <i class="fa fa-trash text text-danger"></i>
-              </td>
-            </tr>
-            <tr>
-              <th>2</th>
-              <td>Ngô Hoàng Xuân Vinh</td>
-              <td>vinh@yahoo.com</td>
-              <td>+84 903 306 459</td>
-              <td>
-                <i class="fa fa-edit text text-success mr-2"></i>
-                <i class="fa fa-trash text text-danger"></i>
-              </td>
-            </tr>
-            <tr>
-              <th>3</th>
-              <td>Nguyễn Trọng Nhân</td>
-              <td>nhan@yahoo.com</td>
-              <td>+84 903 346 459</td>
-              <td>
-                <i class="fa fa-edit text text-success mr-2"></i>
-                <i class="fa fa-trash text text-danger"></i>
-              </td>
-            </tr>
-            <tr>
-              <th>4</th>
-              <td>Cao Hoàng Dũng</td>
-              <td>dung@yahoo.com</td>
-              <td>+84 903 903 929</td>
-              <td>
-                <i class="fa fa-edit text text-success mr-2"></i>
-                <i class="fa fa-trash text text-danger"></i>
-              </td>
-            </tr>
-            <tr>
-              <th>5</th>
-              <td>Nguyễn Dũng Sơn Tùng</td>
-              <td>tung@yahoo.com</td>
-              <td>+84 903 306 999</td>
-              <td>
-                <i class="fa fa-edit text text-success mr-2"></i>
-                <i class="fa fa-trash text text-danger"></i>
-              </td>
-            </tr>
-
+          <tr *ngFor="let staff of staffs">
+            <th scope="row">{{staff.id}}</th>
+            <td>{{staff.name}}</td>
+            <td>{{staff.email}}</td>
+            <td>{{staff.phone}}</td>
+            <td>
+              <a style="cursor: pointer;" (click)="removeStaffRole(staff)"><i class="fa fa-edit text text-success mr-2"></i></a>
+              <i class="fa fa-trash text text-danger"></i>
+            </td>
+          </tr>
           </tbody>
         </table>
       </div>
     </div>
   </div>
+</div>
 
 

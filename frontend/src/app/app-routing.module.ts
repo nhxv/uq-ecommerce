@@ -13,6 +13,7 @@ import {OrderManagementComponent} from "./order/order-management/order-managemen
 import {ProductListComponent} from "./product/product-list/product-list.component";
 import {ProductDetailComponent} from "./product/product-detail/product-detail.component";
 import {ProductResolverService} from "./product/product-resolver.service";
+import {AccountResolverService} from "./account/account-resolver.service";
 
 const appRoutes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -23,8 +24,8 @@ const appRoutes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
   {path: 'product-management', component: ProductManagementComponent, resolve: [ProductResolverService]},
   {path: 'profile', component: AccountProfileComponent},
-  {path: 'customer-management', component: CustomerManagementComponent},
-  {path: 'staff-management', component: StaffManagementComponent},
+  {path: 'customer-management', component: CustomerManagementComponent, resolve: [AccountResolverService]},
+  {path: 'staff-management', component: StaffManagementComponent, resolve: [AccountResolverService]},
   {path: 'order-management', component: OrderManagementComponent},
   {path: 'products', component: ProductListComponent, resolve: [ProductResolverService]},
   {path: 'products/:id', component: ProductDetailComponent},

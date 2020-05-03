@@ -39,6 +39,7 @@ export class AuthService {
     sessionStorage.removeItem('username');
     sessionStorage.removeItem('role');
     localStorage.removeItem('token');
+    localStorage.removeItem('userData');
     this.router.navigate(['/home']);
   }
 }

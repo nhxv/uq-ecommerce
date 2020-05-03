@@ -25,30 +25,27 @@
             <div class="col-xl-2 mr-3">
               <label>Số lượng</label>
               <select class="form-control rounded-0 border-dark">
-                <option> 1 </option>
-                <option> 2 </option>
-                <option> 3 </option>
+                <option *ngFor="let quantity of quantities"> {{quantity}} </option>
               </select>
             </div> <!-- col.// -->
             <div class="col-xl-2 mr-3">
               <label>Kích cỡ</label>
-              <select class="form-control border-dark rounded-0">
+              <select class="form-control border-dark rounded-0" (change)="onSetSize($event.target.value)">
                 <option *ngFor="let size of product.sizes">{{size.size}}</option>
               </select>
             </div> <!-- col.// -->
             <div class="col-xl-4 mr-3">
               <label>Màu sắc</label>
-              <select class="form-control border-dark rounded-0">
+              <select class="form-control border-dark rounded-0" (change)="onSetColor($event.target.value)">
                 <option *ngFor="let color of product.colors">{{color.name}}</option>
               </select>
             </div> <!-- col.// -->
           </div> <!-- row.// -->
           <div class="row mt-4">
             <div class="col-xl-4">
-              <a href="#" class="btn  btn-outline-dark rounded-0 w-100"> <span class="text">Mua hàng</span> <i class="fas fa-shopping-cart"></i>  </a>
+              <button type="button" class="btn btn-outline-dark rounded-0 w-100" (click)="onAddToCart()"> <span class="text">Mua hàng</span> <i class="fas fa-shopping-cart"></i></button>
             </div>
           </div>
-
         </article> <!-- product-info-aside .// -->
       </main> <!-- col.// -->
     </div> <!-- row.// -->

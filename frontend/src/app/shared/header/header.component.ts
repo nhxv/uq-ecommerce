@@ -3,6 +3,8 @@ import {AuthService} from "../../auth/auth.service";
 import {CategoryService} from "../../category/category.service";
 import {Category} from "../../category/category.model";
 import {Subscription} from "rxjs";
+import {CartService} from "../../cart/cart.service";
+import {CartItem} from "../../cart/cart-item/cart-item.model";
 
 @Component({
   selector: 'app-header',
@@ -14,11 +16,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isOpen = false;
   categoryList: Category[] = [];
   categorySub: Subscription;
+  cartSub: Subscription;
+  cartAmount: number;
 
-  constructor(private authService : AuthService, private categoryService: CategoryService) {}
+  constructor(private authService : AuthService, private categoryService: CategoryService, private cartService: CartService) {}
 
   ngOnInit(): void {
     this.categoryService.getCategoryList();
+    this.cartSub = this.cartService.cartItemsChanged.subscribe((cartData: CartItem[]) => {
+      this.cartAmount = cartData.length;
+    });
     this.categorySub = this.categoryService.categoriesChanged.subscribe((categories: Category[]) => {
       this.categoryList = categories;
     });
@@ -43,5 +50,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.categorySub.unsubscribe();
+    this.cartSub.unsubscribe();
   }
 }

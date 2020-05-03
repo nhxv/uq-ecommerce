@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {LoginService} from "./login.service";
+import {CartService} from "../cart/cart.service";
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   errorMessage: string = "";
 
-  constructor(private router: Router, private loginService: LoginService) { }
+  constructor(private router: Router, private loginService: LoginService, private cartService: CartService) { }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -38,6 +39,12 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('token', data.result.token);
       sessionStorage.setItem('username', loginPayload.email);
       sessionStorage.setItem('role', data.result.roles[0].name);
+      // fetch user cart if user has one, otherwise create new cart
+      if (localStorage.getItem(loginPayload.email)) {
+        this.cartService.fetchCart(loginPayload.email);
+      } else {
+        this.cartService.createCart(loginPayload.email);
+      }
       // navigate to home page if success
       this.router.navigate(['/home']);
     }, errorMessage => {

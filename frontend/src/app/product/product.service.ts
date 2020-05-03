@@ -27,21 +27,15 @@ export class ProductService {
   createProduct(product: Product, imageData: FormData) {
     this.productApiService.createProduct(product).subscribe((productData: Product) => {
       this.imageApiService.uploadImages(imageData, productData.id).subscribe(() => {
-        this.productApiService.getProductList().subscribe((productsData: Product[]) => {
-          this.products = productsData;
-          this.productsChanged.next(this.products.slice());
-        });
+        this.fetchProductList();
       })
     });
   }
 
   updateProduct(id: number, product : Product) {
     this.productApiService.updateProduct(id, product).subscribe(() => {
-      this.productApiService.getProductList().subscribe((productsData: Product[]) => {
-        this.products = productsData;
-        this.productsChanged.next(this.products.slice());
-      })
-    })
+      this.fetchProductList();
+    });
   }
 
   getProduct(id: number) {

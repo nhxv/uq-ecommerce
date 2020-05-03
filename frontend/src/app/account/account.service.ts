@@ -6,42 +6,66 @@ import {Injectable} from "@angular/core";
 
 @Injectable({providedIn: 'root'})
 export class AccountService {
-  users: Account[] = [];
-  usersChanged = new BehaviorSubject<Account[]>(this.users.slice());
+  accounts: Account[] = [];
+  accountsChanged = new BehaviorSubject<Account[]>(this.accounts.slice());
   account: Account = null;
-  userChanged = new BehaviorSubject({...this.account});
+  accountChanged = new BehaviorSubject({...this.account});
 
   constructor(private accountApiService: AccountApiService, private authService: AuthService) {}
 
-  getUserList() {
-    this.accountApiService.getAccountList().subscribe((userData: Account[]) => {
-      this.users = userData;
-      this.usersChanged.next(this.users.slice());
+  fetchAccountList() {
+    this.accountApiService.getAccountList().subscribe((accountsData: Account[]) => {
+      this.accounts = accountsData;
+      this.accountsChanged.next(this.accounts.slice());
     });
   }
 
-  getAccount(email: string) {
-    this.accountApiService.getAccountByEmail(email).subscribe((userData: Account) => {
-      this.setAccount(userData);
+  getAccounts() {
+    return this.accounts.slice();
+  }
+
+  fetchAccountByEmail(email: string) {
+    this.accountApiService.getAccountByEmail(email).subscribe((accountsData: Account) => {
+      this.setAccount(accountsData);
     });
+  }
+
+  getAccount(id: number) {
+    for (let account of this.accounts) {
+      if (account.id === id) {
+        return account;
+      }
+    }
   }
 
   setAccount(account: Account) {
     this.account = account;
-    this.userChanged.next({...this.account});
+    this.accountChanged.next({...this.account});
   }
 
   createAccount(account: Account) {
-    this.accountApiService.createAccount(account).subscribe(data => {
-      console.log(data);
+    this.accountApiService.createAccount(account).subscribe((accountData: Account) => {
+      this.fetchAccountList();
     });
   }
 
   updateAccount(id: number, accountUpdate: Account) {
-    this.accountApiService.updateAccount(id, accountUpdate);
+    this.accountApiService.updateAccount(id, accountUpdate).subscribe(() => {
+      this.fetchAccountList();
+    });
+  }
+
+  updateRole(id: number, account) {
+    this.accountApiService.updateRole(id, account).subscribe(() => {
+      this.fetchAccountList();
+    })
   }
 
   deleteAccount(id: number) {
-    this.accountApiService.deleteAccount(id);
+    this.accountApiService.deleteAccount(id).subscribe(() => {
+      const deletedIndex = this.accounts.indexOf(this.getAccount(id));
+      this.accounts.splice(deletedIndex, 1);
+      this.accountsChanged.next(this.accounts.slice());
+    });
   }
 }

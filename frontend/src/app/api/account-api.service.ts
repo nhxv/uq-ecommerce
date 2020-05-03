@@ -28,6 +28,10 @@ export class AccountApiService {
     return this.http.put(`${this.baseUrl}/${id}`, value);
   }
 
+  updateRole(id: number, account: Account): Observable<any> {
+    return this.http.put(`${this.baseUrl}/role/${id}`, account);
+  }
+
   deleteAccount(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`, {responseType: 'text'});
   }

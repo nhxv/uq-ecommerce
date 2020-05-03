@@ -14,8 +14,8 @@ export class ProductManagementComponent implements OnInit, OnDestroy {
   products: Product[];
   productsSub: Subscription;
 
-  constructor(private modalService: NgbModal, private productService: ProductService) {
-  }
+  constructor(private modalService: NgbModal, private productService: ProductService) {}
+
   ngOnInit(): void {
     this.productsSub = this.productService.productsChanged.subscribe((productsData: Product[]) => {
       this.products = productsData;
@@ -23,12 +23,14 @@ export class ProductManagementComponent implements OnInit, OnDestroy {
   }
 
   onAdd() {
-    const modalRef =this.modalService.open(ProductFormComponent);
+    const modalRef = this.modalService.open(ProductFormComponent);
+  }
+
+  onEdit() {
+    const modalRef = this.modalService.open(ProductFormComponent);
   }
 
   ngOnDestroy(): void {
     this.productsSub.unsubscribe();
   }
-
-
 }

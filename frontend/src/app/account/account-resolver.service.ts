@@ -10,12 +10,6 @@ export class AccountResolverService implements Resolve<Account[]> {
 
   // resolve will auto subscribe to know when the data get there
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Account[]> | Promise<Account[]> | Account[] | any {
-    const accounts = this.accountService.getAccounts();
-    if (accounts.length === 0) {
-      // if we don't have any current accounts, fetch them from the server
-      return this.accountService.fetchAccountList();
-    } else {
-      return accounts;
-    }
+    return this.accountService.fetchAccountList();
   }
 }

@@ -1,7 +1,7 @@
-<div class="card mt-4">
+<div class="card mt-2 rounded-0 border-0">
   <article class="card-body">
     <div class="row">
-      <div class="col-md-7">
+      <div class="col-md-6">
         <figure class="media">
           <div class="img-wrap mr-3">
             <img src="{{imageUrl}}" class="img-sm">
@@ -10,17 +10,17 @@
             <a class="title h6">{{item.name}}</a>
             <br>
             <small>Màu: {{item.color}}, Size: {{item.size}}</small>
-            <div class="price-wrap">{{price}}</div>
+            <div class="price-wrap">{{price}}<u>đ</u></div>
           </figcaption>
         </figure>
       </div> <!-- col.// -->
-      <div class="col-md-5 text-md-right text-right">
+      <div class="col-md-6 text-md-right text-right">
         <div class="input-group input-spinner mr-2">
-          <select class="btn btn-light form-control">
+          <select class="btn btn-light form-control rounded-0 border-dark" [(ngModel)]="quantitySelected" (change)="onSetQuantity($event.target.value)">
             <option *ngFor="let quantity of quantities">{{quantity}}</option>
           </select>
         </div> <!-- input-group.// -->
-        <a class="btn btn-light" (click)="onDeleteItem()"> <i class="fa fa-trash"></i> </a>
+        <a class="btn btn-light border-dark rounded-0" (click)="onDeleteItem()"><i class="fa fa-trash text-dark"></i> </a>
       </div>
     </div> <!-- row.// -->
   </article> <!-- card-group.// -->

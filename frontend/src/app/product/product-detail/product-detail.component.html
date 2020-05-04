@@ -24,7 +24,7 @@
           <div class="form-row">
             <div class="col-xl-2 mr-3">
               <label>Số lượng</label>
-              <select class="form-control rounded-0 border-dark">
+              <select class="form-control rounded-0 border-dark" (change)="onSetQuantity($event.target.value)">
                 <option *ngFor="let quantity of quantities"> {{quantity}} </option>
               </select>
             </div> <!-- col.// -->

@@ -18,7 +18,7 @@ export class ProductDetailComponent implements OnInit {
   product: Product;
   imageUrls: string[] = [];
   id: number;
-  quantities: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  quantities: number[] = [1, 2, 3, 4, 5];
   quantitySelected: number = null;
   colorSelected: string = null;
   sizeSelected: string = null;

@@ -45,13 +45,18 @@ export class AccountService {
 
   createAccount(account: Account) {
     this.accountApiService.createAccount(account).subscribe((accountData: Account) => {
-      this.fetchAccountList();
+      if (accountData) {
+        this.accounts.push(accountData);
+        this.accountsChanged.next(this.accounts.slice());
+      }
     });
   }
 
   updateAccount(id: number, accountUpdate: Account) {
     this.accountApiService.updateAccount(id, accountUpdate).subscribe(() => {
-      this.fetchAccountList();
+      const updateIndex = this.accounts.indexOf(this.getAccount(id));
+      this.accounts[updateIndex] = accountUpdate;
+      this.accountsChanged.next(this.accounts.slice());
     });
   }
 

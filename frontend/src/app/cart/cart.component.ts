@@ -13,6 +13,7 @@ export class CartComponent implements OnInit, OnDestroy {
   cartItems: CartItem[] = [];
   cartSub: Subscription;
   isEmpty: boolean;
+  total: number;
 
   constructor(private cartService: CartService, private router: Router) { }
 
@@ -21,6 +22,11 @@ export class CartComponent implements OnInit, OnDestroy {
     this.cartSub = this.cartService.cartItemsChanged.subscribe((cartData: CartItem[]) => {
       this.cartItems = cartData;
       this.isEmpty = this.cartItems.length === 0;
+      if (!this.isEmpty) {
+        this.total = this.cartItems.reduce((total, item) => {
+          return total + (item.unitPrice * item.quantity);
+        }, 0);
+      }
     });
   }
 

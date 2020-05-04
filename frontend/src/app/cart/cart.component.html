@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="container mt-4 text-center" *ngIf="isEmpty">
-  <p class="alert alert-warning">Không có hàng trong giỏ</p>
+  <p class="alert alert-warning border-0 rounded-0">Không có hàng trong giỏ</p>
   <div class="display-1 text text-dark"><i class="fa fa-cart-arrow-down"></i></div>
   <button class="text text-center btn btn-outline-dark rounded-0 mt-4" (click)="onNavigate()">Xem hàng mới </button>
 </div>
@@ -10,24 +10,24 @@
       <app-cart-item *ngFor="let cartItem of cartItems" [item]="cartItem"></app-cart-item>
     </div>
     <div class="col-xl-3 mt-4">
-      <div class="card">
+      <div class="card border-0 rounded-0" style="background: rgb(241, 241, 241) !important;">
         <div class="card-body">
-          <dl class="dlist-align">
-            <dt>Giá gốc:</dt>
-            <dd class="text-right">$69.97</dd>
-          </dl>
-          <dl class="dlist-align">
-            <dt>Giảm giá:</dt>
-            <dd class="text-right text-danger">- $10.00</dd>
-          </dl>
+<!--          <dl class="dlist-align">-->
+<!--            <dt>Giá gốc:</dt>-->
+<!--            <dd class="text-right">$69.97</dd>-->
+<!--          </dl>-->
+<!--          <dl class="dlist-align">-->
+<!--            <dt>Giảm giá:</dt>-->
+<!--            <dd class="text-right text-danger">- $10.00</dd>-->
+<!--          </dl>-->
           <dl class="dlist-align">
             <dt>Tổng cộng:</dt>
-            <dd class="text-right text-dark b"><strong>$59.97</strong></dd>
+            <dd class="text-right b"><strong>{{total}}<u>đ</u></strong></dd>
           </dl>
           <hr>
           <p class="text-center mb-3"></p>
-          <a href="#" class="btn btn-primary btn-block"> Đặt hàng </a>
-          <a href="#" class="btn btn-light btn-block">Tiếp tục mua sắm</a>
+          <a href="#" class="btn btn-primary btn-block rounded-0"> Thanh toán </a>
+          <a href="#" class="btn btn-light btn-block rounded-0">Tiếp tục mua sắm</a>
         </div> <!-- card-body.// -->
       </div> <!-- card.// -->
     </div>

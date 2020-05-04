@@ -5,10 +5,10 @@
       <aside class="col-sm-6">
         <article class="gallery-wrap">
           <div class="img-big-wrap">
-            <a href="#"><img src="{{ imageUrls[0] }}"></a>
+            <a><img src="{{ bigImageUrl }}"></a>
           </div> <!-- img-big-wrap.// -->
           <div class="thumbs-wrap">
-            <a href="#" class="item-thumb border-0" *ngFor="let image of imageUrls"> <img src="{{ image }}"></a>
+            <a (click)="onChangeImage(i)" style="cursor: pointer;" class="item-thumb border-0" *ngFor="let imageUrl of imageUrls; let i = index"> <img src="{{ imageUrl }}"></a>
           </div> <!-- thumbs-wrap.// -->
         </article> <!-- gallery-wrap .end// -->
       </aside>
@@ -24,7 +24,7 @@
           <div class="form-row">
             <div class="col-xl-2 mr-3">
               <label>Số lượng</label>
-              <select class="form-control rounded-0 border-dark">
+              <select class="form-control rounded-0 border-dark" (change)="onSetQuantity($event.target.value)">
                 <option *ngFor="let quantity of quantities"> {{quantity}} </option>
               </select>
             </div> <!-- col.// -->

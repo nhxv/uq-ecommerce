@@ -20,8 +20,7 @@ export class CartService {
   addCartItem(cartItem: CartItem) {
     if (!this.getCartItem(cartItem.name, cartItem.color, cartItem.size)) {
       this.cartItems.push(cartItem);
-      const username = sessionStorage.getItem("username");
-      localStorage.setItem(username, JSON.stringify(this.cartItems));
+      this.saveCart();
       this.cartItemsChanged.next(this.cartItems.slice());
     }
   }
@@ -49,9 +48,10 @@ export class CartService {
     localStorage.setItem(username, JSON.stringify(emptyCart));
   }
 
-  updateCartItemQuantity(id: number, quantity: number) {
-    let item: CartItem = this.getCartItemById(id);
-    item.quantity = quantity;
+  updateCartItemQuantity(item: CartItem) {
+    const updateIndex = this.cartItems.indexOf(this.getCartItemById(item.id));
+    this.cartItems[updateIndex] = item;
+    this.saveCart();
     this.cartItemsChanged.next(this.cartItems.slice());
   }
 
@@ -59,8 +59,12 @@ export class CartService {
     const deletedCartItem = this.getCartItemById(id);
     const deletedIndex = this.cartItems.indexOf(deletedCartItem);
     this.cartItems.splice(deletedIndex, 1);
-    localStorage.setItem(sessionStorage.getItem('username'), JSON.stringify(this.cartItems));
+    this.saveCart();
     this.cartItemsChanged.next(this.cartItems.slice());
+  }
+
+  saveCart() {
+    localStorage.setItem(sessionStorage.getItem('username'), JSON.stringify(this.cartItems));
   }
 
   clearCart(username: string) {

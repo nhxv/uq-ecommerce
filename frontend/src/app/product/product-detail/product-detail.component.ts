@@ -5,8 +5,6 @@ import {ProductApiService} from "../../api/product-api.service";
 import {ActivatedRoute} from "@angular/router";
 import {ImageApiService} from "../../api/image-api.service";
 import {CartService} from "../../cart/cart.service";
-import {Color} from "../color.model";
-import {Size} from "../size.model";
 import {CartItem} from "../../cart/cart-item/cart-item.model";
 
 @Component({
@@ -18,10 +16,11 @@ export class ProductDetailComponent implements OnInit {
   product: Product;
   imageUrls: string[] = [];
   id: number;
-  quantities: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  quantities: number[] = [1, 2, 3, 4, 5];
   quantitySelected: number = null;
   colorSelected: string = null;
   sizeSelected: string = null;
+  bigImageUrl: string = null;
 
   constructor(private productApiService: ProductApiService, private imageApiService: ImageApiService, private cartService: CartService, private route: ActivatedRoute) { }
 
@@ -42,8 +41,14 @@ export class ProductDetailComponent implements OnInit {
         for (let image of imagesData) {
           this.imageUrls.push('data:image/jpeg;base64,' + image.picByte);
         }
+        this.bigImageUrl = this.imageUrls[0];
       }
     );
+  }
+
+  onChangeImage(index: number) {
+    console.log('change image');
+    this.bigImageUrl = this.imageUrls[index];
   }
 
   onSetColor(color: string) {
@@ -69,7 +74,6 @@ export class ProductDetailComponent implements OnInit {
       this.sizeSelected = this.product.sizes[0].size;
     }
     const item = new CartItem(this.product.id, this.product.name, this.colorSelected, this.sizeSelected, this.quantitySelected, this.product.unitPrice);
-    console.log(item);
     this.cartService.addCartItem(item);
   }
 }

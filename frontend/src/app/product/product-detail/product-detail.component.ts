@@ -35,15 +35,13 @@ export class ProductDetailComponent implements OnInit {
     const theProductId: number = +this.route.snapshot.paramMap.get('id');
     this.productApiService.getProduct(theProductId).subscribe((productData: Product) => {
       this.product = productData;
-    });
-    this.imageApiService.getImages(theProductId).subscribe(
-      (imagesData: Image[]) => {
-        for (let image of imagesData) {
-          this.imageUrls.push('data:image/jpeg;base64,' + image.picByte);
+      if (this.product) {
+        for (let img of this.product.images) {
+          this.imageUrls.push(img.imagePath);
         }
         this.bigImageUrl = this.imageUrls[0];
       }
-    );
+    });
   }
 
   onChangeImage(index: number) {
@@ -73,7 +71,7 @@ export class ProductDetailComponent implements OnInit {
     if (!this.sizeSelected) {
       this.sizeSelected = this.product.sizes[0].size;
     }
-    const item = new CartItem(this.product.id, this.product.name, this.colorSelected, this.sizeSelected, this.quantitySelected, this.product.unitPrice);
+    const item = new CartItem(this.product.id, this.product.name, this.imageUrls[0], this.colorSelected, this.sizeSelected, this.quantitySelected, this.product.unitPrice);
     this.cartService.addCartItem(item);
   }
 }

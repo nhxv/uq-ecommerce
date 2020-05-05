@@ -46,6 +46,7 @@ export class CartService {
   createCart(username: string) {
     const emptyCart: CartItem[] = [];
     localStorage.setItem(username, JSON.stringify(emptyCart));
+    this.cartItemsChanged.next(this.cartItems.slice());
   }
 
   updateCartItemQuantity(item: CartItem) {

@@ -18,11 +18,21 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.registerForm = new FormGroup({
       "email": new FormControl("", [Validators.required, Validators.email]),
-      "password": new FormControl("", Validators.required),
-      "name": new FormControl("", Validators.required),
+      "password": new FormControl("",
+        [
+          Validators.required,
+          Validators.minLength(8),
+          this.noWhitespaceValidator,
+        ]),
+      "name": new FormControl("", [Validators.required]),
       "street": new FormControl("", Validators.required),
       "city": new FormControl("", Validators.required),
-      "phone": new FormControl("", Validators.required),
+      "phone": new FormControl("", [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$'),
+        ]
+        ),
       "agreement": new FormControl("", Validators.requiredTrue)
     })
   }
@@ -50,5 +60,11 @@ export class RegisterComponent implements OnInit {
 
   isInvalidField(field: string): boolean {
     return !this.registerForm.get(field).valid && this.registerForm.get(field).touched;
+  }
+
+  public noWhitespaceValidator(control: FormControl) {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { 'whitespace': true };
   }
 }

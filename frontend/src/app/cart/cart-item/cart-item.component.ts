@@ -16,17 +16,12 @@ export class CartItemComponent implements OnInit {
   quantities: number[] = [1, 2, 3, 4, 5];
   quantitySelected: number = null;
 
-  constructor(private cartService: CartService, private imageApiService: ImageApiService) {}
+  constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
+    this.imageUrl = this.item.imageUrl;
     this.price = this.item.unitPrice * this.item.quantity;
     this.quantitySelected = this.item.quantity;
-    this.imageApiService.getImages(this.item.id).subscribe(
-    (imagesData: Image[]) => {
-      if (imagesData.length !== 0) {
-        this.imageUrl = 'data:image/jpeg;base64,' + imagesData[0].picByte;
-      }
-    });
   }
 
   onSetQuantity(quantity: number) {

@@ -38,6 +38,7 @@ export class ProductListComponent implements OnInit {
   listProducts() {
     this.searchMode = this.route.snapshot.paramMap.has('keyword');
     if (this.searchMode) {
+      // TODO
       console.log('search mode todo');
     } else {
       this.handleListProducts();

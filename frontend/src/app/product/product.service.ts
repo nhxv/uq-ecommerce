@@ -14,8 +14,8 @@ export class ProductService {
   constructor(private productApiService: ProductApiService, private imageApiService: ImageApiService) {}
 
   fetchProductList() {
-    this.productApiService.getProductList().subscribe((productsData: Product[]) => {
-      this.products = productsData;
+    this.productApiService.getProductList().subscribe((data: Product[]) => {
+      this.products = data;
       this.productsChanged.next(this.products.slice());
     })
   }

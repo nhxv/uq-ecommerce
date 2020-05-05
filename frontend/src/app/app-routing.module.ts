@@ -29,6 +29,8 @@ const appRoutes: Routes = [
   {path: 'order-management', component: OrderManagementComponent},
   {path: 'products', component: ProductListComponent, resolve: [ProductResolverService]},
   {path: 'products/:id', component: ProductDetailComponent},
+  {path: 'category/:id', component: ProductListComponent},
+  {path: 'category', component: ProductListComponent},
 ];
 
 @NgModule({

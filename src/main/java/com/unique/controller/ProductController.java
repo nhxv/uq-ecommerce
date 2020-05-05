@@ -3,9 +3,11 @@ package com.unique.controller;
 import com.unique.exception.ResourceNotFoundException;
 import com.unique.model.Image;
 import com.unique.model.Product;
+import com.unique.repository.CategoryRepository;
 import com.unique.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -32,9 +34,27 @@ public class ProductController {
         this.productRepository = productRepository;
     }
 
+    @GetMapping("/products/pageable")
+    public Page<Product> getAllProducts(@RequestParam(name = "page", defaultValue = "0") String pageParam, @RequestParam(name = "size", defaultValue = "5") String sizeParam) {
+        int page = Integer.parseInt(pageParam);
+        int size = Integer.parseInt(sizeParam);
+        Pageable pageable = PageRequest.of(page, size);
+        return productRepository.findAll(pageable);
+    }
+
     @GetMapping("/products")
-    public List<Product> getAllProducts() {
-        List<Product> products = productRepository.findAll();
+    public List<Product> getProductList() {
+        return this.productRepository.findAll();
+    }
+
+    @GetMapping("/products/findByCategoryId")
+    public Page<Product> findProductByCategory(@RequestParam(name = "id") long id,
+                                               @RequestParam(name = "page") String pageParam,
+                                               @RequestParam(name = "size") String sizeParam) {
+        int page = Integer.parseInt(pageParam);
+        int size = Integer.parseInt(sizeParam);
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Product> products = this.productRepository.findByCategoryId(id, pageable);
         return products;
     }
 
@@ -48,11 +68,6 @@ public class ProductController {
         }
         product.setImages(decompressedImages);
         return ResponseEntity.ok().body(product);
-    }
-
-    @GetMapping("/products/search")
-    public Page<Product> findProduct(@RequestParam("name") String name, Pageable pageable) {
-        return this.productRepository.findByNameContaining(name, pageable);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")

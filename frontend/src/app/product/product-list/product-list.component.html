@@ -1,14 +1,28 @@
 <app-header></app-header>
-<section class="section-pagetop">
-  <div class="container">
-    <h2 class="title-page">SẢN PHẨM MỚI</h2>
-    <p class="mt-0">Danh sách sản phẩm mới nhập về</p>
-  </div> <!-- container //  -->
-</section>
+<!--<section class="section-pagetop">-->
+<!--  <div class="container">-->
+<!--    <h2 class="title-page">SẢN PHẨM MỚI</h2>-->
+<!--    <p class="mt-0">Danh sách sản phẩm mới nhập về</p>-->
+<!--  </div> &lt;!&ndash; container //  &ndash;&gt;-->
+<!--</section>-->
 <div class="container mt-4">
   <div class="row">
     <div class="col-md-3" *ngFor="let product of products">
       <app-product-item [productInput] = "product" [id] = "product.id"></app-product-item>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-md-6 ml-auto">
+      <ngb-pagination [(page)]="pageNumber"
+                      [pageSize]="pageSize"
+                      [collectionSize]="totalElements"
+                      [maxSize]="5"
+                      [rotate]="true"
+                      [ellipses]="false"
+                      (pageChange)="listProducts()">
+        <ng-template ngbPaginationPrevious><i class="fa fa-caret-left"></i></ng-template>
+        <ng-template ngbPaginationNext><i class="fa fa-caret-right"></i></ng-template>
+      </ngb-pagination>
     </div>
   </div>
 </div>

@@ -21,4 +21,8 @@ export class ProductItemComponent implements OnInit {
     });
   }
 
+  onClick() {
+    console.log('navigate to products/' + this.id);
+  }
+
 }

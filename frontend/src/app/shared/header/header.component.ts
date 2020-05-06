@@ -5,6 +5,7 @@ import {Category} from "../../category/category.model";
 import {Subscription} from "rxjs";
 import {CartService} from "../../cart/cart.service";
 import {CartItem} from "../../cart/cart-item/cart-item.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -19,7 +20,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   cartSub: Subscription;
   cartAmount: number;
 
-  constructor(private authService : AuthService, private categoryService: CategoryService, private cartService: CartService) {}
+  constructor(private authService : AuthService,
+              private categoryService: CategoryService,
+              private cartService: CartService,
+              private router: Router) {}
 
   ngOnInit(): void {
     this.categoryService.getCategoryList();
@@ -46,6 +50,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   isGuest(): boolean {
     return !this.authService.isUser();
+  }
+
+  onSearch(value: string) {
+    this.router.navigateByUrl(`/search/${value}`);
   }
 
   ngOnDestroy(): void {

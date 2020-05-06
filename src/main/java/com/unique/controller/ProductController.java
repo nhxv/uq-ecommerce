@@ -59,15 +59,20 @@ public class ProductController {
         return products;
     }
 
+    @GetMapping("/products/findByNameContaining")
+    public Page<Product> findProductByName(@RequestParam(name = "name") String name,
+                                              @RequestParam(name = "page") String pageParam,
+                                              @RequestParam(name = "size") String sizeParam) {
+        int page = Integer.parseInt(pageParam);
+        int size = Integer.parseInt(sizeParam);
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Product> products = this.productRepository.findByNameContaining(name, pageable);
+        return products;
+    }
+
     @GetMapping("/products/{productId}")
     public ResponseEntity<Product> getProduct(@PathVariable long productId) throws ResourceNotFoundException {
         Product product = productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product not found for id: " + productId));
-//        List<Image> compressedImages = product.getImages();
-//        List<Image> decompressedImages = new ArrayList<>();
-//        for (Image img : compressedImages) {
-//            decompressedImages.add(new Image(img.getId(), img.getName(), img.getType(), decompressBytes(img.getPicByte())));
-//        }
-//        product.setImages(decompressedImages);
         return ResponseEntity.ok().body(product);
     }
 

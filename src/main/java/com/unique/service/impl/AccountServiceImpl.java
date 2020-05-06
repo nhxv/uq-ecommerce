@@ -1,5 +1,6 @@
 package com.unique.service.impl;
 
+import com.unique.exception.EmailExistException;
 import com.unique.model.Account;
 import com.unique.model.Role;
 import com.unique.model.AccountDto;
@@ -55,19 +56,22 @@ public class AccountServiceImpl implements UserDetailsService, AccountService {
     }
 
     @Override
-    public Account save(AccountDto accountDto) {
-        Account newAccount = new Account();
-        // auto set role to CUSTOMER
-        Role accountRole = this.roleRepository.findById(Long.valueOf(3)).get();
-        Set<Role> roles = new HashSet<>();
-        roles.add(accountRole);
-        newAccount.setEmail(accountDto.getEmail());
-        newAccount.setPassword(bcryptEncoder.encode(accountDto.getPassword()));
-        newAccount.setName(accountDto.getName());
-        newAccount.setAddress(accountDto.getAddress());
-        newAccount.setPhone(accountDto.getPhone());
-        newAccount.setRoles(roles);
-        return accountRepository.save(newAccount);
+    public Account save(AccountDto accountDto) throws EmailExistException {
+        if (accountRepository.findByEmail(accountDto.getEmail()) == null) {
+            Account newAccount = new Account();
+            // auto set role to CUSTOMER
+            Role accountRole = this.roleRepository.findById(Long.valueOf(3)).get();
+            Set<Role> roles = new HashSet<>();
+            roles.add(accountRole);
+            newAccount.setEmail(accountDto.getEmail());
+            newAccount.setPassword(bcryptEncoder.encode(accountDto.getPassword()));
+            newAccount.setName(accountDto.getName());
+            newAccount.setAddress(accountDto.getAddress());
+            newAccount.setPhone(accountDto.getPhone());
+            newAccount.setRoles(roles);
+            return accountRepository.save(newAccount);
+        }
+        throw new EmailExistException("Email already exists");
     }
 }
 

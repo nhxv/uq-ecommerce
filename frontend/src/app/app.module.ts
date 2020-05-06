@@ -23,6 +23,7 @@ import {CartItemComponent} from "./cart/cart-item/cart-item.component";
 import { ProductListComponent } from './product/product-list/product-list.component';
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
 import { ProductItemComponent } from './product/product-list/product-item/product-item.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { ProductItemComponent } from './product/product-list/product-item/produc
     ProductListComponent,
     ProductDetailComponent,
     ProductItemComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

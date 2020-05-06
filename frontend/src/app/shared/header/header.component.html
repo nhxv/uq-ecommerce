@@ -8,9 +8,9 @@
         <div class="col-lg-4 col-xl-5 col-sm-8 col-md-4 d-none d-md-block">
           <form class="search">
             <div class="input-group w-100">
-              <input type="text" class="form-control border-dark rounded-0" style="width:55%;" placeholder="Tìm kiếm">
+              <input type="text" class="form-control border-dark rounded-0" style="width:55%;" placeholder="Tìm kiếm" #searchInput (keyup.enter)="onSearch(searchInput.value)">
               <div class="input-group-append">
-                <button class="btn btn-outline-dark rounded-0" type="submit"><i class="fas fa-search"></i></button>
+                <button class="btn btn-outline-dark rounded-0" type="button" (click)="onSearch(searchInput.value)"><i class="fas fa-search"></i></button>
               </div>
             </div>
           </form> <!-- search-wrap .end// -->
@@ -56,9 +56,9 @@
     <div class="container">
       <form class="d-md-none my-2">
         <div class="input-group">
-          <input type="search" name="search" class="form-control rounded-0" placeholder="Tìm kiếm">
+          <input type="search" name="search" class="form-control rounded-0" placeholder="Tìm kiếm" #searchInput (keyup.enter)="onSearch(searchInput.value)">
           <div class="input-group-append">
-            <button type="submit" class="btn btn-outline-light rounded-0"> <i class="fas fa-search"></i> </button>
+            <button type="button" class="btn btn-outline-light rounded-0" (click)="onSearch(searchInput.value)"> <i class="fas fa-search"></i> </button>
           </div>
         </div>
       </form>
@@ -68,13 +68,7 @@
       </button>
       <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="mainnav">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item dropdown" ngbDropdown>
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" style="cursor:pointer;" ngbDropdownToggle>Danh sách mặt hàng</a>
-            <div class="dropdown-menu" ngbDropdownMenu>
-              <a class="dropdown-item" style="cursor:pointer;" ngbDropdownItem
-                 *ngFor="let category of categoryList" routerLink="/category/{{category.id}}">{{category.name}}</a>
-            </div>
-          </li>
+          <li class="nav-item" *ngFor="let category of categoryList" routerLink="/category/{{category.id}}"><a class="nav-link" style="cursor: pointer;">{{category.name}}</a></li>
           <li class="nav-item"> <a class="nav-link" [routerLink]="['/products']">Hàng mới</a></li>
         </ul>
 

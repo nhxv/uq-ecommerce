@@ -25,6 +25,10 @@ export class ProductApiService {
     return this.http.get<CustomPageable>(`${this.baseUrl}/findByCategoryId?id=${categoryId}&page=${page}&size=${size}`);
   }
 
+  searchProductsByName(page: number, size: number, name: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/findByNameContaining?name=${name}&page=${page}&size=${size}`);
+  }
+
   createProduct(product: Object): Observable<Object> {
     return this.http.post(`${this.baseUrl}`, product);
   }

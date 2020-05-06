@@ -46,6 +46,7 @@
               <button type="button" class="btn btn-outline-dark rounded-0 w-100" (click)="onAddToCart()"> <span class="text">Mua hàng</span> <i class="fas fa-shopping-cart"></i></button>
             </div>
           </div>
+          <div class="alert alert-danger mt-4 mb-3 border-0 rounded-0" *ngIf="errorMessage">{{this.errorMessage}}</div>
         </article> <!-- product-info-aside .// -->
       </main> <!-- col.// -->
     </div> <!-- row.// -->

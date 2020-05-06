@@ -1,14 +1,16 @@
 import {Injectable} from "@angular/core";
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {HttpErrorResponse} from "@angular/common/http";
 import {Observable, throwError} from "rxjs";
 import {catchError} from "rxjs/operators";
+import {AccountApiService} from "../api/account-api.service";
+import {Account} from "../account/account.model";
 
 @Injectable({providedIn: 'root'})
-export class LoginService {
-  constructor(private http: HttpClient) {}
+export class RegisterService {
+  constructor(private accountApiService: AccountApiService) {}
 
-  login(loginPayload): Observable<Object> {
-    return this.http.post<Object>('http://localhost:8080/' + 'login', loginPayload).pipe(catchError(this.handleError));
+  register(newAccount: Account): Observable<Object> {
+    return this.accountApiService.createAccount(newAccount).pipe(catchError(this.handleError));
   }
 
   private handleError(errorResponse: HttpErrorResponse) {
@@ -18,8 +20,8 @@ export class LoginService {
       return throwError(errorMessage);
     }
     switch (errorResponse.status) {
-      case 401:
-        errorMessage = 'Tài khoản không tồn tại';
+      case 409:
+        errorMessage = 'Email đã được đăng ký';
         break;
     }
     return throwError(errorMessage);

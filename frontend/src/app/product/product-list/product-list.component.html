@@ -1,11 +1,10 @@
 <app-header></app-header>
-<!--<section class="section-pagetop">-->
-<!--  <div class="container">-->
-<!--    <h2 class="title-page">SẢN PHẨM MỚI</h2>-->
-<!--    <p class="mt-0">Danh sách sản phẩm mới nhập về</p>-->
-<!--  </div> &lt;!&ndash; container //  &ndash;&gt;-->
-<!--</section>-->
-<div class="container mt-4">
+<div class="container mt-4 text-center" *ngIf="!isAnyProduct">
+  <p class="alert alert-warning rounded-0 border-0" >Không tìm thấy sản phẩm nào</p>
+  <p class="display-2"><i class="fa fa-frown"></i></p>
+  <button class="btn btn-outline-dark rounded-0" (click)="onNavigate()">Quay lại trang chủ</button>
+</div>
+<div class="container mt-4" *ngIf="isAnyProduct">
   <div class="row">
     <div class="col-md-3" *ngFor="let product of products">
       <app-product-item [productInput] = "product" [id] = "product.id"></app-product-item>

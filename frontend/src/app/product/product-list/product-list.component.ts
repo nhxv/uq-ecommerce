@@ -3,7 +3,7 @@ import {Product} from "../product.model";
 import {ProductApiService} from "../../api/product-api.service";
 import {Subscription} from "rxjs";
 import {ProductService} from "../product.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-product-list',
@@ -13,6 +13,7 @@ import {ActivatedRoute} from "@angular/router";
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
   productsSub: Subscription;
+  isAnyProduct: boolean = true;
   currentCategoryId: number = 1;
   previousCategoryId: number = 1;
   searchMode: boolean = false;
@@ -24,7 +25,10 @@ export class ProductListComponent implements OnInit {
 
   previousKeyword: string = null;
 
-  constructor(private productService: ProductService, private route: ActivatedRoute, private productApiService: ProductApiService) {}
+  constructor(private productService: ProductService,
+              private route: ActivatedRoute,
+              private productApiService: ProductApiService,
+              private router: Router) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(() => {
@@ -38,16 +42,29 @@ export class ProductListComponent implements OnInit {
   listProducts() {
     this.searchMode = this.route.snapshot.paramMap.has('keyword');
     if (this.searchMode) {
-      // TODO
-      console.log('search mode todo');
+      this.handleSearchProducts();
     } else {
       this.handleListProducts();
     }
   }
 
+  handleSearchProducts() {
+    const keyword: string = this.route.snapshot.paramMap.get("keyword");
+    if (this.previousKeyword != keyword) {
+      this.pageNumber = 1;
+    }
+    this.previousKeyword = keyword;
+    this.productApiService.searchProductsByName(this.pageNumber - 1, this.pageSize, keyword).subscribe(this.processCustomPageable());
+  }
+
   handleListProducts() {
     const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id');
     if (hasCategoryId) {
+      const isNumber: boolean = Number.isInteger(+this.route.snapshot.paramMap.get('id'));
+      if (!isNumber) {
+        this.router.navigate(['/not-found']);
+        return;
+      }
       this.currentCategoryId = +this.route.snapshot.paramMap.get('id');
     } else {
       this.currentCategoryId = 99;
@@ -57,8 +74,10 @@ export class ProductListComponent implements OnInit {
     }
     this.previousCategoryId = this.currentCategoryId;
     if (hasCategoryId) {
+      // get products by category
       this.productApiService.getProductsByCategory(this.pageNumber - 1, this.pageSize, this.currentCategoryId).subscribe(this.processCustomPageable());
     } else {
+      // get products by new
       this.productApiService.getAllProducts(this.pageNumber - 1, this.pageSize).subscribe(this.processCustomPageable());
     }
   }
@@ -69,17 +88,16 @@ export class ProductListComponent implements OnInit {
       this.pageNumber = data.number + 1;
       this.pageSize = data.size;
       this.totalElements = data.totalElements;
+      if (this.products.length === 0) {
+        this.isAnyProduct = false;
+      } else {
+        this.isAnyProduct = true;
+      }
     };
   }
 
-  processJpaPageable() {
-    return data => {
-      console.log(data);
-      this.products = data._embedded.products;
-      this.pageNumber = data.page.number + 1;
-      this.pageSize = data.page.size;
-      this.totalElements = data.page.totalElements;
-    };
+  onNavigate() {
+    this.router.navigate(['/home']);
   }
 
   // ngOnDestroy(): void {

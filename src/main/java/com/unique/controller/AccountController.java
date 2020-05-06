@@ -1,5 +1,6 @@
 package com.unique.controller;
 
+import com.unique.exception.EmailExistException;
 import com.unique.exception.ResourceNotFoundException;
 import com.unique.model.Account;
 import com.unique.model.AccountDto;
@@ -50,7 +51,7 @@ public class AccountController {
     }
 
     @PostMapping("/register")
-    public Account createAccount(@Valid @RequestBody AccountDto user) {
+    public Account createAccount(@Valid @RequestBody AccountDto user) throws EmailExistException {
         return accountService.save(user);
     }
 

@@ -14,23 +14,30 @@ import {ProductListComponent} from "./product/product-list/product-list.componen
 import {ProductDetailComponent} from "./product/product-detail/product-detail.component";
 import {ProductResolverService} from "./product/product-resolver.service";
 import {AccountResolverService} from "./account/account-resolver.service";
+import {AdminGuard} from "./auth/admin.guard";
+import {StaffGuard} from "./auth/staff.guard";
+import {UserGuard} from "./auth/user.guard";
+import {NotFoundComponent} from "./not-found/not-found.component";
 
 const appRoutes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'cart', component: CartComponent},
-  {path: 'dashboard', component: DashboardComponent},
-  {path: 'product-management', component: ProductManagementComponent, resolve: [ProductResolverService]},
-  {path: 'profile', component: AccountProfileComponent},
+  {path: 'cart', component: CartComponent, canActivate: [UserGuard]},
+  {path: 'dashboard', component: DashboardComponent, canActivate: [StaffGuard]},
+  {path: 'product-management', component: ProductManagementComponent, resolve: [ProductResolverService], canActivate: [AdminGuard]},
+  {path: 'profile', component: AccountProfileComponent, canActivate: [UserGuard]},
   {path: 'customer-management', component: CustomerManagementComponent, resolve: [AccountResolverService]},
-  {path: 'staff-management', component: StaffManagementComponent, resolve: [AccountResolverService]},
-  {path: 'order-management', component: OrderManagementComponent},
+  {path: 'staff-management', component: StaffManagementComponent, resolve: [AccountResolverService], canActivate: [AdminGuard]},
+  {path: 'order-management', component: OrderManagementComponent, canActivate: [AdminGuard]},
   {path: 'products', component: ProductListComponent, resolve: [ProductResolverService]},
   {path: 'products/:id', component: ProductDetailComponent},
   {path: 'category/:id', component: ProductListComponent},
   {path: 'category', component: ProductListComponent},
+  {path: 'search/:keyword', component: ProductListComponent},
+  {path: 'not-found', component: NotFoundComponent},
+  {path: '**', redirectTo: '/not-found'},
 ];
 
 @NgModule({

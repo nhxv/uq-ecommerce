@@ -13,7 +13,9 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   errorMessage: string = "";
 
-  constructor(private router: Router, private loginService: LoginService, private cartService: CartService) { }
+  constructor(private router: Router,
+              private loginService: LoginService,
+              private cartService: CartService) { }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -23,6 +25,7 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
+    // invalid form
     if (!this.loginForm.valid) {
       this.errorMessage = "Đăng nhập không hợp lệ";
       setTimeout(() => {
@@ -30,6 +33,11 @@ export class LoginComponent implements OnInit {
       }, 2000);
       return;
     }
+
+    if (localStorage.getItem('token')) {
+      localStorage.removeItem('token');
+    }
+
     const loginPayload = {
       email: this.loginForm.get('email').value,
       password: this.loginForm.get('password').value

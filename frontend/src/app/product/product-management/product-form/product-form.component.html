@@ -9,12 +9,12 @@
             <div class="alert alert-danger mb-3 border-0" *ngIf="errorMessage">{{this.errorMessage}}</div>
             <label>Tên sản phẩm:</label>
             <input class="form-control" type="text" formControlName="name">
-            <span class="text-danger" *ngIf="isInvalidField('name')">Tên không hợp lệ</span>
+            <span class="text-danger" *ngIf="isInvalidField('name')">Tên không được dưới 5 hoặc quá 50 kí tự</span>
           </div> <!-- form-group// -->
           <div class="form-group">
             <label>Mô tả:</label>
             <textarea class="form-control" rows="6" formControlName="description"></textarea>
-            <span class="text-danger" *ngIf="isInvalidField('description')">Mô tả không hợp lệ</span>
+            <span class="text-danger" *ngIf="isInvalidField('description')">Mô tả không được dưới 10 kí tự hoặc quá 600 kí tự</span>
           </div> <!-- form-group// -->
           <div class="form-group">
             <label>Loại sản phẩm:</label>
@@ -25,11 +25,11 @@
           <div class="form-group">
             <label>Giá:</label>
             <input class="form-control" type="number" formControlName="unitPrice">
-            <span class="text-danger" *ngIf="isInvalidField('unitPrice')">Giá không hợp lệ</span>
+            <span class="text-danger" *ngIf="isInvalidField('unitPrice')">Giá sản phẩm không được dưới 1.000 đồng hoặc lớn hơn 10.000.000 đồng</span>
           </div> <!-- form-group// -->
           <div class="form-group" formArrayName="colors">
             <label>Màu:</label>
-            <p class="text-danger mt-0" *ngIf="isInvalidField('colors')">Màu không hợp lệ</p>
+            <p class="text-danger mt-0" *ngIf="isInvalidField('colors')">Màu không được dưới 2 kí tự hoặc quá 10 kí tự</p>
             <div class="mb-3 form-row" *ngFor="let color of colors.controls; let i = index" [formGroupName]="i">
               <input class="form-control col-lg-3 col-4 mr-2" type="text" formControlName="name"/>
               <a style="cursor: pointer;" class="mt-2 mr-2" *ngIf="i > 0" (click)="deleteColor(i)"><i class="fa fa-times"></i></a>
@@ -38,7 +38,7 @@
           </div> <!-- form-group// -->
           <div class="form-group" formArrayName="sizes">
             <label>Kích cỡ:</label>
-            <p class="text-danger mt-0" *ngIf="isInvalidField('sizes')">Kích cỡ không hợp lệ</p>
+            <p class="text-danger mt-0" *ngIf="isInvalidField('sizes')">Kích cỡ không được bỏ trống hoặc quá 3 kí tự</p>
             <div class="mb-3 form-row" *ngFor="let size of sizes.controls; let j = index" [formGroupName]="j">
               <input class="form-control col-lg-3 col-4 mr-2" type="text" formControlName="size" />
               <a style="cursor: pointer;" class="mt-2 mr-2" *ngIf="j > 0" (click)="deleteSize(j)"><i class="fa fa-times"></i></a>

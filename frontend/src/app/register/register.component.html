@@ -12,7 +12,7 @@
               <label class="col-md-3 col-form-label">Tài khoản email</label>
               <div class="col">
                 <input type="email" class="form-control mb-2" placeholder="john@gmail.com" formControlName="email">
-                <span class="text-danger" *ngIf="isInvalidField('email')">Email không hợp lệ</span>
+                <span class="text-danger" *ngIf="isInvalidField('email')">Email không đúng định dạng, không được bỏ trống</span>
               </div>
             </div>
 
@@ -20,7 +20,7 @@
               <label class="col-md-3 col-form-label">Mật khẩu</label>
               <div class="col">
                 <input type="password" class="form-control" placeholder="Tạo mật khẩu" formControlName="password">
-                <span class="text-danger" *ngIf="isInvalidField('password')">Mật khẩu không hợp lệ</span>
+                <span class="text-danger" *ngIf="isInvalidField('password')">Mật khẩu tối thiểu 8 ký tự và không khoảng trắng</span>
               </div>
             </div>
 
@@ -28,7 +28,7 @@
               <label class="col-md-3 col-form-label">Họ và tên</label>
               <div class="col">
                 <input type="text" class="form-control" placeholder="Họ và tên" formControlName="name">
-                <span class="text-danger" *ngIf="isInvalidField('name')">Họ và tên không hợp lệ</span>
+                <span class="text-danger" *ngIf="isInvalidField('name')">Họ và tên không được bỏ trống</span>
               </div>
             </div>
 
@@ -36,11 +36,11 @@
               <label class="col-md-3 col-form-label">Địa chỉ</label>
               <div class="col-xl-6 col-md-6 col-8">
                 <input type="text" class="form-control" placeholder="Địa chỉ nhà" formControlName="street">
-                <span class="text-danger" *ngIf="isInvalidField('street')">Địa chỉ không hợp lệ</span>
+                <span class="text-danger" *ngIf="isInvalidField('street')">Địa chỉ không được bỏ trống</span>
               </div>
               <div class="col-xl-3 col-md-3 col-4">
                 <input type="text" class="form-control" placeholder="Thành phố" formControlName="city">
-                <span class="text-danger" *ngIf="isInvalidField('city')">Thành phố không hợp lệ</span>
+                <span class="text-danger" *ngIf="isInvalidField('city')">Thành phố không được bỏ trống</span>
               </div>
             </div>
 
@@ -48,7 +48,7 @@
               <label class="col-md-3 col-form-label">Số điện thoại</label>
               <div class="col">
                 <input class="form-control" placeholder="Số điện thoại" type="text" formControlName="phone">
-                <span class="text-danger" *ngIf="isInvalidField('phone')">Số điện thoại không hợp lệ</span>
+                <span class="text-danger" *ngIf="isInvalidField('phone')">Số điện thoại phải là số và không quá 10 số</span>
               </div>
             </div>
 

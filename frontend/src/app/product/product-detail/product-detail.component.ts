@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Product} from "../product.model";
 import {Image} from "../image.model";
 import {ProductApiService} from "../../api/product-api.service";
@@ -7,6 +7,7 @@ import {ImageApiService} from "../../api/image-api.service";
 import {CartService} from "../../cart/cart.service";
 import {CartItem} from "../../cart/cart-item/cart-item.model";
 import {AuthService} from "../../auth/auth.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-product-detail',
@@ -23,6 +24,7 @@ export class ProductDetailComponent implements OnInit {
   sizeSelected: string = null;
   bigImageUrl: string = null;
   errorMessage: string = '';
+  warningMessage: string = '';
 
   constructor(private productApiService: ProductApiService,
               private imageApiService: ImageApiService,
@@ -38,7 +40,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   handleProductDetails() {
-    // get the "id" param string. convert string to a number using the "+" symbol
+    // get the "id" param string. convert string to a number using "+" symbol
     const theProductId: number = +this.route.snapshot.paramMap.get('id');
     if (!Number.isInteger(theProductId)) {
       this.router.navigate(['/not-found']);
@@ -72,8 +74,15 @@ export class ProductDetailComponent implements OnInit {
   }
 
   onAddToCart() {
+    if (this.cartService.cartError) {
+      this.warningMessage = 'Hàng đã thêm vào giỏ.'
+      setTimeout(() => {
+        this.warningMessage = '';
+      }, 1000);
+      return;
+    }
     if (!this.authService.isUser()) {
-      this.errorMessage = 'Quý khách đăng nhập để sử dụng giỏ hàng.';
+      this.errorMessage = 'Quý khách đăng nhập để dùng giỏ hàng.';
       setTimeout(() => {this.errorMessage = '';}, 2000);
       return;
     } else {

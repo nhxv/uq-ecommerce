@@ -16,7 +16,7 @@ public class AccountOrder {
 
     @OneToMany
     @JoinColumn(name = "account_order_id")
-    private List<ProductOrder> productOrder;
+    private List<ProductOrder> productOrders;
 
     @Column(name="date_created")
     @CreationTimestamp
@@ -27,12 +27,6 @@ public class AccountOrder {
 
     public AccountOrder() {}
 
-    public AccountOrder(long id, List<ProductOrder> productOrder, Date dateCreated) {
-        this.id = id;
-        this.productOrder = productOrder;
-        this.dateCreated = dateCreated;
-    }
-
     public long getId() {
         return id;
     }
@@ -41,12 +35,12 @@ public class AccountOrder {
         this.id = id;
     }
 
-    public List<ProductOrder> getProductOrder() {
-        return productOrder;
+    public List<ProductOrder> getProductOrders() {
+        return productOrders;
     }
 
-    public void setProductOrder(List<ProductOrder> productOrder) {
-        this.productOrder = productOrder;
+    public void setProductOrders(List<ProductOrder> productOrder) {
+        this.productOrders = productOrder;
     }
 
     public Date getDateCreated() {

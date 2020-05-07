@@ -6,6 +6,7 @@ import {BehaviorSubject} from "rxjs";
 export class CartService {
   cartItems: CartItem[] = [];
   cartItemsChanged = new BehaviorSubject<CartItem[]>(this.cartItems.slice());
+  cartError: boolean = false;
 
   // take cart out of local storage when user login
   fetchCart(username: string) {
@@ -19,9 +20,12 @@ export class CartService {
 
   addCartItem(cartItem: CartItem) {
     if (!this.getCartItem(cartItem.name, cartItem.color, cartItem.size)) {
+      this.cartError = false;
       this.cartItems.push(cartItem);
       this.saveCart();
       this.cartItemsChanged.next(this.cartItems.slice());
+    } else {
+      this.cartError = true;
     }
   }
 

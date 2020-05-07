@@ -10,6 +10,8 @@ export class AccountService {
   accountsChanged = new BehaviorSubject<Account[]>(this.accounts.slice());
   account: Account = null;
   accountChanged = new BehaviorSubject({...this.account});
+  updateStatus: boolean = false;
+  updateStatusChanged = new BehaviorSubject(this.updateStatus);
 
   constructor(private accountApiService: AccountApiService, private authService: AuthService) {}
 
@@ -43,6 +45,11 @@ export class AccountService {
     this.accountChanged.next({...this.account});
   }
 
+  setUpdateStatus() {
+    this.updateStatus = true;
+    this.updateStatusChanged.next(this.updateStatus);
+  }
+
   createAccount(account: Account) {
     this.accountApiService.createAccount(account).subscribe((accountData: Account) => {
       if (accountData) {
@@ -62,7 +69,7 @@ export class AccountService {
 
   updateRole(id: number, account) {
     this.accountApiService.updateRole(id, account).subscribe(() => {
-      this.fetchAccountList();
+      this.setUpdateStatus();
     })
   }
 

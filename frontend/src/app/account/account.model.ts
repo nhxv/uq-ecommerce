@@ -8,6 +8,10 @@ export class Account {
     public address: string,
     public phone: string,
     public roles?: Role[],
+    public cmnd?: string,
+    public age?: number,
+    public salary?: number,
+    public accountOrder?: string,
     public id?: number
   ) {}
 }

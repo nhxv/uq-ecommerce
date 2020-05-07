@@ -20,6 +20,10 @@ export class AccountApiService {
     return this.http.get(`${this.baseUrl}`);
   }
 
+  getAccountsByRole(page: number, size: number, roleName: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/searchRole?role=${roleName}&page=${page}&size=${size}`);
+  }
+
   createAccount(user: Object): Observable<Object> {
     return this.http.post('http://localhost:8080/register', user);
   }

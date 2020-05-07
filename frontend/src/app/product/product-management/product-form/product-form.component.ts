@@ -8,6 +8,10 @@ import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {ProductApiService} from "../../../api/product-api.service";
 import {Size} from "../../size.model";
 import {Color} from "../../color.model";
+import {HttpErrorResponse} from "@angular/common/http";
+import {throwError} from "rxjs";
+import {catchError} from "rxjs/operators";
+import {ImageApiService} from "../../../api/image-api.service";
 
 @Component({
   selector: 'app-product-form',
@@ -27,6 +31,7 @@ export class ProductFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private productService: ProductService,
     private productApiService: ProductApiService,
+    private imageApiService: ImageApiService,
     private categoryService: CategoryService,
     private activeModal: NgbActiveModal
   ) {}
@@ -77,8 +82,6 @@ export class ProductFormComponent implements OnInit {
 
   onAddProduct() {
     // validate form
-    const sizesInput: Size[] = this.productForm.get('sizes').value;
-    const colorsInput: Color[] = this.productForm.get('colors').value;
     if (!this.productForm.valid || this.images.length < 1) {
       this.errorMessage = 'Thông tin sản phẩm không hợp lệ';
       setTimeout(() => {
@@ -86,6 +89,9 @@ export class ProductFormComponent implements OnInit {
       }, 2000);
       return;
     }
+
+    const sizesInput: Size[] = this.productForm.get('sizes').value;
+    const colorsInput: Color[] = this.productForm.get('colors').value;
 
     // create product, update category with product, set images product_id to product just created
     const imageData = new FormData();
@@ -105,9 +111,33 @@ export class ProductFormComponent implements OnInit {
       null,
       this.productForm.get('unitPrice').value
     );
-    this.productService.createProduct(product, imageData);
-    this.productForm.reset();
-    this.activeModal.close('Close click');
+    this.productApiService.createProduct(product).pipe(catchError(this.handleAddErrors)).subscribe((productData: Product) => {
+      this.imageApiService.uploadImages(imageData, productData.id).subscribe(() => {
+        this.productService.setUpdateStatus();
+        this.productForm.reset();
+        this.activeModal.close('Close click');
+      });
+    }, errorMessage => {
+      this.errorMessage = errorMessage;
+      setTimeout(() => {
+        this.errorMessage = '';
+      }, 2000);
+    });
+  }
+
+  handleAddErrors(errorResponse: HttpErrorResponse) {
+    console.log(errorResponse);
+    let errorMessage = 'An unknown error occurred';
+    // network fail -- cannot access errorResponse
+    if (!errorResponse.error || !errorResponse.error.error) {
+      return throwError(errorMessage);
+    }
+    switch (errorResponse.status) {
+      case 409:
+        errorMessage = 'Tên sản phẩm đã tồn tại';
+        break;
+    }
+    return throwError(errorMessage);
   }
 
   onSetCategory(category: Category) {

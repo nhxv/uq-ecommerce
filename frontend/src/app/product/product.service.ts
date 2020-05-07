@@ -10,6 +10,8 @@ export class ProductService {
   productsChanged = new BehaviorSubject<Product[]>(this.products.slice());
   product: Product = null;
   productChanged = new BehaviorSubject({...this.product});
+  updateStatus: boolean = false;
+  updateStatusChanged = new BehaviorSubject(this.updateStatus);
 
   constructor(private productApiService: ProductApiService, private imageApiService: ImageApiService) {}
 
@@ -27,14 +29,14 @@ export class ProductService {
   createProduct(product: Product, imageData: FormData) {
     this.productApiService.createProduct(product).subscribe((productData: Product) => {
       this.imageApiService.uploadImages(imageData, productData.id).subscribe(() => {
-        this.fetchProductList();
+        this.setUpdateStatus();
       })
     });
   }
 
   updateProduct(id: number, product : Product) {
-    this.productApiService.updateProduct(id, product).subscribe(() => {
-      this.fetchProductList();
+    this.productApiService.updateProduct(id, product).subscribe((productData: Product) => {
+      this.setProduct(productData);
     });
   }
 
@@ -55,6 +57,11 @@ export class ProductService {
   setProduct(productData: Product) {
     this.product=  productData;
     this.productChanged.next({...this.product});
+  }
+
+  setUpdateStatus() {
+    this.updateStatus = true;
+    this.updateStatusChanged.next(this.updateStatus);
   }
 
   deleteProduct(id: number) {

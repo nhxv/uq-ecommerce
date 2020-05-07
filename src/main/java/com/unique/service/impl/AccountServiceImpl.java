@@ -1,6 +1,6 @@
 package com.unique.service.impl;
 
-import com.unique.exception.EmailExistException;
+import com.unique.exception.ItemExistException;
 import com.unique.model.Account;
 import com.unique.model.Role;
 import com.unique.model.AccountDto;
@@ -15,9 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Service(value = "userService")
@@ -56,7 +54,7 @@ public class AccountServiceImpl implements UserDetailsService, AccountService {
     }
 
     @Override
-    public Account save(AccountDto accountDto) throws EmailExistException {
+    public Account save(AccountDto accountDto) throws ItemExistException {
         if (accountRepository.findByEmail(accountDto.getEmail()) == null) {
             Account newAccount = new Account();
             // auto set role to CUSTOMER
@@ -71,7 +69,7 @@ public class AccountServiceImpl implements UserDetailsService, AccountService {
             newAccount.setRoles(roles);
             return accountRepository.save(newAccount);
         }
-        throw new EmailExistException("Email already exists");
+        throw new ItemExistException("Email already exists");
     }
 }
 

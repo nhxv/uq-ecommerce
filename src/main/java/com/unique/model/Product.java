@@ -11,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "product")
-public class Product {
+public class Product implements Comparable<Product> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -128,5 +128,13 @@ public class Product {
 
     public void setProductOrders(List<ProductOrder> productOrders) {
         this.productOrders = productOrders;
+    }
+
+    @Override
+    public int compareTo(Product o) {
+        if (getDateCreated() == null || o.getDateCreated() == null) {
+            return 0;
+        }
+        return getDateCreated().compareTo(o.getDateCreated());
     }
 }

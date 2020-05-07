@@ -25,4 +25,8 @@ export class DashboardHeaderComponent implements OnInit {
   onSignOut() {
     this.authService.logOut();
   }
+
+  isAdmin() {
+    return this.authService.isAdmin();
+  }
 }

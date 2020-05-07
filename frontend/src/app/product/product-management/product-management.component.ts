@@ -5,6 +5,7 @@ import {ProductService} from "../product.service";
 import {Product} from "../product.model";
 import {Subscription} from "rxjs";
 import {Category} from "../../category/category.model";
+import {ProductApiService} from "../../api/product-api.service";
 
 @Component({
   selector: 'app-product-management',
@@ -13,18 +14,44 @@ import {Category} from "../../category/category.model";
 })
 export class ProductManagementComponent implements OnInit, OnDestroy {
   products: Product[];
+  isAnyProduct: boolean = true;
   categories: Category[] = [];
   productsSub: Subscription;
 
-  constructor(private modalService: NgbModal, private productService: ProductService) {}
+  // properties for pagination
+  pageNumber: number = 1;
+  pageSize: number = 8;
+  totalElements: number = 0;
+
+  previousKeyword: string = null;
+
+  constructor(private modalService: NgbModal,
+              private productService: ProductService,
+              private productApiService: ProductApiService) {}
 
   ngOnInit(): void {
-    this.productsSub = this.productService.productsChanged.subscribe((productsData: Product[]) => {
-      this.products = productsData;
-      for(let product of productsData) {
-        console.log(product.category);
-      }
+    this.listProducts();
+    this.productsSub = this.productService.updateStatusChanged.subscribe(() => {
+      this.listProducts();
     });
+  }
+
+  listProducts() {
+    this.productApiService.getAllProducts(this.pageNumber - 1, this.pageSize).subscribe(this.processCustomPageable());
+  }
+
+  processCustomPageable() {
+    return data => {
+      this.products = data.content;
+      this.pageNumber = data.number + 1;
+      this.pageSize = data.size;
+      this.totalElements = data.totalElements;
+      if (this.products.length === 0) {
+        this.isAnyProduct = false;
+      } else {
+        this.isAnyProduct = true;
+      }
+    };
   }
 
   onAdd() {

@@ -68,8 +68,8 @@
       </button>
       <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="mainnav">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item" *ngFor="let category of categoryList" routerLink="/category/{{category.id}}"><a class="nav-link" style="cursor: pointer;">{{category.name}}</a></li>
-          <li class="nav-item"> <a class="nav-link" [routerLink]="['/products']">Hàng mới</a></li>
+          <li class="nav-item" routerLinkActive="active" *ngFor="let category of categoryList" routerLink="/category/{{category.id}}"><a class="nav-link" style="cursor: pointer;">{{category.name}}</a></li>
+          <li class="nav-item" routerLinkActive="active"> <a class="nav-link" [routerLink]="['/products']">Hàng mới</a></li>
         </ul>
 
         <ul class="navbar-nav" *ngIf="isAdminOrStaff()">

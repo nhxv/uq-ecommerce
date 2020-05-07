@@ -1175,9 +1175,11 @@ INCLUDE STYLES AND COMPONENTS
 
 .page-item.active .page-link {
   background-color: $gray-900 !important;
+  color: $gray-100 !important;
 }
 
 .page-link {
+  color: $gray-900 !important;
   border: none !important;
 }
 

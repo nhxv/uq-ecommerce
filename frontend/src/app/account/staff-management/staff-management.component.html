@@ -1,6 +1,12 @@
 <app-dashboard-header></app-dashboard-header>
 <div class="container">
-  <div class="row mt-4">
+  <div class="row text-center mt-4" *ngIf="!isAnyStaff">
+    <div class="col-12">
+      <p class="alert alert-warning rounded-0">Không có nhân viên</p>
+    </div>
+  </div>
+  <!-- TABLE -->
+  <div class="row mt-4" *ngIf="isAnyStaff">
     <div class="col-12">
       <div class="table-responsive">
         <table class="table table-bordered table-hover text-center shadow-sm rounded">
@@ -21,13 +27,27 @@
             <td>{{staff.email}}</td>
             <td>{{staff.phone}}</td>
             <td>
-              <a style="cursor: pointer;" (click)="removeStaffRole(staff)"><i class="fa fa-edit text text-success mr-2"></i></a>
-              <i class="fa fa-trash text text-danger"></i>
+              <a style="cursor: pointer;" (click)="removeStaffRole(staff)"><i class="fa fa-edit text text-success"></i></a>
             </td>
           </tr>
           </tbody>
         </table>
       </div>
+    </div>
+  </div>
+
+  <div class="row mt-4" *ngIf="isAnyStaff">
+    <div class="col-md-6 ml-auto">
+      <ngb-pagination [(page)]="pageNumber"
+                      [pageSize]="pageSize"
+                      [collectionSize]="totalElements"
+                      [maxSize]="5"
+                      [rotate]="true"
+                      [ellipses]="false"
+                      (pageChange)="listStaffs()">
+        <ng-template ngbPaginationPrevious><i class="fa fa-caret-left"></i></ng-template>
+        <ng-template ngbPaginationNext><i class="fa fa-caret-right"></i></ng-template>
+      </ngb-pagination>
     </div>
   </div>
 </div>

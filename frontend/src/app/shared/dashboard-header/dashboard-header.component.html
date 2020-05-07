@@ -9,9 +9,9 @@
     <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="mainnav">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item" routerLinkActive="active"><a class="nav-link" [routerLink]="['/product-management']">Sản phẩm</a></li>
-        <li class="nav-item" routerLinkActive="active"><a class="nav-link" [routerLink]="['/staff-management']">Nhân viên</a></li>
-        <li class="nav-item" routerLinkActive="active"><a class="nav-link" [routerLink]="['/customer-management']">Khách hàng</a></li>
-        <li class="nav-item" routerLinkActive="active"><a class="nav-link" [routerLink]="['/order-management']">Hoá đơn</a></li>
+        <li class="nav-item" routerLinkActive="active"><a class="nav-link" [routerLink]="['/staff-management']" *ngIf="isAdmin()">Nhân viên</a></li>
+        <li class="nav-item" routerLinkActive="active"><a class="nav-link" [routerLink]="['/customer-management']" *ngIf="isAdmin()">Khách hàng</a></li>
+        <li class="nav-item" routerLinkActive="active"><a class="nav-link" [routerLink]="['/order-management']">Đơn hàng</a></li>
       </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown" ngbDropdown>

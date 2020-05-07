@@ -12,7 +12,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
-  productsSub: Subscription;
   isAnyProduct: boolean = true;
   currentCategoryId: number = 1;
   previousCategoryId: number = 1;
@@ -34,9 +33,6 @@ export class ProductListComponent implements OnInit {
     this.route.paramMap.subscribe(() => {
       this.listProducts();
     });
-    // this.productsSub = this.productService.productsChanged.subscribe((productsData: Product[]) => {
-    //   this.products = productsData;
-    // });
   }
 
   listProducts() {

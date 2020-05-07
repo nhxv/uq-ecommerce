@@ -5,14 +5,20 @@
       <button class="btn btn-primary" (click)="onAdd()"><i class="fa fa-plus"></i> Thêm sản phẩm</button>
     </div>
   </div>
+  <div class="row text-center mt-4" *ngIf="!isAnyProduct">
+    <div class="col-12">
+      <p class="alert alert-warning">Không có sản phẩm</p>
+    </div>
+  </div>
+
 <!--  TABLE  -->
-  <div class="row mt-4">
+  <div class="row mt-4" *ngIf="isAnyProduct">
     <div class="col-12">
       <div class="table-responsive">
         <table class="table table-bordered table-hover text-center shadow-sm rounded">
           <thead>
           <tr>
-            <th scope="col">Id</th>
+            <th scope="col">Hình</th>
             <th scope="col">Tên hàng</th>
             <th scope="col">Giá bán</th>
             <th scope="col">Loại hàng</th>
@@ -21,7 +27,7 @@
           </thead>
           <tbody>
           <tr *ngFor="let product of products">
-            <th scope="row">{{product.id}}</th>
+            <th scope="row"><img src="{{product.images[0].imagePath}}" width="30" height="40"></th>
             <td>{{product.name}}</td>
             <td>{{product.unitPrice}}</td>
             <td>{{getCategoryName(product)}}</td>
@@ -32,6 +38,21 @@
           </tbody>
         </table>
       </div>
+    </div>
+  </div>
+
+  <div class="row mt-4" *ngIf="isAnyProduct">
+    <div class="col-md-6 ml-auto">
+      <ngb-pagination [(page)]="pageNumber"
+                      [pageSize]="pageSize"
+                      [collectionSize]="totalElements"
+                      [maxSize]="5"
+                      [rotate]="true"
+                      [ellipses]="false"
+                      (pageChange)="listProducts()">
+        <ng-template ngbPaginationPrevious><i class="fa fa-caret-left"></i></ng-template>
+        <ng-template ngbPaginationNext><i class="fa fa-caret-right"></i></ng-template>
+      </ngb-pagination>
     </div>
   </div>
 </div>

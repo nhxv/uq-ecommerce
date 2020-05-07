@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,6 +28,19 @@ public class Account {
     private String address;
     @Column
     private String phone;
+
+    @OneToMany
+    @JoinColumn(name = "account_id")
+    private List<AccountOrder> accountOrders;
+
+    @Column
+    private int age;
+
+    @Column
+    private String cmnd;
+
+    @Column
+    private BigDecimal salary;
 
     // set user role
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -88,5 +103,37 @@ public class Account {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public List<AccountOrder> getAccountOrders() {
+        return accountOrders;
+    }
+
+    public void setAccountOrders(List<AccountOrder> accountOrders) {
+        this.accountOrders = accountOrders;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getCmnd() {
+        return cmnd;
+    }
+
+    public void setCmnd(String cmnd) {
+        this.cmnd = cmnd;
+    }
+
+    public BigDecimal getSalary() {
+        return salary;
+    }
+
+    public void setSalary(BigDecimal salary) {
+        this.salary = salary;
     }
 }

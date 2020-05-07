@@ -56,7 +56,7 @@ export class RegisterComponent implements OnInit {
       this.registerForm.get('password').value,
       this.registerForm.get('name').value,
       address,
-      this.registerForm.get('phone').value
+      this.registerForm.get('phone').value,
     );
     this.registerService.register(newAccount).subscribe((data) => {
       this.router.navigate(['/login']);

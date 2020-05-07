@@ -1,5 +1,6 @@
 package com.unique.controller;
 
+import com.unique.exception.ItemExistException;
 import com.unique.exception.ResourceNotFoundException;
 import com.unique.model.Image;
 import com.unique.model.Product;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
@@ -39,13 +38,15 @@ public class ProductController {
                                         @RequestParam(name = "size", defaultValue = "5") String sizeParam) {
         int page = Integer.parseInt(pageParam);
         int size = Integer.parseInt(sizeParam);
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("dateCreated").descending());
         return productRepository.findAll(pageable);
     }
 
     @GetMapping("/products")
     public List<Product> getProductList() {
-        return this.productRepository.findAll();
+        List<Product> products = this.productRepository.findAll();
+        Collections.reverse(products);
+        return products;
     }
 
     @GetMapping("/products/findByCategoryId")
@@ -60,7 +61,7 @@ public class ProductController {
     }
 
     @GetMapping("/products/findByNameContaining")
-    public Page<Product> findProductByName(@RequestParam(name = "name") String name,
+    public Page<Product> findProductByNameContain(@RequestParam(name = "name") String name,
                                               @RequestParam(name = "page") String pageParam,
                                               @RequestParam(name = "size") String sizeParam) {
         int page = Integer.parseInt(pageParam);
@@ -68,6 +69,16 @@ public class ProductController {
         Pageable pageable = PageRequest.of(page, size);
         Page<Product> products = this.productRepository.findByNameContaining(name, pageable);
         return products;
+    }
+
+    @GetMapping("/products/findByName")
+    public ResponseEntity<Product> findProductByName(@RequestParam(name = "name") String name) throws ResourceNotFoundException {
+        Product product = this.productRepository.findByName(name);
+        if (product == null) {
+            throw new ResourceNotFoundException("Resource not found for this name" + name);
+        } else {
+            return ResponseEntity.ok().body(product);
+        }
     }
 
     @GetMapping("/products/{productId}")
@@ -78,8 +89,12 @@ public class ProductController {
 
     @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
     @PostMapping("/products")
-    public Product createProduct(@Valid @RequestBody Product product) {
-        return productRepository.save(product);
+    public Product createProduct(@Valid @RequestBody Product product) throws ItemExistException {
+        if (this.productRepository.findByName(product.getName()) == null) {
+            return productRepository.save(product);
+        } else {
+            throw new ItemExistException("This product name already exists");
+        }
     }
 
     @PreAuthorize("hasRole('ADMIN')")

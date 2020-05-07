@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.CONFLICT)
-public class EmailExistException extends Exception {
+public class ItemExistException extends Exception {
     private static final long serialVersionUID = 1;
-    public EmailExistException(String message) {super(message);}
+    public ItemExistException(String message) {super(message);}
 }

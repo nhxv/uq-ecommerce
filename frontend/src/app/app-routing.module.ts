@@ -30,7 +30,7 @@ const appRoutes: Routes = [
   {path: 'profile', component: AccountProfileComponent, canActivate: [UserGuard]},
   {path: 'customer-management', component: CustomerManagementComponent, resolve: [AccountResolverService]},
   {path: 'staff-management', component: StaffManagementComponent, resolve: [AccountResolverService], canActivate: [AdminGuard]},
-  {path: 'order-management', component: OrderManagementComponent, canActivate: [AdminGuard]},
+  {path: 'order-management', component: OrderManagementComponent, canActivate: [StaffGuard]},
   {path: 'products', component: ProductListComponent, resolve: [ProductResolverService]},
   {path: 'products/:id', component: ProductDetailComponent},
   {path: 'category/:id', component: ProductListComponent},

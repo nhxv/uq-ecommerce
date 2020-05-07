@@ -10,7 +10,7 @@ export class StaffGuard implements CanActivate {
     if (this.authService.isStaff() || this.authService.isAdmin()) {
       return true;
     }
-    this.router.navigate(['/home']);
+    this.router.navigate(['/not-found']);
     return false;
   }
 }

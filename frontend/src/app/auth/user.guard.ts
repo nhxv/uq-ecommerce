@@ -10,6 +10,7 @@ export class UserGuard implements CanActivate {
     if (this.authService.isUser()) {
       return true;
     }
+    this.router.navigate(['/not-found']);
     return false;
   }
 }

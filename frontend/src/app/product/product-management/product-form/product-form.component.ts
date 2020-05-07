@@ -49,7 +49,7 @@ export class ProductFormComponent implements OnInit {
     this.productForm = this.formBuilder.group({
       "name": new FormControl('', [
         Validators.required,
-        Validators.maxLength(30),
+        Validators.maxLength(50),
         Validators.minLength(5)
       ]),
       "description": new FormControl('', [

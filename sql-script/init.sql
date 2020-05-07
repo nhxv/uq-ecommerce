@@ -6,7 +6,7 @@ INSERT IGNORE INTO `role` VALUES
 (3, 'Customer role', 'CUSTOMER');
 
 INSERT IGNORE INTO `account` VALUES
-(1,'12345 Street M City', null, null, 'admin@gmail.com', 'Admin', '$2y$12$D3wl929Xy6N9f01GjSWBy.rwFl7R9xPMaT76sgvdEoeII6NqVA8OO', '123456789', null);
+(1,'12345 Street M City', 0, null, 'admin@gmail.com', 'Admin', '$2y$12$D3wl929Xy6N9f01GjSWBy.rwFl7R9xPMaT76sgvdEoeII6NqVA8OO', '123456789', null);
 
 INSERT IGNORE INTO `account_roles` VALUES
 (1, 1);

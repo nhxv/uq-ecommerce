@@ -74,7 +74,8 @@ export class ProductFormComponent implements OnInit {
       "unitPrice": new FormControl('', [
         Validators.required,
         Validators.max(10000000),
-        Validators.min(1000)
+        Validators.min(1000),
+        Validators.pattern(/^-?(0|[1-9]\d*)?$/),
       ]),
       "images": new FormControl('')
     });
@@ -109,7 +110,8 @@ export class ProductFormComponent implements OnInit {
       colors,
       sizes,
       null,
-      this.productForm.get('unitPrice').value
+      this.productForm.get('unitPrice').value,
+      true,
     );
     this.productApiService.createProduct(product).pipe(catchError(this.handleAddErrors)).subscribe((productData: Product) => {
       this.imageApiService.uploadImages(imageData, productData.id).subscribe(() => {

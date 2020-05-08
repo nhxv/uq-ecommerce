@@ -8,12 +8,12 @@ export class AccountApiService {
 
   constructor(private http: HttpClient) {}
 
-  getAccount(id: number): Observable<Object> {
+  getAccountById(id: number): Observable<Object> {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
-  getAccountByEmail(email: string): Observable<Object> {
-    return this.http.get(`${this.baseUrl}/profile/${email}`);
+  getAccountByEmail(email: string): Observable<Account> {
+    return this.http.get<Account>(`${this.baseUrl}/profile/${email}`);
   }
 
   getAccountList(): Observable<any> {

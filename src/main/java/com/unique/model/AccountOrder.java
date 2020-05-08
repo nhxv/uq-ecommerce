@@ -14,6 +14,10 @@ public class AccountOrder {
     @Column
     private long id;
 
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    private Account account;
+
     @OneToMany
     @JoinColumn(name = "account_order_id")
     private List<ProductOrder> productOrders;
@@ -57,5 +61,13 @@ public class AccountOrder {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }

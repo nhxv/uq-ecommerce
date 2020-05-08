@@ -12,10 +12,9 @@ export class ProductItemComponent implements OnInit {
   @Input() id: number;
   imageUrl: string = '';
 
-  constructor(private imageApiService: ImageApiService) {}
+  constructor() {}
 
   ngOnInit(): void {
-    console.log(this.productInput);
     this.imageUrl = this.productInput.images[0].imagePath;
   }
 }

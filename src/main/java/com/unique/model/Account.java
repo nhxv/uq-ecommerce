@@ -29,8 +29,7 @@ public class Account {
     @Column
     private String phone;
 
-    @OneToMany
-    @JoinColumn(name = "account_id")
+    @OneToMany(cascade = CascadeType.ALL)
     private List<AccountOrder> accountOrders;
 
     @Column
@@ -45,8 +44,8 @@ public class Account {
     // set user role
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "ACCOUNT_ROLES",
-            joinColumns = {@JoinColumn(name = "ACCOUNT_ID") },
-            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID") })
+            joinColumns = {@JoinColumn(name = "ACCOUNT_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID")})
     private Set<Role> roles;
 
     public long getId() {

@@ -4,6 +4,7 @@ import com.unique.exception.ItemExistException;
 import com.unique.exception.ResourceNotFoundException;
 import com.unique.model.Account;
 import com.unique.model.AccountDto;
+import com.unique.model.AccountOrder;
 import com.unique.model.Role;
 import com.unique.repository.AccountRepository;
 import com.unique.repository.RoleRepository;
@@ -89,16 +90,21 @@ public class    AccountController {
     @PutMapping("/accounts/role/{accountId}")
     public ResponseEntity<Account> updateRole(@PathVariable long accountId, @Valid @RequestBody Account accountUpdate) throws ResourceNotFoundException {
         Account account = accountRepository.findById(accountId).orElseThrow(() -> new ResourceNotFoundException("User not found for this id: " + accountId));
-        Set<Role> roles = account.getRoles();
+        Set<Role> currentRoles = account.getRoles();
+        Set<Role> newRoles = new HashSet<>();
         Role staffRole = this.roleRepository.findById(Long.valueOf(2)).get();
-        if (!roles.contains(staffRole)) {
-            // set staff
+        Role customerRole = this.roleRepository.findById(Long.valueOf(3)).get();
+        if (!currentRoles.contains(staffRole)) {
+            // set staff salary, set staff role
             account.setSalary(accountUpdate.getSalary());
-            roles.add(staffRole);
+            newRoles.add(staffRole);
+            account.setRoles(newRoles);
         } else {
-            roles.remove(staffRole);
+            // remove staff salary, set customer role
+            account.setSalary(accountUpdate.getSalary());
+            newRoles.add(customerRole);
+            account.setRoles(newRoles);
         }
-        account.setRoles(roles);
         return ResponseEntity.ok(accountRepository.save(account));
     }
 

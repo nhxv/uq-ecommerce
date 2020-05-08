@@ -12,6 +12,7 @@ export class Product {
     public sizes: Size[],
     public images: Image[],
     public unitPrice: number,
+    public available: boolean,
     public dateCreated?: string,
     public id?: number
   ) {}

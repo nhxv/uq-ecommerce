@@ -16,12 +16,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.*;
-import java.util.zip.DataFormatException;
-import java.util.zip.Deflater;
-import java.util.zip.Inflater;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -108,6 +103,7 @@ public class ProductController {
         product.setName(productUpdate.getName());
         product.setDescription(productUpdate.getDescription());
         product.setUnitPrice(productUpdate.getUnitPrice());
+        product.setAvailable(productUpdate.isAvailable());
         return ResponseEntity.ok(productRepository.save(product));
     }
 

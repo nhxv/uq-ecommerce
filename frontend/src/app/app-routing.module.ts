@@ -18,6 +18,7 @@ import {AdminGuard} from "./auth/admin.guard";
 import {StaffGuard} from "./auth/staff.guard";
 import {UserGuard} from "./auth/user.guard";
 import {NotFoundComponent} from "./not-found/not-found.component";
+import {OrderListComponent} from "./order/order-list/order-list.component";
 
 const appRoutes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -36,6 +37,7 @@ const appRoutes: Routes = [
   {path: 'category/:id', component: ProductListComponent},
   {path: 'category', component: ProductListComponent},
   {path: 'search/:keyword', component: ProductListComponent},
+  {path: 'order-list', component: OrderListComponent, canActivate: [UserGuard]},
   {path: 'not-found', component: NotFoundComponent},
   {path: '**', redirectTo: '/not-found'},
 ];

@@ -27,8 +27,8 @@ export class AccountService {
   }
 
   fetchAccountByEmail(email: string) {
-    this.accountApiService.getAccountByEmail(email).subscribe((accountsData: Account) => {
-      this.setAccount(accountsData);
+    this.accountApiService.getAccountByEmail(email).subscribe((data) => {
+      this.setAccount(data);
     });
   }
 
@@ -40,7 +40,7 @@ export class AccountService {
     }
   }
 
-  setAccount(account: Account) {
+  setAccount(account) {
     this.account = account;
     this.accountChanged.next({...this.account});
   }
@@ -61,9 +61,11 @@ export class AccountService {
 
   updateAccount(id: number, accountUpdate: Account) {
     this.accountApiService.updateAccount(id, accountUpdate).subscribe(() => {
-      const updateIndex = this.accounts.indexOf(this.getAccount(id));
-      this.accounts[updateIndex] = accountUpdate;
-      this.accountsChanged.next(this.accounts.slice());
+      if (this.accounts) {
+        const updateIndex = this.accounts.indexOf(this.getAccount(id));
+        this.accounts[updateIndex] = accountUpdate;
+        this.accountsChanged.next(this.accounts.slice());
+      }
     });
   }
 

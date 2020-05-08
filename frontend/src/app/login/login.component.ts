@@ -44,9 +44,10 @@ export class LoginComponent implements OnInit {
     };
     this.loginService.login(loginPayload).subscribe((data:any) => {
       // success login
+      const roleName: string = data.result.roles[0].name;
       localStorage.setItem('token', data.result.token);
       sessionStorage.setItem('username', loginPayload.email);
-      sessionStorage.setItem('role', data.result.roles[0].name);
+      sessionStorage.setItem('role', roleName);
       // fetch user cart if user has one, otherwise create new cart
       if (localStorage.getItem(loginPayload.email)) {
         this.cartService.fetchCart(loginPayload.email);
@@ -54,7 +55,11 @@ export class LoginComponent implements OnInit {
         this.cartService.createCart(loginPayload.email);
       }
       // navigate to home page if success
-      this.router.navigate(['/home']);
+      if (roleName === 'ADMIN' || roleName === 'STAFF') {
+        this.router.navigate(['/dashboard'])
+      } else {
+        this.router.navigate(['/home']);
+      }
     }, errorMessage => {
       if (!this.loginForm.valid) {
         this.errorMessage = 'Please fill in all required fields.';

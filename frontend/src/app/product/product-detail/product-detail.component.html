@@ -14,34 +14,38 @@
       </aside>
       <main class="col-sm-6">
         <article class="content-body">
-          <h5 class="title">{{this.product.name.toUpperCase()}}</h5>
-          <p class="mb-0">{{this.product.description}}</p>
-
-          <div class="h3 mb-4">
+          <h3 class="title">{{this.product.name}}</h3>
+          <div class="mb-3 mt-2">
             <var class="price h4 text-danger">{{this.product.unitPrice}}<u>đ</u></var>
           </div> <!-- price-wrap.// -->
-
-          <div class="form-row">
+          <p class="mb-3">Miêu tả: <br>{{this.product.description}}</p>
+          <div class="mb-3" *ngIf="!this.product.available">
+            <p>Tình trạng: <span class="text text-danger"><br>Hết hàng</span></p>
+          </div>
+          <div class="mb-3" *ngIf="this.product.available">
+            <p>Tình trạng: <span class="text text-success"><br>Còn hàng</span></p>
+          </div>
+          <div class="form-row" *ngIf="this.product.available">
             <div class="col-xl-2 mr-3">
-              <label>Số lượng</label>
+              <label>Số lượng:</label>
               <select class="form-control rounded-0 border-dark" (change)="onSetQuantity($event.target.value)">
                 <option *ngFor="let quantity of quantities"> {{quantity}} </option>
               </select>
             </div> <!-- col.// -->
             <div class="col-xl-2 mr-3">
-              <label>Kích cỡ</label>
+              <label>Kích cỡ:</label>
               <select class="form-control border-dark rounded-0" (change)="onSetSize($event.target.value)">
                 <option *ngFor="let size of product.sizes">{{size.size}}</option>
               </select>
             </div> <!-- col.// -->
             <div class="col-xl-4 mr-3">
-              <label>Màu sắc</label>
+              <label>Màu sắc:</label>
               <select class="form-control border-dark rounded-0" (change)="onSetColor($event.target.value)">
                 <option *ngFor="let color of product.colors">{{color.name}}</option>
               </select>
             </div> <!-- col.// -->
           </div> <!-- row.// -->
-          <div class="row mt-4">
+          <div class="row mt-4" *ngIf="this.product.available">
             <div class="col-xl-4">
               <button type="button" class="btn btn-outline-dark rounded-0 w-100" (click)="onAddToCart()"> <span class="text">Mua hàng</span> <i class="fas fa-shopping-cart"></i></button>
             </div>

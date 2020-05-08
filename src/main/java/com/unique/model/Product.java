@@ -50,6 +50,9 @@ public class Product implements Comparable<Product> {
     @CreationTimestamp
     private Date dateCreated;
 
+    @Column
+    private boolean available;
+
     public long getId() {
         return id;
     }
@@ -128,6 +131,14 @@ public class Product implements Comparable<Product> {
 
     public void setProductOrders(List<ProductOrder> productOrders) {
         this.productOrders = productOrders;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
     @Override

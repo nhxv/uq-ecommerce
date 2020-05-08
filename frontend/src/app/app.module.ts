@@ -24,6 +24,7 @@ import { ProductListComponent } from './product/product-list/product-list.compon
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
 import { ProductItemComponent } from './product/product-list/product-item/product-item.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { OrderListComponent } from './order/order-list/order-list.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     ProductDetailComponent,
     ProductItemComponent,
     NotFoundComponent,
+    OrderListComponent,
   ],
   imports: [
     BrowserModule,

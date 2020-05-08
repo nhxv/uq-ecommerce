@@ -1,102 +1,78 @@
 <app-header></app-header>
-<section class="section-pagetop bg">
-  <div class="container">
-    <h2 class="title-page">THÔNG TIN TÀI KHOẢN</h2>
-  </div> <!-- container //  -->
-</section>
-<div class="container mt-4">
+<div class="container mt-5">
   <div class="row">
-    <aside class="col-md-3 mb-4">
+    <div class="col-lg-3 mb-2">
       <!--   SIDEBAR   -->
-      <div class="list-group list-group-flush">
-        <a class="list-group-item rounded-0 active" href="#"> Lịch sử đơn hàng </a>
-        <a class="list-group-item rounded-0" style="text-decoration: none;">Cập nhật hồ sơ </a>
-      </div>
-      <!--   SIDEBAR .//END   -->
-    </aside>
-
-    <main class="col-md-9">
-      <article class="card mb-4 border-0 rounded-0 shadow">
+      <article class="card mb-4 border-0 rounded-0">
         <div class="card-body">
-
           <figure class="icontext">
             <div class="text">
-              <h4>HẢI TRIỀU</h4>
-              <p class="mb-2"><i class="fa fa-envelope"></i> trieu@gmail.com</p>
-              <p><i class="fa fa-phone"></i> +1234567890</p>
+              <h3 class="mb-4"> <i class="fa fa-user"></i> {{this.account.name}}</h3>
+              <p class="mb-3"><i class="fa fa-envelope"></i> Email: {{this.account.email}}</p>
+              <p class="mb-3"><i class="fa fa-phone"></i> Số điện thoại: {{this.account.phone}}</p>
+              <p class="mb-3" *ngIf="this.account.cmnd"><i class="fa fa-id-card"></i> CMND: {{this.account.cmnd}}</p>
+              <p class="mb-3" *ngIf="!this.account.cmnd"><i class="fa fa-id-card"></i> CMND: n/a</p>
+              <p class="mb-3" *ngIf="!this.account.age"><i class="fa fa-birthday-cake"></i> Tuổi: n/a</p>
+              <p class="mb-3" *ngIf="this.account.age"><i class="fa fa-birthday-cake"></i> Tuổi: {{this.account.age}}</p>
+              <p><i class="fa fa-map-marker"></i> Địa chỉ: {{this.account.address}}</p>
             </div>
           </figure>
-          <hr>
-          <p><i class="fa fa-map-marker text-muted"></i> 358 Tôn Đản Phường 15 Quận 4 TP.Hồ Chí Minh</p>
-          <button class="btn btn-outline-success btn-sm rounded-0 mb-4"><i class="fa fa-pen"></i> Chỉnh sửa</button>
-          <article class="card-group">
-            <figure class="card bg">
-              <div class="p-3">
-                <h5 class="card-title mb-1">38</h5>
-                <span>Đơn hàng</span>
-              </div>
-            </figure>
-            <figure class="card bg">
-              <div class="p-3">
-                <h5 class="card-title mb-1">5</h5>
-                <span>Yêu thích</span>
-              </div>
-            </figure>
-            <figure class="card bg">
-              <div class="p-3">
-                <h5 class="card-title mb-1">12</h5>
-                <span>Hàng đợi giao</span>
-              </div>
-            </figure>
-            <figure class="card bg">
-              <div class="p-3">
-                <h5 class="card-title mb-1">50</h5>
-                <span>Sản phẩm đã giao</span>
-              </div>
-            </figure>
-          </article>
-
-
         </div> <!-- card-body .// -->
       </article> <!-- card.// -->
+      <!--   SIDEBAR .//END   -->
+    </div>
+    <div class="col-lg-8">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title mb-4">Cập nhật thông tin</h4>
+          <form [formGroup]="profileEditForm" (ngSubmit)="onUpdateProfile()">
+            <div class="form-group form-row">
+              <label class="col-md-3 col-form-label">Họ và tên</label>
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Họ và tên" formControlName="name">
+                <span class="text-danger" *ngIf="isInvalidField('name')">Họ tên không bỏ trống</span>
+              </div>
+            </div>
 
-      <article class="card mb-4 rounded-0 border-0 shadow">
-        <header class="card-header bg-dark text-white border-0 rounded-0">
-          <strong class="d-inline-block mr-3">MÃ ĐƠN HÀNG 6123456789</strong>
-        </header>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-8">
-              <h6 class="text-muted">Giao cho</h6>
-              <p>Triều <br>
-                Số điện thoại +1234567890 <br>
-                Email: trieu@gmail.com <br>
-                Điểm giao hàng: 456/123 Khánh Hội, TP.Hồ Chí Minh <br>
-              </p>
-              <small class="mt-0">1 Tháng 2 năm 2019</small>
+            <div class="form-group form-row">
+              <label class="col-md-3 col-form-label">Địa chỉ</label>
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Địa chỉ nhà" formControlName="address">
+                <span class="text-danger" *ngIf="isInvalidField('address')">Địa chỉ không bỏ trống</span>
+              </div>
             </div>
-          </div> <!-- row.// -->
-        </div> <!-- card-body .// -->
-      </article>
-      <article class="card mb-4 rounded-0 border-0 shadow">
-        <header class="card-header bg-dark text-white border-0 rounded-0">
-          <strong class="d-inline-block mr-3">MÃ ĐƠN HÀNG 6123456789</strong>
-        </header>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-8">
-              <h6 class="text-muted">Giao cho</h6>
-              <p>Triều <br>
-                Số điện thoại +1234567890 <br>
-                Email: trieu@gmail.com <br>
-                Điểm giao hàng: 456/123 Khánh Hội, TP.Hồ Chí Minh <br>
-              </p>
-              <small>16 Tháng 10 năm 2018</small>
+
+            <div class="form-group form-row">
+              <label class="col-md-3 col-form-label">Số điện thoại</label>
+              <div class="col">
+                <input class="form-control" placeholder="Số điện thoại" type="text" formControlName="phone">
+                <span class="text-danger" *ngIf="isInvalidField('phone')">Số điện thoại dạng số, tối đa 10 số, không bỏ trống</span>
+              </div>
             </div>
-          </div> <!-- row.// -->
-        </div> <!-- card-body .// -->
-      </article>
-    </main>
+
+            <div class="form-group form-row">
+              <label class="col-md-3 col-form-label">CMND</label>
+              <div class="col">
+                <input class="form-control" placeholder="Chứng minh nhân dân" type="text" formControlName="cmnd">
+                <span class="text-danger" *ngIf="isInvalidField('cmnd')">CMND dạng số và phải có 9 số</span>
+              </div>
+            </div>
+
+            <div class="form-group form-row">
+              <label class="col-md-3 col-form-label">Tuổi</label>
+              <div class="col">
+                <input class="form-control" placeholder="Tuổi" type="number" formControlName="age">
+                <span class="text-danger" *ngIf="isInvalidField('age')">Số tuổi ở dạng số, tối thiểu 3 tuổi tối đa 150 tuổi</span>
+              </div>
+            </div>
+
+            <div class="form-group mt-4">
+              <button class="btn btn-primary btn-block">Cập nhật</button>
+            </div> <!-- form-group// -->
+          </form>
+        </div> <!-- card-body.// -->
+      </div> <!-- card .// -->
+    </div>
   </div>
 </div>
 

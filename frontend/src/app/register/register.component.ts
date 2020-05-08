@@ -19,7 +19,8 @@ export class RegisterComponent implements OnInit {
     this.registerForm = new FormGroup({
       "email": new FormControl("", [
         Validators.required,
-        Validators.email
+        Validators.email,
+        Validators.minLength(5)
       ]),
       "password": new FormControl("",
         [
@@ -27,9 +28,11 @@ export class RegisterComponent implements OnInit {
           Validators.minLength(8),
           this.cannotContainSpace,
         ]),
+      "repeatPassword": new FormControl("", [
+        Validators.required,
+      ]),
       "name": new FormControl("", [Validators.required]),
-      "street": new FormControl("", Validators.required),
-      "city": new FormControl("", Validators.required),
+      "address": new FormControl("", Validators.required),
       "phone": new FormControl("", [
         Validators.required,
         Validators.minLength(10),
@@ -37,7 +40,7 @@ export class RegisterComponent implements OnInit {
         ]
         ),
       "agreement": new FormControl("", Validators.requiredTrue)
-    })
+    }, this.passwordMatchValidator);
   }
 
   onRegister() {
@@ -50,12 +53,11 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    const address: string = this.registerForm.get('street').value + this.registerForm.get('city').value;
     const newAccount: Account = new Account(
       this.registerForm.get('email').value,
       this.registerForm.get('password').value,
       this.registerForm.get('name').value,
-      address,
+      this.registerForm.get('address').value,
       this.registerForm.get('phone').value,
     );
     this.registerService.register(newAccount).subscribe((data) => {
@@ -66,6 +68,10 @@ export class RegisterComponent implements OnInit {
         this.errorMessage = '';
       }, 2000);
     });
+  }
+
+  passwordMatchValidator(form: FormGroup) {
+    return form.get('password').value === form.get('repeatPassword').value ? null : {'mismatch': true};
   }
 
   isInvalidField(field: string): boolean {

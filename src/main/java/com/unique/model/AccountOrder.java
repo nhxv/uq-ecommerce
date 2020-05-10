@@ -3,6 +3,7 @@ package com.unique.model;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class AccountOrder {
     @JoinColumn(name = "account_id")
     private Account account;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_order_id")
     private List<ProductOrder> productOrders;
 
@@ -28,6 +29,9 @@ public class AccountOrder {
 
     @Column
     private String status;
+
+    @Column
+    private BigDecimal totalPrice;
 
     public AccountOrder() {}
 
@@ -69,5 +73,13 @@ public class AccountOrder {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

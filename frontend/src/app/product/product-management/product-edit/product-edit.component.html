@@ -1,0 +1,32 @@
+<div class="row justify-content-center">
+  <div class="col-12">
+    <!-- Product form -->
+    <div class="card border-0">
+      <div class="card-body">
+        <h4 class="card-title">Sản phẩm</h4>
+        <form [formGroup]="productEditForm" (ngSubmit)="onUpdateProduct()">
+          <div class="form-group">
+            <div class="alert alert-danger mb-3 border-0" *ngIf="errorMessage">{{this.errorMessage}}</div>
+            <label>Tên sản phẩm:</label>
+            <input class="form-control" type="text" formControlName="name">
+            <span class="text-danger" *ngIf="isInvalidField('name')">Tên tối thiểu 5 ký tự tối đa 50 kí tự</span>
+          </div> <!-- form-group// -->
+          <div class="form-group">
+            <label>Mô tả:</label>
+            <textarea class="form-control" rows="6" formControlName="description"></textarea>
+            <span class="text-danger" *ngIf="isInvalidField('description')">Mô tả tối thiểu 10 kí tự tối đa 600 kí tự</span>
+          </div> <!-- form-group// -->
+          <div class="form-group">
+            <label>Giá:</label>
+            <input class="form-control mb-2" type="number" formControlName="unitPrice">
+            <span class="text-danger" *ngIf="isInvalidField('unitPrice')">Giá tối thiểu 1000 đồng tối đa 10 triệu đồng</span>
+          </div> <!-- form-group// -->
+          <div class="form-group row mt-4">
+            <button type="submit" class="btn btn-primary btn-block">Thay đổi thông tin</button>
+          </div> <!-- form-group// -->
+        </form>
+      </div>
+    </div> <!-- product form// -->
+  </div>
+</div>
+

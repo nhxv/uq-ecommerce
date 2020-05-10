@@ -7,6 +7,12 @@
 <div class="container" *ngIf="!isEmpty">
   <div class="row">
     <div class="col-xl-9">
+      <div *ngIf="errorMessage" class="alert alert-danger mt-4">
+        <p>{{errorMessage}}</p>
+        <ul>
+          <li *ngFor="let itemName of disabledItems">{{itemName}}</li>
+        </ul>
+      </div>
       <app-cart-item *ngFor="let cartItem of cartItems" [item]="cartItem"></app-cart-item>
     </div>
     <div class="col-xl-3 mt-4">
@@ -18,7 +24,7 @@
           </dl>
           <hr>
           <p class="text-center mb-3"></p>
-          <a href="#" class="btn btn-primary btn-block rounded-0"> Thanh toán </a>
+          <button (click)="onOrder()" class="btn btn-primary btn-block rounded-0"> Thanh toán </button>
           <a style="cursor: pointer;" (click)="onNavigate()" class="btn btn-light btn-block rounded-0">Tiếp tục mua sắm</a>
         </div> <!-- card-body.// -->
       </div> <!-- card.// -->

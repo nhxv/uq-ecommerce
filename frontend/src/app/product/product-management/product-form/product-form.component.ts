@@ -128,7 +128,6 @@ export class ProductFormComponent implements OnInit {
   }
 
   handleAddErrors(errorResponse: HttpErrorResponse) {
-    console.log(errorResponse);
     let errorMessage = 'An unknown error occurred';
     // network fail -- cannot access errorResponse
     if (!errorResponse.error || !errorResponse.error.error) {

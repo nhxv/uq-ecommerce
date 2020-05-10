@@ -2,7 +2,7 @@
 <div class="container mt-4">
   <div class="row">
     <div class="col-12">
-      <button class="btn btn-primary" (click)="onAdd()"><i class="fa fa-plus"></i> Thêm sản phẩm</button>
+      <button class="btn btn-primary" (click)="onAddProduct()"><i class="fa fa-plus"></i> Thêm sản phẩm</button>
     </div>
   </div>
   <div class="row text-center mt-4" *ngIf="!isAnyProduct">
@@ -18,10 +18,10 @@
         <table class="table table-bordered table-hover text-center shadow-sm rounded">
           <thead>
           <tr>
-            <th scope="col">Hình</th>
+            <th scope="col">Hình ảnh</th>
             <th scope="col">Tên hàng</th>
             <th scope="col">Giá bán</th>
-            <th scope="col">Loại hàng</th>
+            <th scope="col">Tình trạng</th>
             <th scope="col">Hành động</th>
           </tr>
           </thead>
@@ -30,10 +30,11 @@
             <th scope="row"><img src="{{product.images[0].imagePath}}" width="30" height="40"></th>
             <td>{{product.name}}</td>
             <td>{{product.unitPrice}}</td>
-            <td>{{getCategoryName(product)}}</td>
+            <td>{{product.available ? 'Còn hàng' : 'Hết hàng'}}</td>
             <td>
-              <i class="fa fa-edit text text-success mr-2"></i>
-              <i class="fa fa-trash text text-danger"></i>
+              <a style="cursor: pointer;" (click)="onEditProduct(product)"><i class="fa fa-edit text text-success mr-2"></i></a>
+              <a style="cursor: pointer;" (click)="onChangeAvailability(product, false)"><i class="fa fa-lock text text-danger" *ngIf="product.available"></i></a>
+              <a style="cursor: pointer;" (click)="onChangeAvailability(product, true)"><i class="fa fa-lock-open text text-danger" *ngIf="!product.available"></i></a>
             </td>
           </tbody>
         </table>

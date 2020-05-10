@@ -5,6 +5,9 @@ import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
 import {AccountService} from "../account/account.service";
 import {Account} from "../account/account.model";
+import {OrderApiService} from "../api/order-api.service";
+import {AccountOrder} from "../order/account-order.model";
+import {ProductOrder} from "../order/product-order.model";
 
 @Component({
   selector: 'app-cart',
@@ -18,14 +21,18 @@ export class CartComponent implements OnInit, OnDestroy {
   total: number;
   account: Account;
   accountSub: Subscription;
+  errorMessage: string = '';
+  disabledItems: string[] = [];
 
   constructor(private cartService: CartService,
               private accountService: AccountService,
+              private orderApiService: OrderApiService,
               private router: Router) {}
 
   ngOnInit(): void {
+    // get account info
     this.accountService.fetchAccountByEmail(sessionStorage.getItem('username'));
-    this.cartService.fetchCart(sessionStorage.getItem('username'));
+    // when customer update cart
     this.cartSub = this.cartService.cartItemsChanged.subscribe((cartData: CartItem[]) => {
       this.cartItems = cartData;
       this.isEmpty = this.cartItems.length === 0;
@@ -48,9 +55,37 @@ export class CartComponent implements OnInit, OnDestroy {
     this.router.navigate(['/profile']);
   }
 
+  onOrder() {
+    // check item availability
+    for (let item of this.cartItems) {
+      if (!item.available) {
+        this.disabledItems.push(item.name);
+      }
+    }
+    if (this.disabledItems.length !== 0) {
+      this.errorMessage = 'Sản phẩm sau đây đã hết hàng, xin hãy xoá khỏi giỏ hàng để có thể thanh toán lúc này:';
+      console.log(this.disabledItems);
+      setTimeout(() => {
+        this.errorMessage = '';
+        this.disabledItems = [];
+      }, 3000);
+      return;
+    }
+    const productOrders: ProductOrder[] = [];
+    for (let item of this.cartItems) {
+      const productOrder = new ProductOrder(item.color, item.size, item.imageUrl, item.name, item.quantity, item.unitPrice, item.id);
+      productOrders.push(productOrder);
+    }
+    // 3 states: PROCESSING, DELIVERED, RETURN
+    const accountOrder: AccountOrder = new AccountOrder(productOrders, 'PROCESSING', this.account, this.total);
+    this.orderApiService.addOrder(accountOrder).subscribe(() => {
+      this.cartService.clearCart();
+      this.router.navigate(['/home']);
+    });
+  }
+
   ngOnDestroy(): void {
     this.cartSub.unsubscribe();
     this.accountSub.unsubscribe();
   }
-
 }

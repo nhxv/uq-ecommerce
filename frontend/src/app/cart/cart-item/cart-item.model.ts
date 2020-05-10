@@ -6,6 +6,7 @@ export class CartItem {
     public color: string,
     public size: string,
     public quantity: number,
-    public unitPrice: number
+    public unitPrice: number,
+    public available: boolean
   ) {}
 }

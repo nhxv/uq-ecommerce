@@ -1,6 +1,9 @@
 import {Injectable} from "@angular/core";
 import {CartItem} from "./cart-item/cart-item.model";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
+import {Product} from "../product/product.model";
+import {ProductApiService} from "../api/product-api.service";
+import {forkJoin} from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class CartService {
@@ -8,18 +11,34 @@ export class CartService {
   cartItemsChanged = new BehaviorSubject<CartItem[]>(this.cartItems.slice());
   cartError: boolean = false;
 
+  constructor(private productApiService: ProductApiService) {}
+
   // take cart out of local storage when user login
   fetchCart(username: string) {
     this.cartItems = JSON.parse(localStorage.getItem(username));
-    if (this.cartItems) {
-      this.cartItemsChanged.next(this.cartItems.slice());
+    let observables: Observable<any>[] = [];
+    if (this.cartItems.length !== 0) {
+      // check with database to update cart item name & price
+      for (let cartItem of this.cartItems) {
+        observables.push(this.productApiService.getProduct(cartItem.id));
+      }
+      forkJoin(observables).subscribe((productsData: Product[]) => {
+        for (let i = 0; i < this.cartItems.length; i++) {
+          if (productsData[i].name !== this.cartItems[i].name || productsData[i].unitPrice !== this.cartItems[i].unitPrice) {
+            this.updateCartItemInfo(productsData[i]);
+          }
+          this.saveCart();
+          this.cartItemsChanged.next(this.cartItems.slice());
+        }
+      });
     } else {
       this.cartItems = [];
+      this.cartItemsChanged.next(this.cartItems.slice());
     }
   }
 
   addCartItem(cartItem: CartItem) {
-    if (!this.getCartItem(cartItem.name, cartItem.color, cartItem.size)) {
+    if (!this.getCartItem(cartItem.name, cartItem.color, cartItem.size) && this.cartItems.length <= 10) {
       this.cartError = false;
       this.cartItems.push(cartItem);
       this.saveCart();
@@ -53,6 +72,17 @@ export class CartService {
     this.cartItemsChanged.next(this.cartItems.slice());
   }
 
+  updateCartItemInfo(product: Product) {
+    if (this.cartItems) {
+      const updateIndex = this.cartItems.indexOf(this.getCartItemById(product.id));
+      this.cartItems[updateIndex].name = product.name;
+      this.cartItems[updateIndex].unitPrice = product.unitPrice;
+      this.cartItems[updateIndex].available = product.available;
+      this.saveCart();
+      this.cartItemsChanged.next(this.cartItems.slice());
+    }
+  }
+
   updateCartItemQuantity(item: CartItem) {
     const updateIndex = this.cartItems.indexOf(this.getCartItemById(item.id));
     this.cartItems[updateIndex] = item;
@@ -72,7 +102,9 @@ export class CartService {
     localStorage.setItem(sessionStorage.getItem('username'), JSON.stringify(this.cartItems));
   }
 
-  clearCart(username: string) {
-    localStorage.removeItem(username);
+  clearCart() {
+    this.cartItems = [];
+    this.saveCart();
+    this.cartItemsChanged.next(this.cartItems);
   }
 }

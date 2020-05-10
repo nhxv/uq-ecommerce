@@ -12,33 +12,32 @@ import {StaffManagementComponent} from "./account/staff-management/staff-managem
 import {OrderManagementComponent} from "./order/order-management/order-management.component";
 import {ProductListComponent} from "./product/product-list/product-list.component";
 import {ProductDetailComponent} from "./product/product-detail/product-detail.component";
-import {ProductResolverService} from "./product/product-resolver.service";
-import {AccountResolverService} from "./account/account-resolver.service";
 import {AdminGuard} from "./auth/admin.guard";
 import {StaffGuard} from "./auth/staff.guard";
 import {UserGuard} from "./auth/user.guard";
 import {NotFoundComponent} from "./not-found/not-found.component";
 import {OrderListComponent} from "./order/order-list/order-list.component";
+import {CartResolverService} from "./cart/cart-resolver.service";
 
 const appRoutes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
-  {path: 'home', component: HomeComponent},
+  {path: 'home', component: HomeComponent, resolve: [CartResolverService]},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'cart', component: CartComponent, canActivate: [UserGuard]},
-  {path: 'dashboard', component: DashboardComponent, canActivate: [StaffGuard]},
-  {path: 'product-management', component: ProductManagementComponent, resolve: [ProductResolverService], canActivate: [StaffGuard]},
-  {path: 'profile', component: AccountProfileComponent, canActivate: [UserGuard]},
-  {path: 'customer-management', component: CustomerManagementComponent, resolve: [AccountResolverService], canActivate: [AdminGuard]},
-  {path: 'staff-management', component: StaffManagementComponent, resolve : [AccountResolverService], canActivate: [AdminGuard]},
-  {path: 'order-management', component: OrderManagementComponent, canActivate: [StaffGuard]},
-  {path: 'products', component: ProductListComponent, resolve: [ProductResolverService]},
-  {path: 'products/:id', component: ProductDetailComponent},
-  {path: 'category/:id', component: ProductListComponent},
-  {path: 'category', component: ProductListComponent},
-  {path: 'search/:keyword', component: ProductListComponent},
-  {path: 'order-list', component: OrderListComponent, canActivate: [UserGuard]},
-  {path: 'not-found', component: NotFoundComponent},
+  {path: 'cart', component: CartComponent, canActivate: [UserGuard], resolve: [CartResolverService]},
+  {path: 'dashboard', component: DashboardComponent, canActivate: [StaffGuard], resolve: [CartResolverService]},
+  {path: 'product-management', component: ProductManagementComponent, canActivate: [StaffGuard], resolve: [CartResolverService]},
+  {path: 'profile', component: AccountProfileComponent, canActivate: [UserGuard], resolve: [CartResolverService]},
+  {path: 'customer-management', component: CustomerManagementComponent, canActivate: [AdminGuard], resolve: [CartResolverService]},
+  {path: 'staff-management', component: StaffManagementComponent, canActivate: [AdminGuard], resolve: [CartResolverService]},
+  {path: 'order-management', component: OrderManagementComponent, canActivate: [StaffGuard], resolve: [CartResolverService]},
+  {path: 'products', component: ProductListComponent, resolve: [CartResolverService]},
+  {path: 'products/:id', component: ProductDetailComponent, resolve: [CartResolverService]},
+  {path: 'category/:id', component: ProductListComponent, resolve: [CartResolverService]},
+  {path: 'category', component: ProductListComponent, resolve: [CartResolverService]},
+  {path: 'search/:keyword', component: ProductListComponent, resolve: [CartResolverService]},
+  {path: 'order-list', component: OrderListComponent, canActivate: [UserGuard], resolve: [CartResolverService]},
+  {path: 'not-found', component: NotFoundComponent, resolve: [CartResolverService]},
   {path: '**', redirectTo: '/not-found'},
 ];
 

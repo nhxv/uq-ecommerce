@@ -75,10 +75,10 @@ export class ProductDetailComponent implements OnInit {
 
   onAddToCart() {
     if (this.cartService.cartError) {
-      this.warningMessage = 'Hàng đã thêm vào giỏ.'
+      this.warningMessage = 'Không thể thêm hàng vào giỏ. Hàng đã ở trong giỏ, hoặc giỏ đã chứa tối đa 10 món hàng khác nhau.'
       setTimeout(() => {
         this.warningMessage = '';
-      }, 1000);
+      }, 3000);
       return;
     }
     if (!this.authService.isUser()) {
@@ -95,7 +95,7 @@ export class ProductDetailComponent implements OnInit {
       if (!this.sizeSelected) {
         this.sizeSelected = this.product.sizes[0].size;
       }
-      const item = new CartItem(this.product.id, this.product.name, this.imageUrls[0], this.colorSelected, this.sizeSelected, this.quantitySelected, this.product.unitPrice);
+      const item = new CartItem(this.product.id, this.product.name, this.imageUrls[0], this.colorSelected, this.sizeSelected, this.quantitySelected, this.product.unitPrice, true);
       this.cartService.addCartItem(item);
     }
   }

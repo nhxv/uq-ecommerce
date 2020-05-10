@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ProductFormComponent} from "./product-form/product-form.component";
 import {ProductService} from "../product.service";
@@ -6,6 +6,9 @@ import {Product} from "../product.model";
 import {Subscription} from "rxjs";
 import {Category} from "../../category/category.model";
 import {ProductApiService} from "../../api/product-api.service";
+import {AuthService} from "../../auth/auth.service";
+import {ProductEditComponent} from "./product-edit/product-edit.component";
+import {CartService} from "../../cart/cart.service";
 
 @Component({
   selector: 'app-product-management',
@@ -17,6 +20,7 @@ export class ProductManagementComponent implements OnInit, OnDestroy {
   isAnyProduct: boolean = true;
   categories: Category[] = [];
   productsSub: Subscription;
+  @Input() product: Product;
 
   // properties for pagination
   pageNumber: number = 1;
@@ -27,7 +31,9 @@ export class ProductManagementComponent implements OnInit, OnDestroy {
 
   constructor(private modalService: NgbModal,
               private productService: ProductService,
-              private productApiService: ProductApiService) {}
+              private productApiService: ProductApiService,
+              private authService: AuthService,
+              private cartService: CartService) {}
 
   ngOnInit(): void {
     this.listProducts();
@@ -54,26 +60,30 @@ export class ProductManagementComponent implements OnInit, OnDestroy {
     };
   }
 
-  onAdd() {
+  onAddProduct() {
     const modalRef = this.modalService.open(ProductFormComponent);
   }
 
-  onEdit() {
-    const modalRef = this.modalService.open(ProductFormComponent);
+  onEditProduct(currentProduct: Product) {
+    const modalRef = this.modalService.open(ProductEditComponent);
+    modalRef.componentInstance.product = currentProduct;
   }
 
-  getCategoryName(product: Product) {
-    // @ts-ignore
-    if (Number.isInteger(product.category)) {
-      for (let category of this.categories) {
-        // @ts-ignore
-        if (category.id == product.category) {
-          return category.name;
-        }
-      }
-    }
-    this.categories.push(product.category);
-    return product.category.name;
+  onChangeAvailability(product: Product, isAvailable: boolean) {
+    const productUpdate: Product = new Product(
+      product.name,
+      product.description,
+      null,
+      product.colors,
+      product.sizes,
+      product.images,
+      product.unitPrice,
+      isAvailable
+    );
+    this.productApiService.updateProduct(product.id, productUpdate).subscribe((product: Product) => {
+      this.productService.setUpdateStatus();
+      this.cartService.updateCartItemInfo(product);
+    })
   }
 
   ngOnDestroy(): void {

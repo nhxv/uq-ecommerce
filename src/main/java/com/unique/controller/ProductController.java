@@ -50,7 +50,7 @@ public class ProductController {
                                                @RequestParam(name = "size") String sizeParam) {
         int page = Integer.parseInt(pageParam);
         int size = Integer.parseInt(sizeParam);
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("dateCreated").descending());
         Page<Product> products = this.productRepository.findByCategoryId(id, pageable);
         return products;
     }
@@ -94,26 +94,16 @@ public class ProductController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/products/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable(value="id") Long productId, @Valid @RequestBody Product productUpdate) throws ResourceNotFoundException {
+    public ResponseEntity<Product> updateProduct(@PathVariable(value="id") Long productId, @Valid @RequestBody Product productUpdate) throws ResourceNotFoundException, ItemExistException {
         Product product = productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product not found for this id: " + productId));
-        product.setCategory(productUpdate.getCategory());
-        product.setImages(productUpdate.getImages());
-        product.setColors(productUpdate.getColors());
-        product.setSizes(productUpdate.getSizes());
-        product.setName(productUpdate.getName());
-        product.setDescription(productUpdate.getDescription());
-        product.setUnitPrice(productUpdate.getUnitPrice());
-        product.setAvailable(productUpdate.isAvailable());
-        return ResponseEntity.ok(productRepository.save(product));
-    }
-
-    @PreAuthorize("hasRole('ADMIN')")
-    @DeleteMapping("/products/{id}")
-    public Map<String, Boolean> deleteProduct(@PathVariable(value = "id") Long productId) throws ResourceNotFoundException {
-        Product product = productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product not found for this id: " + productId));
-        productRepository.delete(product);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
-        return response;
+        if (productRepository.findByName(productUpdate.getName()) == null || product.getName().equals(productUpdate.getName())) {
+            product.setName(productUpdate.getName());
+            product.setDescription(productUpdate.getDescription());
+            product.setUnitPrice(productUpdate.getUnitPrice());
+            product.setAvailable(productUpdate.isAvailable());
+            return ResponseEntity.ok(productRepository.save(product));
+        } else {
+            throw new ItemExistException("This product name already exists");
+        }
     }
 }

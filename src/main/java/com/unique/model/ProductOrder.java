@@ -13,6 +13,9 @@ public class ProductOrder {
     private long id;
 
     @Column
+    private long productId;
+
+    @Column
     private String color;
 
     @Column
@@ -84,5 +87,13 @@ public class ProductOrder {
 
     public void setUnitPrice(BigDecimal unitPrice) {
         this.unitPrice = unitPrice;
+    }
+
+    public long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(long productId) {
+        this.productId = productId;
     }
 }

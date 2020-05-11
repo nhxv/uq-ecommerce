@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AccountOrderRepository extends JpaRepository<AccountOrder, Long> {
     Page<AccountOrder> findByAccountId(long id, Pageable pageable);
+    Page<AccountOrder> findByAccount_Email(String email, Pageable pageable);
 }

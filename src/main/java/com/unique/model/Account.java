@@ -29,7 +29,7 @@ public class Account {
     @Column
     private String phone;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account", fetch = FetchType.LAZY)
     private List<AccountOrder> accountOrders;
 
     @Column

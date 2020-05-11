@@ -56,6 +56,18 @@ public class AccountOrderController {
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'STAFF', 'CUSTOMER')")
+    @GetMapping("/account-orders/search/findByEmail")
+    public Page<AccountOrder> getAccountOrdersByAccountEmail(@RequestParam("page") String pageParam,
+                                                            @RequestParam("size") String sizeParam,
+                                                            @RequestParam("email") String email) {
+        int page = Integer.parseInt(pageParam);
+        int size = Integer.parseInt(sizeParam);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("dateCreated").descending());
+        Page<AccountOrder> accountOrders = this.accountOrderRepository.findByAccount_Email(email, pageable);
+        return accountOrders;
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN', 'STAFF', 'CUSTOMER')")
     @PostMapping("/account-orders")
     public AccountOrder addAccountOrder(@Valid @RequestBody AccountOrder accountOrder) {
         return this.accountOrderRepository.save(accountOrder);
@@ -63,9 +75,9 @@ public class AccountOrderController {
 
     @PutMapping("/account-orders/{id}")
     public ResponseEntity<AccountOrder> updateAccountOrder(@PathVariable(value = "id") long id,
-                                                           @Valid @RequestBody AccountOrder accountOrderUpdate) throws ResourceNotFoundException {
+                                                           @Valid @RequestBody String statusUpdate) throws ResourceNotFoundException {
         AccountOrder accountOrder = this.accountOrderRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Order not found for this id: " + id));
-        accountOrder.setStatus(accountOrderUpdate.getStatus());
+        accountOrder.setStatus(statusUpdate);
         return ResponseEntity.ok(this.accountOrderRepository.save(accountOrder));
     }
 }

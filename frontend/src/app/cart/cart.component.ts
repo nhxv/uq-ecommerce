@@ -8,6 +8,7 @@ import {Account} from "../account/account.model";
 import {OrderApiService} from "../api/order-api.service";
 import {AccountOrder} from "../order/account-order.model";
 import {ProductOrder} from "../order/product-order.model";
+import {OrderService} from "../order/order.service";
 
 @Component({
   selector: 'app-cart',
@@ -27,6 +28,7 @@ export class CartComponent implements OnInit, OnDestroy {
   constructor(private cartService: CartService,
               private accountService: AccountService,
               private orderApiService: OrderApiService,
+              private orderService: OrderService,
               private router: Router) {}
 
   ngOnInit(): void {
@@ -56,32 +58,47 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   onOrder() {
-    // check item availability
-    for (let item of this.cartItems) {
-      if (!item.available) {
-        this.disabledItems.push(item.name);
-      }
-    }
-    if (this.disabledItems.length !== 0) {
-      this.errorMessage = 'Sản phẩm sau đây đã hết hàng, xin hãy xoá khỏi giỏ hàng để có thể thanh toán lúc này:';
-      console.log(this.disabledItems);
-      setTimeout(() => {
-        this.errorMessage = '';
-        this.disabledItems = [];
-      }, 3000);
+    let isOrder: boolean = confirm("Thông tin cá nhân (địa chỉ, điện thoại) không thể thay đổi sau khi thanh toán. Bạn chắc chắn muốn thanh toán bây giờ không?")
+    if (!isOrder) {
       return;
+    } else {
+      // check item availability
+      for (let item of this.cartItems) {
+        if (!item.available) {
+          this.disabledItems.push(item.name);
+        }
+      }
+      if (this.disabledItems.length !== 0) {
+        this.errorMessage = 'Sản phẩm sau đây đã hết hàng, xin hãy xoá khỏi giỏ hàng để có thể thanh toán lúc này:';
+        console.log(this.disabledItems);
+        setTimeout(() => {
+          this.errorMessage = '';
+          this.disabledItems = [];
+        }, 3000);
+        return;
+      }
+      const productOrders: ProductOrder[] = [];
+      for (let item of this.cartItems) {
+        const productOrder = new ProductOrder(item.color, item.size, item.imageUrl, item.name, item.quantity, item.unitPrice, item.id);
+        productOrders.push(productOrder);
+      }
+      // 3 states: PROCESSING, DELIVERED, RETURN
+      const accountOrder: AccountOrder = new AccountOrder(
+        productOrders,
+        'PROCESSING',
+        this.account,
+        this.account.name,
+        this.account.email,
+        this.account.address,
+        this.account.phone,
+        this.total);
+
+      this.orderApiService.addOrder(accountOrder).subscribe(() => {
+        this.orderService.setUpdateStatus();
+        this.cartService.clearCart();
+        this.router.navigate(['/home']);
+      });
     }
-    const productOrders: ProductOrder[] = [];
-    for (let item of this.cartItems) {
-      const productOrder = new ProductOrder(item.color, item.size, item.imageUrl, item.name, item.quantity, item.unitPrice, item.id);
-      productOrders.push(productOrder);
-    }
-    // 3 states: PROCESSING, DELIVERED, RETURN
-    const accountOrder: AccountOrder = new AccountOrder(productOrders, 'PROCESSING', this.account, this.total);
-    this.orderApiService.addOrder(accountOrder).subscribe(() => {
-      this.cartService.clearCart();
-      this.router.navigate(['/home']);
-    });
   }
 
   ngOnDestroy(): void {

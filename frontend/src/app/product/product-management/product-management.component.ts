@@ -18,7 +18,6 @@ import {CartService} from "../../cart/cart.service";
 export class ProductManagementComponent implements OnInit, OnDestroy {
   products: Product[];
   isAnyProduct: boolean = true;
-  categories: Category[] = [];
   productsSub: Subscription;
   @Input() product: Product;
 
@@ -26,8 +25,6 @@ export class ProductManagementComponent implements OnInit, OnDestroy {
   pageNumber: number = 1;
   pageSize: number = 8;
   totalElements: number = 0;
-
-  previousKeyword: string = null;
 
   constructor(private modalService: NgbModal,
               private productService: ProductService,

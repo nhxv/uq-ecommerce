@@ -25,6 +25,7 @@ export class ProductDetailComponent implements OnInit {
   bigImageUrl: string = null;
   errorMessage: string = '';
   warningMessage: string = '';
+  successMessage: string = '';
 
   constructor(private productApiService: ProductApiService,
               private imageApiService: ImageApiService,
@@ -96,6 +97,11 @@ export class ProductDetailComponent implements OnInit {
           this.warningMessage = '';
         }, 3000);
         return;
+      } else {
+        this.successMessage = 'Thêm vào giỏ hàng thành công';
+        setTimeout(() => {
+          this.successMessage = '';
+        }, 2000);
       }
     }
   }

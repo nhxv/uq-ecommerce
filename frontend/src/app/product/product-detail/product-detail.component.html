@@ -46,12 +46,13 @@
             </div> <!-- col.// -->
           </div> <!-- row.// -->
           <div class="row mt-4" *ngIf="this.product.available">
-            <div class="col-xl-4">
-              <button type="button" class="btn btn-outline-dark rounded-0 w-100" (click)="onAddToCart()"> <span class="text">Mua hàng</span> <i class="fas fa-shopping-cart"></i></button>
+            <div class="col-xl-5">
+              <button type="button" class="btn btn-outline-dark rounded-0 w-100" (click)="onAddToCart()"> <span class="text">Thêm vào giỏ</span> <i class="fas fa-shopping-cart"></i></button>
             </div>
           </div>
           <div class="alert alert-warning mt-4 mb-3 border-0 rounded-0" *ngIf="warningMessage">{{this.warningMessage}}</div>
           <div class="alert alert-danger mt-4 mb-3 border-0 rounded-0" *ngIf="errorMessage">{{this.errorMessage}}</div>
+          <div class="alert alert-success mt-4 mb-3 border-0 rounded-0" *ngIf="successMessage">{{this.successMessage}}</div>
         </article> <!-- product-info-aside .// -->
       </main> <!-- col.// -->
     </div> <!-- row.// -->

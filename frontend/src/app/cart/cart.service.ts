@@ -24,7 +24,7 @@ export class CartService {
       }
       forkJoin(observables).subscribe((productsData: Product[]) => {
         for (let i = 0; i < this.cartItems.length; i++) {
-          if (productsData[i].name !== this.cartItems[i].name || productsData[i].unitPrice !== this.cartItems[i].unitPrice) {
+          if (productsData[i].name !== this.cartItems[i].name || productsData[i].unitPrice !== this.cartItems[i].unitPrice || productsData[i].available !== this.cartItems[i].available) {
             this.updateCartItemInfo(productsData[i]);
           }
           this.saveCart();
@@ -73,6 +73,8 @@ export class CartService {
   }
 
   updateCartItemInfo(product: Product) {
+    console.log('update cart item');
+    console.log(product);
     if (this.cartItems) {
       const updateIndex = this.cartItems.indexOf(this.getCartItemById(product.id));
       this.cartItems[updateIndex].name = product.name;

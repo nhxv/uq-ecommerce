@@ -32,9 +32,9 @@
             <td>{{product.unitPrice}}</td>
             <td>{{product.available ? 'Còn hàng' : 'Hết hàng'}}</td>
             <td>
-              <a style="cursor: pointer;" (click)="onEditProduct(product)" *ngIf="isAdmin()"><i class="fa fa-edit text text-success mr-2"></i></a>
-              <a style="cursor: pointer;" (click)="onChangeAvailability(product, false)"><i class="fa fa-lock text text-danger" *ngIf="product.available"></i></a>
-              <a style="cursor: pointer;" (click)="onChangeAvailability(product, true)"><i class="fa fa-lock-open text text-danger" *ngIf="!product.available"></i></a>
+              <a style="cursor: pointer;" (click)="onEditProduct(product)" *ngIf="isAdmin()"><i class="fa fa-edit text text-warning mr-2"></i></a>
+              <a style="cursor: pointer;" (click)="onChangeAvailability(product, false)"><i class="fa fa-lock-open text text-success" *ngIf="product.available"></i></a>
+              <a style="cursor: pointer;" (click)="onChangeAvailability(product, true)"><i class="fa fa-lock text text-danger" *ngIf="!product.available"></i></a>
             </td>
           </tbody>
         </table>

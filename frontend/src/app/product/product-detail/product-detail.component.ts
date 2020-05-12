@@ -74,13 +74,6 @@ export class ProductDetailComponent implements OnInit {
   }
 
   onAddToCart() {
-    if (this.cartService.cartError) {
-      this.warningMessage = 'Không thể thêm hàng vào giỏ. Hàng đã ở trong giỏ, hoặc giỏ đã chứa tối đa 10 món hàng khác nhau.'
-      setTimeout(() => {
-        this.warningMessage = '';
-      }, 3000);
-      return;
-    }
     if (!this.authService.isUser()) {
       this.errorMessage = 'Quý khách đăng nhập để dùng giỏ hàng.';
       setTimeout(() => {this.errorMessage = '';}, 2000);
@@ -97,6 +90,13 @@ export class ProductDetailComponent implements OnInit {
       }
       const item = new CartItem(this.product.id, this.product.name, this.imageUrls[0], this.colorSelected, this.sizeSelected, this.quantitySelected, this.product.unitPrice, true);
       this.cartService.addCartItem(item);
+      if (this.cartService.cartError) {
+        this.warningMessage = 'Không thể thêm hàng vào giỏ. Hàng đã ở trong giỏ, hoặc giỏ đã chứa tối đa 10 món hàng khác nhau.'
+        setTimeout(() => {
+          this.warningMessage = '';
+        }, 3000);
+        return;
+      }
     }
   }
 }

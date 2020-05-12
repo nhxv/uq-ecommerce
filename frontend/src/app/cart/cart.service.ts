@@ -38,7 +38,8 @@ export class CartService {
   }
 
   addCartItem(cartItem: CartItem) {
-    if (!this.getCartItem(cartItem.name, cartItem.color, cartItem.size) && this.cartItems.length <= 10) {
+    // khi item không có trong giỏ và giỏ không có quá 10 món hàng
+    if (!this.getCartItem(cartItem.name, cartItem.color, cartItem.size) && this.cartItems.length < 10) {
       this.cartError = false;
       this.cartItems.push(cartItem);
       this.saveCart();

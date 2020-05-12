@@ -24,8 +24,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
   totalElements: number = 0;
 
   constructor(private orderApiService: OrderApiService,
-              private orderService: OrderService,
-              private accountService: AccountService) {}
+              private orderService: OrderService) {}
 
   ngOnInit(): void {
     this.listOrders();

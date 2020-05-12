@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
       }
       // navigate to home page if success
       if (roleName === 'ADMIN' || roleName === 'STAFF') {
-        this.router.navigate(['/dashboard'])
+        this.router.navigate(['/product-management'])
       } else {
         this.router.navigate(['/home']);
       }

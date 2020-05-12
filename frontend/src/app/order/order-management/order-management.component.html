@@ -1,7 +1,12 @@
 <app-dashboard-header></app-dashboard-header>
 <div class="container mt-4">
+  <div class="row text-center mt-4" *ngIf="!isAnyOrder">
+    <div class="col-12">
+      <p class="alert alert-warning">Không có đơn hàng</p>
+    </div>
+  </div>
   <!--  TABLE  -->
-  <div class="row mt-4">
+  <div class="row mt-4" *ngIf="isAnyOrder">
     <div class="col-12">
       <div class="table-responsive text-center">
         <table class="table table-bordered table-hover text-center shadow-sm roundedr">
@@ -19,7 +24,7 @@
               <th scope="row">{{order.id}}</th>
               <td>{{order.name}}</td>
               <td>{{customDate(order.dateCreated)}}</td>
-              <td>{{order.totalPrice}}</td>
+              <td>{{order.totalPrice}}<u>đ</u></td>
               <td>
                 <select class="form-control" (change)="onSetStatus(order.id, $event.target.value)">
                   <option [selected]="order.status === 'PROCESSING' ? true : null">Đang xử lí</option>

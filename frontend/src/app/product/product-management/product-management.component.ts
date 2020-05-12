@@ -83,6 +83,10 @@ export class ProductManagementComponent implements OnInit, OnDestroy {
     })
   }
 
+  isAdmin() {
+    return this.authService.isAdmin();
+  }
+
   ngOnDestroy(): void {
     this.productsSub.unsubscribe();
   }

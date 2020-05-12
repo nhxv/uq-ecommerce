@@ -4,7 +4,6 @@ import {HomeComponent} from "./home/home.component";
 import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
 import {CartComponent} from "./cart/cart.component";
-import {DashboardComponent} from "./dashboard/dashboard.component";
 import {ProductManagementComponent} from "./product/product-management/product-management.component";
 import {AccountProfileComponent} from "./account/account-profile/account-profile.component";
 import {CustomerManagementComponent} from "./account/customer-management/customer-management.component";
@@ -25,7 +24,6 @@ const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'cart', component: CartComponent, canActivate: [UserGuard], resolve: [CartResolverService]},
-  {path: 'dashboard', component: DashboardComponent, canActivate: [StaffGuard], resolve: [CartResolverService]},
   {path: 'product-management', component: ProductManagementComponent, canActivate: [StaffGuard], resolve: [CartResolverService]},
   {path: 'profile', component: AccountProfileComponent, canActivate: [UserGuard], resolve: [CartResolverService]},
   {path: 'customer-management', component: CustomerManagementComponent, canActivate: [AdminGuard], resolve: [CartResolverService]},

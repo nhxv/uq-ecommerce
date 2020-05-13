@@ -62,6 +62,22 @@ export class OrderListComponent implements OnInit, OnDestroy {
     return date.slice(0, date.indexOf("T"));
   }
 
+  getOrderPdf(id: number) {
+    this.orderApiService.getOrderPdf(id).subscribe((data) => {
+      let file = new Blob([data], {type: 'application/pdf'});
+      const fileURL = URL.createObjectURL(file);
+      /*const link = document.createElement('a');
+      link.href = fileURL;
+      link.download = 'sample.pdf';
+      link.click();*/
+      if (window.navigator.msSaveOrOpenBlob) {
+        window.navigator.msSaveOrOpenBlob(file, fileURL.split(':')[1] + '.pdf');
+      } else {
+        window.open(fileURL);
+      }
+    });
+  }
+
   ngOnDestroy() {
     this.ordersSub.unsubscribe();
   }

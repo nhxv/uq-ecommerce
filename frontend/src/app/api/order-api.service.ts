@@ -17,6 +17,10 @@ export class OrderApiService {
     return this.http.get(`${this.baseUrl}/search/findByEmail?page=${page}&size=${size}&email=${email}`);
   }
 
+  getOrderPdf(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/print/${id}`, {responseType: 'arraybuffer'});
+  }
+
   addOrder(accountOrder: AccountOrder): Observable<Object> {
     return this.http.post(`${this.baseUrl}`, accountOrder);
   }

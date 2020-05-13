@@ -45,6 +45,9 @@ public class AccountOrder {
     @Column
     private BigDecimal totalPrice;
 
+    @Column
+    private String staffEdit;
+
     public AccountOrder() {}
 
     public long getId() {
@@ -125,5 +128,13 @@ public class AccountOrder {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getStaffEdit() {
+        return staffEdit;
+    }
+
+    public void setStaffEdit(String staffEdit) {
+        this.staffEdit = staffEdit;
     }
 }

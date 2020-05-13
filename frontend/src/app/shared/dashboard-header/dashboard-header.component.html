@@ -18,7 +18,7 @@
           <a style="cursor: pointer;" class="nav-link dropdown-toggle" ngbDropdownToggle>{{username}}</a>
           <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
             <a class="dropdown-item" style="cursor: pointer;" [routerLink]="['/profile']"  ngbDropdownItem>Thông tin cá nhân</a>
-            <a class="dropdown-item" style="cursor: pointer;" ngbDropdownItem>Đơn hàng</a>
+            <a class="dropdown-item" style="cursor: pointer;" routerLink="/order-list" ngbDropdownItem>Đơn hàng</a>
             <hr class="dropdown-divider">
             <a class="dropdown-item" style="cursor:pointer;" (click)="onSignOut()" ngbDropdownItem>Đăng xuất</a>
           </div>

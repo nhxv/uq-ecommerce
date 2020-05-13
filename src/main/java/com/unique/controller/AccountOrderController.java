@@ -125,7 +125,7 @@ public class AccountOrderController {
             document.add(Chunk.NEWLINE);
             Paragraph p3 = new Paragraph(
                     "Hoa don cho don hang " + accountOrder.getId() + "\n" +
-                            "Khach hang "+ accountOrder.getName() + "\n" +
+                            "Khach hang "+ stripSign(accountOrder .getName()) + "\n" +
                             "Email "+ accountOrder.getEmail() + "\n" +
                             "SDT "+ accountOrder.getPhone() + "\n" +
                             "Dia chi "+ accountOrder.getAddress(), mainFont);

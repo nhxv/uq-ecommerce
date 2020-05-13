@@ -47,6 +47,10 @@ export class StaffManagementComponent implements OnInit, OnDestroy {
 
 
   removeStaffRole(account: Account) {
+    let isConfirm: boolean = confirm('Bạn chắc chắn muốn cắt chức nhân viên này không?');
+    if (!isConfirm) {
+      return;
+    }
     this.accountService.updateRole(account.id, account);
   }
 

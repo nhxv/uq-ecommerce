@@ -5,6 +5,40 @@
       <p class="alert alert-warning rounded-0">Không có nhân viên</p>
     </div>
   </div>
+
+  <!-- Stats -->
+  <div class="row" *ngIf="isAnyStaff">
+    <div class="col-xl-3 col-md-5 mt-4">
+      <div class="card shadow-sm">
+        <div class="row no-gutters">
+          <div class="col-4 rounded text-center">
+            <i class="fa fa-user pt-4 text-primary" style="font-size: 48px;"></i>
+          </div>
+          <div class="col-8">
+            <div class="card-body">
+              <h6 class="title mb-0" style="font-size: 18px;">Số nhân viên</h6>
+              <p class="card-text mt-0" style="font-size: 20px;">120000</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-5 col-md-7 mt-4">
+      <div class="card shadow-sm">
+        <div class="row no-gutters">
+          <div class="col-4 rounded text-center">
+            <i class="fa fa-briefcase pt-4 text text-success" style="font-size: 48px;"></i>
+          </div>
+          <div class="col-8">
+            <div class="card-body">
+              <h6 class="title mb-0" style="font-size: 18px;">Lượng việc đã làm</h6>
+              <p class="card-text mt-0" style="font-size: 20px;">120000</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- TABLE -->
   <div class="row mt-4" *ngIf="isAnyStaff">
     <div class="col-12">
@@ -27,7 +61,7 @@
             <td>{{staff.email}}</td>
             <td>{{staff.phone}}</td>
             <td>
-              <a style="cursor: pointer;" (click)="removeStaffRole(staff)"><i class="fa fa-edit text text-warning"></i></a>
+              <a style="cursor: pointer;" (click)="removeStaffRole(staff)"><i class="fa fa-edit"></i></a>
             </td>
           </tr>
           </tbody>

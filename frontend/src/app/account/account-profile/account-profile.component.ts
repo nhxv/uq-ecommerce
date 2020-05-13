@@ -72,7 +72,7 @@ export class AccountProfileComponent implements OnInit, OnDestroy {
       this.profileEditForm.get('cmnd').value,
       this.profileEditForm.get('age').value,
       this.account.salary,
-      this.account.accountOrder
+      this.account.accountOrders
     );
     this.accountApiService.updateAccount(this.account.id, accountUpdate).subscribe((data: Account) => {
       this.account = data;

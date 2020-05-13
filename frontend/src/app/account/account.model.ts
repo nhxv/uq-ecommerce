@@ -1,4 +1,5 @@
 import {Role} from "./role.model";
+import {AccountOrder} from "../order/account-order.model";
 
 export class Account {
   constructor(
@@ -11,7 +12,10 @@ export class Account {
     public cmnd?: string,
     public age?: number,
     public salary?: number,
-    public accountOrder?: string,
+    public accountOrders?: AccountOrder[],
+    public dateHired?: string,
+    public orderWork?: number,
+    public productWork?: number,
     public id?: number
   ) {}
 }

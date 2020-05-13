@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -37,6 +38,15 @@ public class Account {
 
     @Column
     private String cmnd;
+
+    @Column
+    private Date dateHired;
+
+    @Column
+    private long orderWork;
+
+    @Column
+    private long productWork;
 
     @Column
     private BigDecimal salary;
@@ -126,6 +136,30 @@ public class Account {
 
     public void setCmnd(String cmnd) {
         this.cmnd = cmnd;
+    }
+
+    public Date getDateHired() {
+        return dateHired;
+    }
+
+    public void setDateHired(Date dateHired) {
+        this.dateHired = dateHired;
+    }
+
+    public long getProductWork() {
+        return productWork;
+    }
+
+    public void setProductWork(long productWork) {
+        this.productWork = productWork;
+    }
+
+    public long getOrderWork() {
+        return orderWork;
+    }
+
+    public void setOrderWork(long orderWork) {
+        this.orderWork = orderWork;
     }
 
     public BigDecimal getSalary() {

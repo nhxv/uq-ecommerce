@@ -83,6 +83,8 @@ public class    AccountController {
         account.setAge(accountUpdate.getAge());
         account.setCmnd(accountUpdate.getCmnd());
         account.setAccountOrders(accountUpdate.getAccountOrders());
+        account.setOrderWork(accountUpdate.getOrderWork());
+        account.setProductWork(accountUpdate.getProductWork());
         return ResponseEntity.ok(accountRepository.save(account));
     }
 
@@ -95,16 +97,18 @@ public class    AccountController {
         Role staffRole = this.roleRepository.findById(Long.valueOf(2)).get();
         Role customerRole = this.roleRepository.findById(Long.valueOf(3)).get();
         if (!currentRoles.contains(staffRole)) {
-            // set staff salary, set staff role
+            // set staff hired date, product & order work, salary, set staff role
+            account.setDateHired(new Date());
             account.setSalary(accountUpdate.getSalary());
             newRoles.add(staffRole);
-            account.setRoles(newRoles);
         } else {
             // remove staff salary, set customer role
             account.setSalary(accountUpdate.getSalary());
             newRoles.add(customerRole);
-            account.setRoles(newRoles);
         }
+        account.setOrderWork(0);
+        account.setProductWork(0);
+        account.setRoles(newRoles);
         return ResponseEntity.ok(accountRepository.save(account));
     }
 

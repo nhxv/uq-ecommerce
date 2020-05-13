@@ -1,9 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {AccountService} from "../account.service";
 import {Account} from "../account.model";
 import {Role} from "../role.model";
 import {AccountApiService} from "../../api/account-api.service";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {CustomerEditComponent} from "./customer-edit/customer-edit.component";
 
 @Component({
   selector: 'app-customer-management',
@@ -14,13 +16,16 @@ export class CustomerManagementComponent implements OnInit, OnDestroy {
   customers: Account[];
   customersSub: Subscription;
   isAnyCustomer: boolean = true;
+  @Input() customer: Account;
 
   // properties for pagination
   pageNumber: number = 1;
   pageSize: number = 8;
   totalElements: number = 0;
 
-  constructor(private accountService: AccountService, private accountApiService: AccountApiService) {}
+  constructor(private accountService: AccountService,
+              private accountApiService: AccountApiService,
+              private modalService: NgbModal) {}
 
   ngOnInit(): void {
     this.customersSub = this.accountService.updateStatusChanged.subscribe(() => {
@@ -46,8 +51,9 @@ export class CustomerManagementComponent implements OnInit, OnDestroy {
     };
   }
 
-  addStaffRole(account: Account) {
-    this.accountService.updateRole(account.id, account);
+  addStaffRole(customer: Account) {
+    const modalRef = this.modalService.open(CustomerEditComponent);
+    modalRef.componentInstance.customer = customer;
   }
 
   ngOnDestroy(): void {

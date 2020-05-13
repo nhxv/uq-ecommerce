@@ -3,6 +3,10 @@ import {AccountOrder} from "../account-order.model";
 import {Subscription} from "rxjs";
 import {OrderService} from "../order.service";
 import {OrderApiService} from "../../api/order-api.service";
+import {AuthService} from "../../auth/auth.service";
+import {AccountApiService} from "../../api/account-api.service";
+import {Account} from "../../account/account.model";
+import {AccountService} from "../../account/account.service";
 
 @Component({
   selector: 'app-order-management',
@@ -14,6 +18,7 @@ export class OrderManagementComponent implements OnInit, OnDestroy {
   isAnyOrder: boolean = true;
   ordersSub: Subscription;
   statusSelected: string = '';
+  staff: Account;
 
   // properties for pagination
   pageNumber: number = 1;
@@ -21,10 +26,18 @@ export class OrderManagementComponent implements OnInit, OnDestroy {
   totalElements: number = 0;
 
   constructor(private orderService: OrderService,
-              private orderApiService: OrderApiService) {}
+              private orderApiService: OrderApiService,
+              private accountApiService: AccountApiService,
+              private accountService: AccountService,
+              private authService: AuthService) {}
 
   ngOnInit(): void {
     this.listOrders();
+    if (this.isStaff()) {
+      this.accountApiService.getAccountByEmail(sessionStorage.getItem('username')).subscribe((accountData: Account) => {
+        this.staff = accountData;
+      });
+    }
     this.ordersSub = this.orderService.updateStatusChanged.subscribe(() => {
       this.listOrders();
     });
@@ -68,7 +81,19 @@ export class OrderManagementComponent implements OnInit, OnDestroy {
     }
     this.orderApiService.updateOrder(id, statusUpdate).subscribe(() => {
       this.orderService.setUpdateStatus();
+      if (this.isStaff()) {
+        let staffUpdate: Account = this.staff;
+        staffUpdate.orderWork += 1;
+        staffUpdate.productWork = 0;
+        this.accountApiService.updateAccount(this.staff.id, staffUpdate).subscribe(() => {
+          this.accountService.setUpdateStatus();
+        });
+      }
     })
+  }
+
+  isStaff() {
+    return this.authService.isStaff();
   }
 
   ngOnDestroy() {

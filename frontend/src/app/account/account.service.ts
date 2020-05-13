@@ -50,15 +50,6 @@ export class AccountService {
     this.updateStatusChanged.next(this.updateStatus);
   }
 
-  createAccount(account: Account) {
-    this.accountApiService.createAccount(account).subscribe((accountData: Account) => {
-      if (accountData) {
-        this.accounts.push(accountData);
-        this.accountsChanged.next(this.accounts.slice());
-      }
-    });
-  }
-
   updateAccount(id: number, accountUpdate: Account) {
     this.accountApiService.updateAccount(id, accountUpdate).subscribe(() => {
       if (this.accounts) {
@@ -73,13 +64,5 @@ export class AccountService {
     this.accountApiService.updateRole(id, account).subscribe(() => {
       this.setUpdateStatus();
     })
-  }
-
-  deleteAccount(id: number) {
-    this.accountApiService.deleteAccount(id).subscribe(() => {
-      const deletedIndex = this.accounts.indexOf(this.getAccount(id));
-      this.accounts.splice(deletedIndex, 1);
-      this.accountsChanged.next(this.accounts.slice());
-    });
   }
 }

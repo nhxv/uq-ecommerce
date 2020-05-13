@@ -2,6 +2,7 @@ package com.unique.controller;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
+import com.itextpdf.text.pdf.draw.LineSeparator;
 import com.unique.exception.ResourceNotFoundException;
 import com.unique.model.Account;
 import com.unique.model.AccountOrder;
@@ -118,14 +119,14 @@ public class AccountOrderController {
             Font boldFont = FontFactory.getFont("bold_font", 24);
             Paragraph p1 = new Paragraph("UNIQUE FASHION", boldFont);
             p1.setIndentationLeft(50);
-            Paragraph p2 = new Paragraph("12345 Lost Street Ho Chi Minh City\n" + "uniquefashion.com\n" + "---", mainFont);
+            Paragraph p2 = new Paragraph("12345 Lost Street Ho Chi Minh City\n" + "uniquefashion.com\n", mainFont);
             p2.setIndentationLeft(50);
             document.add(p1);
             document.add(p2);
             document.add(Chunk.NEWLINE);
             Paragraph p3 = new Paragraph(
                     "Hoa don cho don hang " + accountOrder.getId() + "\n" +
-                            "Khach hang "+ accountOrder.getName() + "\n" +
+                            "Khach hang "+ stripSign(accountOrder.getName()) + "\n" +
                             "Email "+ accountOrder.getEmail() + "\n" +
                             "SDT "+ accountOrder.getPhone() + "\n" +
                             "Dia chi "+ accountOrder.getAddress(), mainFont);

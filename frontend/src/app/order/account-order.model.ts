@@ -12,6 +12,7 @@ export class AccountOrder {
     public phone: string,
     public totalPrice: number,
     public dateCreated?: string,
+    public staffEdit?: string,
     public id?: number
   ) {}
 }

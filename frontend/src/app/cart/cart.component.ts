@@ -70,7 +70,6 @@ export class CartComponent implements OnInit, OnDestroy {
       }
       if (this.disabledItems.length !== 0) {
         this.errorMessage = 'Sản phẩm sau đây đã hết hàng, xin hãy xoá khỏi giỏ hàng để có thể thanh toán lúc này:';
-        console.log(this.disabledItems);
         setTimeout(() => {
           this.errorMessage = '';
           this.disabledItems = [];

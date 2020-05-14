@@ -21,6 +21,10 @@ export class OrderApiService {
     return this.http.get(`${this.baseUrl}/print/${id}`, {responseType: 'arraybuffer'});
   }
 
+  getOrderStats(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/stats`);
+  }
+
   addOrder(accountOrder: AccountOrder): Observable<Object> {
     return this.http.post(`${this.baseUrl}`, accountOrder);
   }

@@ -29,6 +29,10 @@ export class ProductApiService {
     return this.http.get(`${this.baseUrl}/findByNameContaining?name=${name}&page=${page}&size=${size}`);
   }
 
+  getProductStats(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/stats`);
+  }
+
   createProduct(product: Object): Observable<Object> {
     return this.http.post(`${this.baseUrl}`, product);
   }

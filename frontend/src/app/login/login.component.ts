@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {LoginService} from "./login.service";
 import {CartService} from "../cart/cart.service";
+import {AccountStatService} from "../account/account-stat.service";
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router,
               private loginService: LoginService,
-              private cartService: CartService) { }
+              private cartService: CartService,
+              private accountStatService: AccountStatService) { }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({

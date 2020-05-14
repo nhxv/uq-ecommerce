@@ -9,6 +9,8 @@ import {OrderApiService} from "../api/order-api.service";
 import {AccountOrder} from "../order/account-order.model";
 import {ProductOrder} from "../order/product-order.model";
 import {OrderService} from "../order/order.service";
+import {AccountStatService} from "../account/account-stat.service";
+import {OrderStatService} from "../order/order-stat.service";
 
 @Component({
   selector: 'app-cart',
@@ -29,6 +31,8 @@ export class CartComponent implements OnInit, OnDestroy {
               private accountService: AccountService,
               private orderApiService: OrderApiService,
               private orderService: OrderService,
+              private accountStatService: AccountStatService,
+              private orderStatService: OrderStatService,
               private router: Router) {}
 
   ngOnInit(): void {
@@ -95,6 +99,10 @@ export class CartComponent implements OnInit, OnDestroy {
       this.orderApiService.addOrder(accountOrder).subscribe(() => {
         this.orderService.setUpdateStatus();
         this.cartService.clearCart();
+        this.orderStatService.whenOrder();
+        if (sessionStorage.getItem('role') === 'CUSTOMER') {
+          this.accountStatService.whenCustomerOrder();
+        }
         this.router.navigate(['/home']);
       });
     }

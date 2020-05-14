@@ -13,6 +13,8 @@ import {throwError} from "rxjs";
 import {catchError} from "rxjs/operators";
 import {ImageApiService} from "../../../api/image-api.service";
 import {AuthService} from "../../../auth/auth.service";
+import {AccountStatService} from "../../../account/account-stat.service";
+import {ProductStatService} from "../../product-stat.service";
 
 @Component({
   selector: 'app-product-form',
@@ -35,6 +37,8 @@ export class ProductFormComponent implements OnInit {
     private imageApiService: ImageApiService,
     private categoryService: CategoryService,
     private authService: AuthService,
+    private accountStatService: AccountStatService,
+    private productStatService: ProductStatService,
     private activeModal: NgbActiveModal
   ) {}
 
@@ -121,6 +125,7 @@ export class ProductFormComponent implements OnInit {
       this.productApiService.createProduct(product).pipe(catchError(this.handleAddErrors)).subscribe((productData: Product) => {
         this.imageApiService.uploadImages(imageData, productData.id).subscribe(() => {
           this.productService.setUpdateStatus();
+          this.productStatService.whenAddProduct();
           this.productForm.reset();
           this.activeModal.close('Close click');
         });
@@ -135,6 +140,8 @@ export class ProductFormComponent implements OnInit {
       this.productApiService.createByStaff(sessionStorage.getItem('username'), product).pipe(catchError(this.handleAddErrors)).subscribe((productData: Product) => {
         this.imageApiService.uploadImages(imageData, productData.id).subscribe(() => {
           this.productService.setUpdateStatus();
+          this.accountStatService.whenStaffWork();
+          this.productStatService.whenAddProduct();
           this.productForm.reset();
           this.activeModal.close('Close click');
         });

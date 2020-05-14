@@ -6,6 +6,7 @@ import {Role} from "../role.model";
 import {AccountApiService} from "../../api/account-api.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {CustomerEditComponent} from "./customer-edit/customer-edit.component";
+import {AccountStatService} from "../account-stat.service";
 
 @Component({
   selector: 'app-customer-management',
@@ -17,6 +18,8 @@ export class CustomerManagementComponent implements OnInit, OnDestroy {
   customersSub: Subscription;
   isAnyCustomer: boolean = true;
   @Input() customer: Account;
+  stats: number[];
+  statSub: Subscription;
 
   // properties for pagination
   pageNumber: number = 1;
@@ -25,9 +28,19 @@ export class CustomerManagementComponent implements OnInit, OnDestroy {
 
   constructor(private accountService: AccountService,
               private accountApiService: AccountApiService,
+              private accountStatService: AccountStatService,
               private modalService: NgbModal) {}
 
   ngOnInit(): void {
+    // this.accountStatService.fetchStats();
+    this.statSub = this.accountStatService.accountStatsChanged.subscribe((data) => {
+      if (data.length !== 0) {
+        this.stats = data;
+      } else {
+        this.accountStatService.fetchStats();
+      }
+    });
+    this.listCustomers();
     this.customersSub = this.accountService.updateStatusChanged.subscribe(() => {
       this.listCustomers();
     });

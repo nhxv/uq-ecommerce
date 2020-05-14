@@ -26,6 +26,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { OrderListComponent } from './order/order-list/order-list.component';
 import { ProductEditComponent } from './product/product-management/product-edit/product-edit.component';
 import { CustomerEditComponent } from './account/customer-management/customer-edit/customer-edit.component';
+import { StaffEditComponent } from './account/staff-management/staff-edit/staff-edit.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { CustomerEditComponent } from './account/customer-management/customer-ed
     OrderListComponent,
     ProductEditComponent,
     CustomerEditComponent,
+    StaffEditComponent,
   ],
   imports: [
     BrowserModule,

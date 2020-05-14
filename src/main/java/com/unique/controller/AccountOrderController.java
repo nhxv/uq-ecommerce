@@ -26,6 +26,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.Normalizer;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -80,6 +81,28 @@ public class AccountOrderController {
         Pageable pageable = PageRequest.of(page, size, Sort.by("dateCreated").descending());
         Page<AccountOrder> accountOrders = this.accountOrderRepository.findByAccount_Email(email, pageable);
         return accountOrders;
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
+    @GetMapping("/account-orders/stats")
+    public List<Long> getAccountOrderStats() {
+        long orderCount;
+        long orderDeliveredCount = 0;
+        long orderReturnCount = 0;
+        List<AccountOrder> orders = this.accountOrderRepository.findAll();
+        orderCount = orders.size();
+        for (AccountOrder accountOrder : orders) {
+            if (accountOrder.getStatus().equals("DELIVERED")) {
+                orderDeliveredCount++;
+            } else if (accountOrder.getStatus().equals("RETURN")) {
+                orderReturnCount++;
+            }
+        }
+        List<Long> result = new ArrayList<>();
+        result.add(orderCount);
+        result.add(orderDeliveredCount);
+        result.add(orderReturnCount);
+        return result;
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'STAFF', 'CUSTOMER')")

@@ -25,6 +25,10 @@ export class AccountApiService {
     return this.http.get(`${this.baseUrl}/searchRole?role=${roleName}&page=${page}&size=${size}`);
   }
 
+  getAccountsStat(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/stats`);
+  }
+
   createAccount(user: Object): Observable<Object> {
     return this.http.post('http://localhost:8080/register', user);
   }

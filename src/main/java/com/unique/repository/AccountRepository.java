@@ -8,9 +8,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
+import java.util.List;
 
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
     Account findByEmail(String email);
     Page<Account> findByRolesIn(Collection<Role> roles, Pageable pageable);
+    List<Account> findByRolesIn(Collection<Role> roles);
 }

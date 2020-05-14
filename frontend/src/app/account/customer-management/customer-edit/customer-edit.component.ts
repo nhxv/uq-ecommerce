@@ -4,6 +4,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AccountService} from "../../account.service";
 import {Account} from "../../account.model";
 import {AccountApiService} from "../../../api/account-api.service";
+import {AccountStatService} from "../../account-stat.service";
 
 @Component({
   selector: 'app-customer-edit',
@@ -17,7 +18,8 @@ export class CustomerEditComponent implements OnInit {
 
   constructor(private activeModal: NgbActiveModal,
               private accountApiService: AccountApiService,
-              private accountService: AccountService) {}
+              private accountService: AccountService,
+              private accountStatService: AccountStatService) {}
 
   ngOnInit(): void {
     this.customerForm = new FormGroup({
@@ -47,6 +49,7 @@ export class CustomerEditComponent implements OnInit {
     );
     this.accountApiService.updateRole(this.customer.id, accountUpdate).subscribe((data) => {
       this.accountService.setUpdateStatus();
+      this.accountStatService.whenAddStaff();
       this.customerForm.reset();
       this.activeModal.close('Click');
     });

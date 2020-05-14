@@ -96,30 +96,17 @@ export class OrderManagementComponent implements OnInit, OnDestroy {
         statusUpdate = 'RETURN';
         break;
     }
-    if (this.isStaff()) {
-      this.orderApiService.updateByStaff(id, sessionStorage.getItem('username'), statusUpdate).subscribe(() => {
-        this.orderService.setUpdateStatus();
-        if (statusUpdate === 'DELIVERED') {
-          this.orderStatService.whenDelivered(currentOrder.status);
-        } else if (statusUpdate === 'RETURN') {
-          this.orderStatService.whenReturn(currentOrder.status);
-        } else {
-          this.orderStatService.whenOnGoing(currentOrder.status);
-        }
-        this.accountStatService.whenStaffWork();
-      });
-    } else {
-      this.orderApiService.updateOrder(id, statusUpdate).subscribe(() => {
-        this.orderService.setUpdateStatus();
-        if (statusUpdate === 'DELIVERED') {
-          this.orderStatService.whenDelivered(currentOrder.status);
-        } else if (statusUpdate === 'RETURN') {
-          this.orderStatService.whenReturn(currentOrder.status);
-        } else {
-          this.orderStatService.whenOnGoing(currentOrder.status);
-        }
-      });
-    }
+    this.orderApiService.updateByStaff(id, sessionStorage.getItem('username'), statusUpdate).subscribe(() => {
+      this.orderService.setUpdateStatus();
+      if (statusUpdate === 'DELIVERED') {
+        this.orderStatService.whenDelivered(currentOrder.status);
+      } else if (statusUpdate === 'RETURN') {
+        this.orderStatService.whenReturn(currentOrder.status);
+      } else {
+        this.orderStatService.whenOnGoing(currentOrder.status);
+      }
+      this.accountStatService.whenStaffWork();
+    });
   }
 
   isStaff() {

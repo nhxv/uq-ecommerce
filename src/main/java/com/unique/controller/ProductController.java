@@ -2,8 +2,10 @@ package com.unique.controller;
 
 import com.unique.exception.ItemExistException;
 import com.unique.exception.ResourceNotFoundException;
+import com.unique.model.Account;
 import com.unique.model.Image;
 import com.unique.model.Product;
+import com.unique.repository.AccountRepository;
 import com.unique.repository.CategoryRepository;
 import com.unique.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +24,12 @@ import java.util.*;
 @CrossOrigin(origins = "*")
 public class ProductController {
     private ProductRepository productRepository;
+    private AccountRepository accountRepository;
 
     @Autowired
-    public ProductController(ProductRepository productRepository) {
+    public ProductController(ProductRepository productRepository, AccountRepository accountRepository) {
         this.productRepository = productRepository;
+        this.accountRepository = accountRepository;
     }
 
     @GetMapping("/products/pageable")
@@ -87,6 +91,19 @@ public class ProductController {
     public Product createProduct(@Valid @RequestBody Product product) throws ItemExistException {
         if (this.productRepository.findByName(product.getName()) == null) {
             return productRepository.save(product);
+        } else {
+            throw new ItemExistException("This product name already exists");
+        }
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
+    @PostMapping("/products/by-staff")
+    public Product createByStaff(@RequestParam("staffEmail") String staffParam, @Valid @RequestBody Product product) throws ItemExistException {
+        if (this.productRepository.findByName(product.getName()) == null) {
+            Account staff = this.accountRepository.findByEmail(staffParam);
+            staff.setProductWork(staff.getProductWork() + 1);
+            this.accountRepository.save(staff);
+            return this.productRepository.save(product);
         } else {
             throw new ItemExistException("This product name already exists");
         }

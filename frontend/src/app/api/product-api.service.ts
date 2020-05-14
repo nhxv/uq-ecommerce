@@ -33,6 +33,10 @@ export class ProductApiService {
     return this.http.post(`${this.baseUrl}`, product);
   }
 
+  createByStaff(staffEmail: string, product: Product) {
+    return this.http.post(`${this.baseUrl}/by-staff?staffEmail=${staffEmail}`, product);
+  }
+
   updateProduct(id: number, value: any): Observable<Object> {
     return this.http.put(`${this.baseUrl}/${id}`, value);
   }

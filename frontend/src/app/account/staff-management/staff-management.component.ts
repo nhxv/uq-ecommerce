@@ -51,7 +51,9 @@ export class StaffManagementComponent implements OnInit, OnDestroy {
     if (!isConfirm) {
       return;
     }
-    this.accountService.updateRole(account.id, account);
+    let accountUpdate: Account = account;
+    accountUpdate.salary = 0;
+    this.accountService.updateRole(account.id, accountUpdate);
   }
 
   ngOnDestroy(): void {

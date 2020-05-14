@@ -12,6 +12,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {throwError} from "rxjs";
 import {catchError} from "rxjs/operators";
 import {ImageApiService} from "../../../api/image-api.service";
+import {AuthService} from "../../../auth/auth.service";
 
 @Component({
   selector: 'app-product-form',
@@ -33,6 +34,7 @@ export class ProductFormComponent implements OnInit {
     private productApiService: ProductApiService,
     private imageApiService: ImageApiService,
     private categoryService: CategoryService,
+    private authService: AuthService,
     private activeModal: NgbActiveModal
   ) {}
 
@@ -113,18 +115,36 @@ export class ProductFormComponent implements OnInit {
       this.productForm.get('unitPrice').value,
       true,
     );
-    this.productApiService.createProduct(product).pipe(catchError(this.handleAddErrors)).subscribe((productData: Product) => {
-      this.imageApiService.uploadImages(imageData, productData.id).subscribe(() => {
-        this.productService.setUpdateStatus();
-        this.productForm.reset();
-        this.activeModal.close('Close click');
+
+    // add product as admin
+    if (!this.isStaff()) {
+      this.productApiService.createProduct(product).pipe(catchError(this.handleAddErrors)).subscribe((productData: Product) => {
+        this.imageApiService.uploadImages(imageData, productData.id).subscribe(() => {
+          this.productService.setUpdateStatus();
+          this.productForm.reset();
+          this.activeModal.close('Close click');
+        });
+      }, errorMessage => {
+        this.errorMessage = errorMessage;
+        setTimeout(() => {
+          this.errorMessage = '';
+        }, 2000);
       });
-    }, errorMessage => {
-      this.errorMessage = errorMessage;
-      setTimeout(() => {
-        this.errorMessage = '';
-      }, 2000);
-    });
+    } else {
+      // add product as staff
+      this.productApiService.createByStaff(sessionStorage.getItem('username'), product).pipe(catchError(this.handleAddErrors)).subscribe((productData: Product) => {
+        this.imageApiService.uploadImages(imageData, productData.id).subscribe(() => {
+          this.productService.setUpdateStatus();
+          this.productForm.reset();
+          this.activeModal.close('Close click');
+        });
+      }, errorMessage => {
+        this.errorMessage = errorMessage;
+        setTimeout(() => {
+          this.errorMessage = '';
+        }, 2000);
+      });
+    }
   }
 
   handleAddErrors(errorResponse: HttpErrorResponse) {
@@ -182,6 +202,10 @@ export class ProductFormComponent implements OnInit {
       }
     }
     this.imageNames = this.images.map(image => image.name);
+  }
+
+  isStaff() {
+    return this.authService.isStaff();
   }
 
   isInvalidField(field: string): boolean {

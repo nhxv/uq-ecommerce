@@ -8,6 +8,7 @@ import com.unique.model.Account;
 import com.unique.model.AccountOrder;
 import com.unique.model.ProductOrder;
 import com.unique.repository.AccountOrderRepository;
+import com.unique.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
@@ -32,10 +33,12 @@ import java.util.stream.Stream;
 @CrossOrigin(origins = "*")
 public class AccountOrderController {
     private AccountOrderRepository accountOrderRepository;
+    private AccountRepository accountRepository;
 
     @Autowired
-    public AccountOrderController(AccountOrderRepository accountOrderRepository) {
+    public AccountOrderController(AccountOrderRepository accountOrderRepository, AccountRepository accountRepository) {
         this.accountOrderRepository = accountOrderRepository;
+        this.accountRepository = accountRepository;
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
@@ -92,6 +95,21 @@ public class AccountOrderController {
         AccountOrder accountOrder = this.accountOrderRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Order not found for this id: " + id));
         accountOrder.setStatus(statusUpdate);
         return ResponseEntity.ok(this.accountOrderRepository.save(accountOrder));
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
+    @PutMapping("/account-orders/by-staff")
+    public ResponseEntity<AccountOrder> updateByStaff(@RequestParam("orderId") String orderParam,
+                                                      @RequestParam("staffEmail") String staffParam,
+                                                      @Valid @RequestBody String statusUpdate) throws ResourceNotFoundException {
+        long orderId = Long.parseLong(orderParam);
+        AccountOrder order = this.accountOrderRepository.findById(orderId).orElseThrow(() -> new ResourceNotFoundException("Order not found for this id: " + orderId));
+        order.setStatus(statusUpdate);
+        order.setStaffEdit(staffParam);
+        Account staff = this.accountRepository.findByEmail(staffParam);
+        staff.setOrderWork(staff.getOrderWork() + 1);
+        this.accountRepository.save(staff);
+        return ResponseEntity.ok(this.accountOrderRepository.save(order));
     }
 
     @GetMapping(value = "/account-orders/print/{id}", produces = MediaType.APPLICATION_PDF_VALUE)

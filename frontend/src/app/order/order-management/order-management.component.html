@@ -26,12 +26,12 @@
               <td>{{customDate(order.dateCreated)}}</td>
               <td>{{order.totalPrice}}<u>đ</u></td>
               <td>
-                <select class="form-control" (change)="onSetStatus(order.id, $event.target.value)" *ngIf="!order.staffEdit">
+                <select class="form-control" (change)="onSetStatus(order.id, $event.target.value)" *ngIf="!order.staffEdit || !isStaff()">
                   <option [selected]="order.status === 'PROCESSING' ? true : null">Đang xử lí</option>
                   <option [selected]="order.status === 'DELIVERED' ? true : null">Hoàn thành</option>
                   <option [selected]="order.status === 'RETURN' ? true : null">Hoàn trả</option>
                 </select>
-                <span *ngIf="order.staffEdit && isStaff()">{{order.status}}</span>
+                <span *ngIf="order.staffEdit && isStaff()">{{displayOrderStatus(order.status)}}</span>
               </td>
             </tr>
           </tbody>

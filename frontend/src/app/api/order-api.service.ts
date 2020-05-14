@@ -28,4 +28,8 @@ export class OrderApiService {
   updateOrder(id: number, status: string): Observable<Object> {
     return this.http.put(`${this.baseUrl}/${id}`, status);
   }
+
+  updateByStaff(orderId: number, staffEmail: string, status: String): Observable<Object> {
+    return this.http.put(`${this.baseUrl}/by-staff?orderId=${orderId}&staffEmail=${staffEmail}`, status);
+  }
 }

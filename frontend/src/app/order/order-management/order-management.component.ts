@@ -27,17 +27,10 @@ export class OrderManagementComponent implements OnInit, OnDestroy {
 
   constructor(private orderService: OrderService,
               private orderApiService: OrderApiService,
-              private accountApiService: AccountApiService,
-              private accountService: AccountService,
               private authService: AuthService) {}
 
   ngOnInit(): void {
     this.listOrders();
-    if (this.isStaff()) {
-      this.accountApiService.getAccountByEmail(sessionStorage.getItem('username')).subscribe((accountData: Account) => {
-        this.staff = accountData;
-      });
-    }
     this.ordersSub = this.orderService.updateStatusChanged.subscribe(() => {
       this.listOrders();
     });
@@ -79,21 +72,30 @@ export class OrderManagementComponent implements OnInit, OnDestroy {
         statusUpdate = 'RETURN';
         break;
     }
-    this.orderApiService.updateOrder(id, statusUpdate).subscribe(() => {
-      this.orderService.setUpdateStatus();
-      if (this.isStaff()) {
-        let staffUpdate: Account = this.staff;
-        staffUpdate.orderWork += 1;
-        staffUpdate.productWork = 0;
-        this.accountApiService.updateAccount(this.staff.id, staffUpdate).subscribe(() => {
-          this.accountService.setUpdateStatus();
-        });
-      }
-    })
+    if (this.isStaff()) {
+      this.orderApiService.updateByStaff(id, sessionStorage.getItem('username'), statusUpdate).subscribe(() => {
+        this.orderService.setUpdateStatus();
+      });
+    } else {
+      this.orderApiService.updateOrder(id, statusUpdate).subscribe(() => {
+        this.orderService.setUpdateStatus();
+      });
+    }
   }
 
   isStaff() {
     return this.authService.isStaff();
+  }
+
+  displayOrderStatus(status: string): string {
+    switch(status) {
+      case 'DELIVERED':
+        return 'Hoàn thành';
+      case 'PROCESSING':
+        return 'Đang xử lí';
+      case 'RETURN':
+        return 'Hoàn trả';
+    }
   }
 
   ngOnDestroy() {

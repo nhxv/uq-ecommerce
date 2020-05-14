@@ -46,20 +46,22 @@
         <table class="table table-bordered table-hover text-center shadow-sm rounded">
           <thead>
           <tr>
-            <th scope="col">Id</th>
             <th scope="col">Họ tên</th>
             <th scope="col">Email</th>
             <th scope="col">Số điện thoại</th>
+            <th scope="col">Hàng đã thêm</th>
+            <th scope="col">Đơn đã xử lí</th>
             <th scope="col">Hành động</th>
           </tr>
           </thead>
 
           <tbody>
           <tr *ngFor="let staff of staffs">
-            <th scope="row">{{staff.id}}</th>
             <td>{{staff.name}}</td>
             <td>{{staff.email}}</td>
             <td>{{staff.phone}}</td>
+            <td>{{staff.productWork}}</td>
+            <td>{{staff.orderWork}}</td>
             <td>
               <a style="cursor: pointer;" (click)="removeStaffRole(staff)"><i class="fa fa-edit"></i></a>
             </td>

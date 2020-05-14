@@ -64,7 +64,7 @@
                     <p class="mb-3"><i class="fa fa-envelope"></i> {{order.email}}</p>
                     <p class="mb-3"><i class="fa fa-phone"></i> {{order.phone}}</p>
                     <p class="mb-3"><i class="fa fa-map-marker"></i> {{order.address}}</p>
-                    <a style="cursor: pointer;" (click)="getOrderPdf(order.id)" *ngIf="order.status === 'DELIVERED'"><i class="fa fa-print"></i> Lấy hoá đơn</a>
+                    <button class="btn btn-outline-dark rounded-0 btn-sm" (click)="getOrderPdf(order.id)" *ngIf="order.status === 'DELIVERED'"><i class="fa fa-print"></i> Lấy hoá đơn</button>
                   </div>
                 </figure>
               </div> <!-- card-body .// -->

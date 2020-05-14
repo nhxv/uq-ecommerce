@@ -17,8 +17,12 @@ export class AccountStatService {
     });
   }
 
+  getStats() {
+    return this.accountStats.slice();
+  }
+
   whenAddStaff() {
-    if (this.accountStats) {
+    if (this.accountStats.length !== 0) {
       this.accountStats[0] += 1;
       // add staff remove customer
       this.accountStats[1] -= 1;
@@ -27,21 +31,21 @@ export class AccountStatService {
   }
 
   whenRegisterCustomer() {
-    if (this.accountStats) {
+    if (this.accountStats.length !== 0) {
       this.accountStats[1] += 1;
       this.accountStatsChanged.next(this.accountStats.slice());
     }
   }
 
   whenStaffWork() {
-    if (this.accountStats) {
+    if (this.accountStats.length !== 0) {
       this.accountStats[2] += 1;
       this.accountStatsChanged.next(this.accountStats.slice());
     }
   }
 
   whenStaffRemove(workCount: number) {
-    if (this.accountStats) {
+    if (this.accountStats.length !== 0) {
       this.accountStats[0] -= 1;
       this.accountStats[2] -= workCount;
       this.accountStatsChanged.next(this.accountStats.slice());
@@ -49,7 +53,7 @@ export class AccountStatService {
   }
 
   whenCustomerOrder() {
-    if (this.accountStats) {
+    if (this.accountStats.length !== 0) {
       this.accountStats[3] += 1;
       this.accountStatsChanged.next(this.accountStats.slice());
     }

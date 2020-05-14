@@ -37,12 +37,13 @@ export class ProductManagementComponent implements OnInit, OnDestroy {
               private cartService: CartService) {}
 
   ngOnInit(): void {
+    if (this.productStatService.getStats().length !== 0) {
+      this.stats = this.productStatService.getStats();
+    } else {
+      this.productStatService.fetchStats();
+    }
     this.statSub = this.productStatService.statsChanged.subscribe((data) => {
-      if (data.length !== 0) {
-        this.stats = data;
-      } else {
-        this.productStatService.fetchStats();
-      }
+      this.stats = data;
     });
     this.listProducts();
     this.productsSub = this.productService.updateStatusChanged.subscribe(() => {

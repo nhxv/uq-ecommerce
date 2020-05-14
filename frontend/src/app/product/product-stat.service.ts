@@ -17,8 +17,12 @@ export class ProductStatService {
     })
   }
 
+  getStats(): number[] {
+    return this.stats.slice();
+  }
+
   whenAddProduct() {
-    if (this.stats) {
+    if (this.stats.length !== 0) {
       this.stats[0] += 1;
       this.stats[1] += 1;
       this.statsChanged.next(this.stats.slice());
@@ -26,7 +30,7 @@ export class ProductStatService {
   }
 
   whenChangeProductStatus(isAvailable: boolean) {
-    if (this.stats) {
+    if (this.stats.length !== 0) {
       if (isAvailable) {
         // enable product
         this.stats[1] += 1;

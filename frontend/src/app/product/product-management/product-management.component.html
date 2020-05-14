@@ -1,10 +1,45 @@
 <app-dashboard-header></app-dashboard-header>
-<div class="container mt-4">
-  <div class="row">
+<div class="container">
+  <!-- Stats -->
+  <div class="row mb-2" *ngIf="isAnyProduct">
+    <div class="col-xl-3 col-md-5 mt-4">
+      <div class="card shadow-sm">
+        <div class="row no-gutters">
+          <div class="col-4 rounded text-center">
+            <i class="fa fa-tshirt pt-4 text-warning" style="font-size: 48px;"></i>
+          </div>
+          <div class="col-8">
+            <div class="card-body">
+              <h6 class="title mb-0" style="font-size: 18px;">Tổng sản phẩm</h6>
+              <p class="card-text mt-0" style="font-size: 20px;">{{this.stats[0]}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-5 col-md-7 mt-4">
+      <div class="card shadow-sm">
+        <div class="row no-gutters">
+          <div class="col-4 rounded text-center">
+            <i class="far fa-check-circle pt-4 text text-success" style="font-size: 48px;"></i>
+          </div>
+          <div class="col-8">
+            <div class="card-body">
+              <h6 class="title mb-0" style="font-size: 18px;">Sản phẩm đang bán</h6>
+              <p class="card-text mt-0" style="font-size: 20px;">{{this.stats[1]}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
     <div class="col-12">
       <button class="btn btn-primary" (click)="onAddProduct()"><i class="fa fa-plus"></i> Thêm sản phẩm</button>
     </div>
   </div>
+
   <div class="row text-center mt-4" *ngIf="!isAnyProduct">
     <div class="col-12">
       <p class="alert alert-warning">Không có sản phẩm</p>

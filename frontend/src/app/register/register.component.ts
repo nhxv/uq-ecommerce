@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Account} from "../account/account.model";
 import {Router} from "@angular/router";
 import {RegisterService} from "./register.service";
+import {AccountStatService} from "../account/account-stat.service";
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,9 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   errorMessage: string = "";
 
-  constructor(private router: Router, private registerService: RegisterService) { }
+  constructor(private router: Router,
+              private registerService: RegisterService,
+              private accountStatService: AccountStatService) { }
 
   ngOnInit(): void {
     this.registerForm = new FormGroup({
@@ -61,6 +64,7 @@ export class RegisterComponent implements OnInit {
       this.registerForm.get('phone').value,
     );
     this.registerService.register(newAccount).subscribe((data) => {
+      this.accountStatService.whenRegisterCustomer();
       this.router.navigate(['/login']);
     }, errorMessage => {
       this.errorMessage = errorMessage;

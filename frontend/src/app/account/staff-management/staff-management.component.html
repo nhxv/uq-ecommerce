@@ -17,7 +17,7 @@
           <div class="col-8">
             <div class="card-body">
               <h6 class="title mb-0" style="font-size: 18px;">Số nhân viên</h6>
-              <p class="card-text mt-0" style="font-size: 20px;">120000</p>
+              <p class="card-text mt-0" style="font-size: 20px;">{{this.stats[0]}}</p>
             </div>
           </div>
         </div>
@@ -32,7 +32,7 @@
           <div class="col-8">
             <div class="card-body">
               <h6 class="title mb-0" style="font-size: 18px;">Lượng việc đã làm</h6>
-              <p class="card-text mt-0" style="font-size: 20px;">120000</p>
+              <p class="card-text mt-0" style="font-size: 20px;">{{this.stats[2]}}</p>
             </div>
           </div>
         </div>
@@ -47,8 +47,8 @@
           <thead>
           <tr>
             <th scope="col">Họ tên</th>
-            <th scope="col">Email</th>
             <th scope="col">Số điện thoại</th>
+            <th scope="col">Lương tháng</th>
             <th scope="col">Hàng đã thêm</th>
             <th scope="col">Đơn đã xử lí</th>
             <th scope="col">Hành động</th>
@@ -58,12 +58,13 @@
           <tbody>
           <tr *ngFor="let staff of staffs">
             <td>{{staff.name}}</td>
-            <td>{{staff.email}}</td>
             <td>{{staff.phone}}</td>
+            <td>{{staff.salary}}đ</td>
             <td>{{staff.productWork}}</td>
             <td>{{staff.orderWork}}</td>
             <td>
-              <a style="cursor: pointer;" (click)="removeStaffRole(staff)"><i class="fa fa-edit"></i></a>
+              <a style="cursor: pointer;" class="mr-2" (click)="editStaffSalary(staff)"><i class="fa fa-edit"></i></a>
+              <a style="cursor: pointer;" (click)="removeStaffRole(staff)"><i class="fa fa-times text-danger"></i></a>
             </td>
           </tr>
           </tbody>

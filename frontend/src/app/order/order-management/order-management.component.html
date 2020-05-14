@@ -1,5 +1,56 @@
 <app-dashboard-header></app-dashboard-header>
 <div class="container mt-4">
+
+  <div class="row mb-5" *ngIf="isAnyOrder">
+    <div class="col-xl-3 col-md-4 mt-4">
+      <div class="card shadow-sm">
+        <div class="row no-gutters">
+          <div class="col-4 rounded text-center">
+            <i class="far fa-clipboard pt-4 text-warning" style="font-size: 48px;"></i>
+          </div>
+          <div class="col-8">
+            <div class="card-body">
+              <h6 class="title mb-0" style="font-size: 18px;">Số đơn</h6>
+              <p class="card-text mt-0" style="font-size: 20px;">{{this.stats[0]}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-5 col-md-8 mt-4">
+      <div class="card shadow-sm">
+        <div class="row no-gutters">
+          <div class="col-4 rounded text-center">
+            <i class="far fa-check-circle pt-4 text text-success" style="font-size: 48px;"></i>
+          </div>
+          <div class="col-8">
+            <div class="card-body">
+              <h6 class="title mb-0" style="font-size: 18px;">Đơn chuyển xong</h6>
+              <p class="card-text mt-0" style="font-size: 20px;">{{this.stats[1]}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-4 col-md-12 mt-4">
+      <div class="card shadow-sm">
+        <div class="row no-gutters">
+          <div class="col-4 rounded text-center">
+            <i class="fa fa-undo pt-4 text text-danger" style="font-size: 48px;"></i>
+          </div>
+          <div class="col-8">
+            <div class="card-body">
+              <h6 class="title mb-0" style="font-size: 18px;">Đơn hoàn về</h6>
+              <p class="card-text mt-0" style="font-size: 20px;">{{this.stats[2]}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <div class="row text-center mt-4" *ngIf="!isAnyOrder">
     <div class="col-12">
       <p class="alert alert-warning">Không có đơn hàng</p>
@@ -26,7 +77,7 @@
               <td>{{customDate(order.dateCreated)}}</td>
               <td>{{order.totalPrice}}<u>đ</u></td>
               <td>
-                <select class="form-control" (change)="onSetStatus(order.id, $event.target.value)" *ngIf="!order.staffEdit || !isStaff()">
+                <select class="form-control" (change)="onSetStatus(order.id, $event.target.value, order)" *ngIf="!order.staffEdit || !isStaff()">
                   <option [selected]="order.status === 'PROCESSING' ? true : null">Đang xử lí</option>
                   <option [selected]="order.status === 'DELIVERED' ? true : null">Hoàn thành</option>
                   <option [selected]="order.status === 'RETURN' ? true : null">Hoàn trả</option>

@@ -1,8 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {AccountService} from "../account.service";
 import {Account} from "../account.model";
 import {AccountApiService} from "../../api/account-api.service";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {StaffEditComponent} from "./staff-edit/staff-edit.component";
+import {AccountStatService} from "../account-stat.service";
 
 @Component({
   selector: 'app-staff-management',
@@ -13,15 +16,29 @@ export class StaffManagementComponent implements OnInit, OnDestroy {
   staffs: Account[];
   staffsSub: Subscription;
   isAnyStaff: boolean = true;
+  @Input() staff: Account;
+  stats: number[];
+  statSub: Subscription;
 
   // properties for pagination
   pageNumber: number = 1;
   pageSize: number = 8;
   totalElements: number = 0;
 
-  constructor(private accountService: AccountService, private accountApiService: AccountApiService) {}
+  constructor(private accountService: AccountService,
+              private accountApiService: AccountApiService,
+              private accountStatService: AccountStatService,
+              private modalService: NgbModal) {}
 
   ngOnInit(): void {
+    this.statSub = this.accountStatService.accountStatsChanged.subscribe((data) => {
+      if (data.length !== 0) {
+        this.stats = data;
+      } else {
+        this.accountStatService.fetchStats();
+      }
+    });
+    this.listStaffs();
     this.staffsSub = this.accountService.updateStatusChanged.subscribe(() => {
       this.listStaffs();
     });
@@ -45,19 +62,26 @@ export class StaffManagementComponent implements OnInit, OnDestroy {
     };
   }
 
+  editStaffSalary(staff: Account) {
+    const modalRef = this.modalService.open(StaffEditComponent);
+    modalRef.componentInstance.staff = staff;
+  }
+
 
   removeStaffRole(account: Account) {
-    let isConfirm: boolean = confirm('Bạn chắc chắn muốn cắt chức nhân viên này không?');
+    let isConfirm: boolean = confirm('Bạn chắc chắn muốn xoá nhân viên này không?');
     if (!isConfirm) {
       return;
     }
     let accountUpdate: Account = account;
     accountUpdate.salary = 0;
+    this.accountStatService.whenStaffRemove(accountUpdate.orderWork + accountUpdate.productWork);
     this.accountService.updateRole(account.id, accountUpdate);
   }
 
   ngOnDestroy(): void {
     this.staffsSub.unsubscribe();
+    this.statSub.unsubscribe();
   }
 
 }

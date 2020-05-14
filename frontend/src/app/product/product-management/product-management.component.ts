@@ -9,6 +9,7 @@ import {ProductApiService} from "../../api/product-api.service";
 import {AuthService} from "../../auth/auth.service";
 import {ProductEditComponent} from "./product-edit/product-edit.component";
 import {CartService} from "../../cart/cart.service";
+import {ProductStatService} from "../product-stat.service";
 
 @Component({
   selector: 'app-product-management',
@@ -20,6 +21,8 @@ export class ProductManagementComponent implements OnInit, OnDestroy {
   isAnyProduct: boolean = true;
   productsSub: Subscription;
   @Input() product: Product;
+  stats: number[];
+  statSub: Subscription;
 
   // properties for pagination
   pageNumber: number = 1;
@@ -29,10 +32,18 @@ export class ProductManagementComponent implements OnInit, OnDestroy {
   constructor(private modalService: NgbModal,
               private productService: ProductService,
               private productApiService: ProductApiService,
+              private productStatService: ProductStatService,
               private authService: AuthService,
               private cartService: CartService) {}
 
   ngOnInit(): void {
+    this.statSub = this.productStatService.statsChanged.subscribe((data) => {
+      if (data.length !== 0) {
+        this.stats = data;
+      } else {
+        this.productStatService.fetchStats();
+      }
+    });
     this.listProducts();
     this.productsSub = this.productService.updateStatusChanged.subscribe(() => {
       this.listProducts();
@@ -79,6 +90,7 @@ export class ProductManagementComponent implements OnInit, OnDestroy {
     );
     this.productApiService.updateProduct(product.id, productUpdate).subscribe((product: Product) => {
       this.productService.setUpdateStatus();
+      this.productStatService.whenChangeProductStatus(isAvailable);
       this.cartService.updateCartItemInfo(product);
     })
   }
@@ -89,5 +101,6 @@ export class ProductManagementComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.productsSub.unsubscribe();
+    this.statSub.unsubscribe();
   }
 }

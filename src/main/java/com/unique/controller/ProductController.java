@@ -86,6 +86,23 @@ public class ProductController {
         return ResponseEntity.ok().body(product);
     }
 
+    @GetMapping("/products/stats")
+    public List<Long> getProductStats() {
+        long productCount;
+        long productAvailableCount = 0;
+        List<Product> products = this.productRepository.findAll();
+        productCount = products.size();
+        for (Product product : products) {
+            if (product.isAvailable()) {
+                productAvailableCount++;
+            }
+        }
+        List<Long> result = new ArrayList<>();
+        result.add(productCount);
+        result.add(productAvailableCount);
+        return result;
+    }
+
     @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
     @PostMapping("/products")
     public Product createProduct(@Valid @RequestBody Product product) throws ItemExistException {

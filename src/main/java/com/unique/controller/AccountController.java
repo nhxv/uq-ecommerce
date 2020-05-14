@@ -67,6 +67,33 @@ public class    AccountController {
         return accounts;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/accounts/stats")
+    public List<Long> getAccountStats() {
+        long staffCount;
+        long customerCount;
+        long staffWorkCount = 0;
+        long customerOrderCount = 0;
+        Role staffRole = this.roleRepository.findById(Long.valueOf(2)).get();
+        Role customerRole = this.roleRepository.findById(Long.valueOf(3)).get();
+        List<Account> staffs = this.accountRepository.findByRolesIn(Arrays.asList(staffRole));
+        List<Account> customers = this.accountRepository.findByRolesIn(Arrays.asList(customerRole));
+        staffCount = staffs.size();
+        customerCount = customers.size();
+        for (Account staff : staffs) {
+            staffWorkCount += staff.getOrderWork() + staff.getProductWork();
+        }
+        for (Account customer : customers) {
+            customerOrderCount += customer.getAccountOrders().size();
+        }
+        List<Long> result = new ArrayList<>();
+        result.add(staffCount);
+        result.add(customerCount);
+        result.add(staffWorkCount);
+        result.add(customerOrderCount);
+        return result;
+    }
+
 
     @PostMapping("/register")
     public Account createAccount(@Valid @RequestBody AccountDto user) throws ItemExistException {
@@ -83,6 +110,7 @@ public class    AccountController {
         account.setAge(accountUpdate.getAge());
         account.setCmnd(accountUpdate.getCmnd());
         account.setAccountOrders(accountUpdate.getAccountOrders());
+        account.setSalary(accountUpdate.getSalary());
         return ResponseEntity.ok(accountRepository.save(account));
     }
 

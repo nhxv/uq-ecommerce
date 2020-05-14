@@ -7,6 +7,8 @@ import {AuthService} from "../../auth/auth.service";
 import {AccountApiService} from "../../api/account-api.service";
 import {Account} from "../../account/account.model";
 import {AccountService} from "../../account/account.service";
+import {AccountStatService} from "../../account/account-stat.service";
+import {OrderStatService} from "../order-stat.service";
 
 @Component({
   selector: 'app-order-management',
@@ -19,6 +21,8 @@ export class OrderManagementComponent implements OnInit, OnDestroy {
   ordersSub: Subscription;
   statusSelected: string = '';
   staff: Account;
+  stats: number[];
+  statSub: Subscription;
 
   // properties for pagination
   pageNumber: number = 1;
@@ -27,9 +31,18 @@ export class OrderManagementComponent implements OnInit, OnDestroy {
 
   constructor(private orderService: OrderService,
               private orderApiService: OrderApiService,
-              private authService: AuthService) {}
+              private orderStatService: OrderStatService,
+              private authService: AuthService,
+              private accountStatService: AccountStatService) {}
 
   ngOnInit(): void {
+    this.statSub = this.orderStatService.statsChanged.subscribe((data) => {
+      if (data.length !== 0) {
+        this.stats = data;
+      } else {
+        this.orderStatService.fetchStats();
+      }
+    })
     this.listOrders();
     this.ordersSub = this.orderService.updateStatusChanged.subscribe(() => {
       this.listOrders();
@@ -58,27 +71,52 @@ export class OrderManagementComponent implements OnInit, OnDestroy {
     return date.slice(0, date.indexOf("T"));
   }
 
-  onSetStatus(id: number, status: string) {
+  onSetStatus(id: number, status: string, currentOrder: AccountOrder) {
     this.statusSelected = status;
-    let statusUpdate: string = '';
+    let statusUpdate: string = currentOrder.status;
     switch(status) {
       case "Hoàn thành":
+        if (statusUpdate === 'DELIVERED') {
+          console.log('no change');
+          return;
+        }
         statusUpdate = 'DELIVERED';
         break;
       case "Đang xử lí":
+        if (statusUpdate === 'PROCESSING') {
+          return;
+        }
         statusUpdate = 'PROCESSING';
         break;
       case "Hoàn trả":
+        if (statusUpdate === 'RETURN') {
+          return;
+        }
         statusUpdate = 'RETURN';
         break;
     }
     if (this.isStaff()) {
       this.orderApiService.updateByStaff(id, sessionStorage.getItem('username'), statusUpdate).subscribe(() => {
         this.orderService.setUpdateStatus();
+        if (statusUpdate === 'DELIVERED') {
+          this.orderStatService.whenDelivered(currentOrder.status);
+        } else if (statusUpdate === 'RETURN') {
+          this.orderStatService.whenReturn(currentOrder.status);
+        } else {
+          this.orderStatService.whenOnGoing(currentOrder.status);
+        }
+        this.accountStatService.whenStaffWork();
       });
     } else {
       this.orderApiService.updateOrder(id, statusUpdate).subscribe(() => {
         this.orderService.setUpdateStatus();
+        if (statusUpdate === 'DELIVERED') {
+          this.orderStatService.whenDelivered(currentOrder.status);
+        } else if (statusUpdate === 'RETURN') {
+          this.orderStatService.whenReturn(currentOrder.status);
+        } else {
+          this.orderStatService.whenOnGoing(currentOrder.status);
+        }
       });
     }
   }
@@ -100,6 +138,7 @@ export class OrderManagementComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.ordersSub.unsubscribe();
+    this.statSub.unsubscribe();
   }
 
 }

@@ -1,0 +1,24 @@
+<div class="row justify-content-center">
+  <div class="col-12">
+    <!-- Product form -->
+    <div class="card border-0">
+      <div class="card-body">
+        <h4 class="card-title">Cập nhật lương nhân viên</h4>
+        <form [formGroup]="staffForm" (ngSubmit)="onUpdateSalary()">
+          <div class="form-group">
+            <div class="alert alert-danger mb-3 border-0" *ngIf="errorMessage">{{this.errorMessage}}</div>
+            <label>Lương tháng:</label>
+            <input class="form-control" type="number" formControlName="salary">
+            <span class="text-danger" *ngIf="isInvalidField('salary')">Lương tháng không bỏ trống, tối thiểu 1000đ</span>
+          </div> <!-- form-group// -->
+          <div class="form-group row mt-4">
+            <button type="submit" class="btn btn-primary btn-block">Cập nhật</button>
+          </div> <!-- form-group// -->
+        </form>
+      </div>
+    </div> <!-- product form// -->
+  </div>
+</div>
+
+
+

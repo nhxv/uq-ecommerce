@@ -44,8 +44,7 @@ export class CustomerEditComponent implements OnInit {
       this.customer.roles,
       this.customer.cmnd,
       this.customer.age,
-      this.customerForm.get('salary').value,
-      this.customer.accountOrders
+      this.customerForm.get('salary').value
     );
     this.accountApiService.updateRole(this.customer.id, accountUpdate).subscribe((data) => {
       this.accountService.setUpdateStatus();

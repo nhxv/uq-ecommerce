@@ -42,8 +42,7 @@ export class StaffEditComponent implements OnInit {
       this.staff.roles,
       this.staff.cmnd,
       this.staff.age,
-      this.staffForm.get('salary').value,
-      this.staff.accountOrders
+      this.staffForm.get('salary').value
     );
     this.accountApiService.updateAccount(this.staff.id, accountUpdate).subscribe(() => {
       this.accountService.setUpdateStatus();

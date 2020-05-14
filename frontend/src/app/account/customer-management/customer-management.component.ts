@@ -32,13 +32,13 @@ export class CustomerManagementComponent implements OnInit, OnDestroy {
               private modalService: NgbModal) {}
 
   ngOnInit(): void {
-    // this.accountStatService.fetchStats();
+    if (this.accountStatService.getStats().length !== 0) {
+      this.stats = this.accountStatService.getStats();
+    } else {
+      this.accountStatService.fetchStats();
+    }
     this.statSub = this.accountStatService.accountStatsChanged.subscribe((data) => {
-      if (data.length !== 0) {
-        this.stats = data;
-      } else {
-        this.accountStatService.fetchStats();
-      }
+      this.stats = data;
     });
     this.listCustomers();
     this.customersSub = this.accountService.updateStatusChanged.subscribe(() => {

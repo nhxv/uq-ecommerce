@@ -31,12 +31,13 @@ export class StaffManagementComponent implements OnInit, OnDestroy {
               private modalService: NgbModal) {}
 
   ngOnInit(): void {
+    if (this.accountStatService.getStats().length !== 0) {
+      this.stats = this.accountStatService.getStats();
+    } else {
+      this.accountStatService.fetchStats();
+    }
     this.statSub = this.accountStatService.accountStatsChanged.subscribe((data) => {
-      if (data.length !== 0) {
-        this.stats = data;
-      } else {
-        this.accountStatService.fetchStats();
-      }
+      this.stats = data;
     });
     this.listStaffs();
     this.staffsSub = this.accountService.updateStatusChanged.subscribe(() => {

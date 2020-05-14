@@ -36,13 +36,14 @@ export class OrderManagementComponent implements OnInit, OnDestroy {
               private accountStatService: AccountStatService) {}
 
   ngOnInit(): void {
+    if (this.orderStatService.getStats().length !== 0) {
+      this.stats = this.orderStatService.getStats();
+    } else {
+      this.orderStatService.fetchStats();
+    }
     this.statSub = this.orderStatService.statsChanged.subscribe((data) => {
-      if (data.length !== 0) {
-        this.stats = data;
-      } else {
-        this.orderStatService.fetchStats();
-      }
-    })
+      this.stats = data;
+    });
     this.listOrders();
     this.ordersSub = this.orderService.updateStatusChanged.subscribe(() => {
       this.listOrders();

@@ -2,7 +2,6 @@ package com.unique.controller;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
-import com.itextpdf.text.pdf.draw.LineSeparator;
 import com.unique.exception.ResourceNotFoundException;
 import com.unique.model.Account;
 import com.unique.model.AccountOrder;

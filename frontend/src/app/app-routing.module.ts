@@ -1,41 +1,23 @@
 import { NgModule } from '@angular/core';
 import {Routes, RouterModule, PreloadAllModules} from '@angular/router';
-import {HomeComponent} from "./home/home.component";
-import {LoginComponent} from "./login/login.component";
-import {RegisterComponent} from "./register/register.component";
-import {CartComponent} from "./cart/cart.component";
-import {ProductManagementComponent} from "./product/product-management/product-management.component";
-import {AccountProfileComponent} from "./account/account-profile/account-profile.component";
-import {CustomerManagementComponent} from "./account/customer-management/customer-management.component";
-import {StaffManagementComponent} from "./account/staff-management/staff-management.component";
-import {OrderManagementComponent} from "./order/order-management/order-management.component";
-import {ProductListComponent} from "./product/product-list/product-list.component";
-import {ProductDetailComponent} from "./product/product-detail/product-detail.component";
-import {AdminGuard} from "./auth/admin.guard";
-import {StaffGuard} from "./auth/staff.guard";
-import {UserGuard} from "./auth/user.guard";
-import {NotFoundComponent} from "./not-found/not-found.component";
-import {OrderListComponent} from "./order/order-list/order-list.component";
-import {CartResolverService} from "./cart/cart-resolver.service";
 
 const appRoutes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
-  {path: 'home', component: HomeComponent, resolve: [CartResolverService]},
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent},
-  {path: 'cart', component: CartComponent, canActivate: [UserGuard], resolve: [CartResolverService]},
-  {path: 'product-management', component: ProductManagementComponent, canActivate: [StaffGuard], resolve: [CartResolverService]},
-  {path: 'profile', component: AccountProfileComponent, canActivate: [UserGuard], resolve: [CartResolverService]},
-  {path: 'customer-management', component: CustomerManagementComponent, canActivate: [AdminGuard], resolve: [CartResolverService]},
-  {path: 'staff-management', component: StaffManagementComponent, canActivate: [AdminGuard], resolve: [CartResolverService]},
-  {path: 'order-management', component: OrderManagementComponent, canActivate: [StaffGuard], resolve: [CartResolverService]},
-  {path: 'products', component: ProductListComponent, resolve: [CartResolverService]},
-  {path: 'products/:id', component: ProductDetailComponent, resolve: [CartResolverService]},
-  {path: 'category/:id', component: ProductListComponent, resolve: [CartResolverService]},
-  {path: 'category', component: ProductListComponent, resolve: [CartResolverService]},
-  {path: 'search/:keyword', component: ProductListComponent, resolve: [CartResolverService]},
-  {path: 'order-list', component: OrderListComponent, canActivate: [UserGuard], resolve: [CartResolverService]},
-  {path: 'not-found', component: NotFoundComponent, resolve: [CartResolverService]},
+  {path: 'home', loadChildren: () => import('./pages/home-page/home-page.module').then(m => m.HomePageModule)},
+  {path: 'login', loadChildren: () => import('./pages/login-page/login-page.module').then(m => m.LoginPageModule)},
+  {path: 'register', loadChildren: () => import('./pages/register-page/register-page.module').then(m => m.RegisterPageModule)},
+  {path: 'cart', loadChildren: () => import('./pages/cart-page/cart-page.module').then(m => m.CartPageModule)},
+  {path: 'profile', loadChildren: () => import('./pages/profile-page/profile-page.module').then(m => m.ProfilePageModule)},
+  {path: 'orders', loadChildren: () => import('./pages/orders-page/orders-page.module').then(m => m.OrdersPageModule)},
+  {path: 'product-management', loadChildren: () => import('./pages/product-management-page/product-management-page.module').then(m => m.ProductManagementPageModule)},
+  {path: 'customer-management', loadChildren: () => import('./pages/customer-management-page/customer-management-page.module').then(m => m.CustomerManagementPageModule)},
+  {path: 'staff-management', loadChildren: () => import('./pages/staff-management-page/staff-management-page.module').then(m => m.StaffManagementPageModule)},
+  {path: 'order-management', loadChildren: () => import('./pages/order-management-page/order-management-page.module').then(m => m.OrderManagementPageModule)},
+  {path: 'products', loadChildren: () => import('./pages/products-page/products-page.module').then(m => m.ProductsPageModule)},
+  {path: 'products/:id', loadChildren: () => import('./pages/product-detail-page/product-detail-page.module').then(m => m.ProductDetailPageModule)},
+  {path: 'category/:id', loadChildren: () => import('./pages/category-page/category-page.module').then(m => m.CategoryPageModule)},
+  {path: 'search/:keyword', loadChildren: () => import('./pages/search-page/search-page.module').then(m => m.SearchPageModule)},
+  {path: 'not-found', loadChildren: () => import('./pages/not-found-page/not-found-page.module').then(m => m.NotFoundPageModule)},
   {path: '**', redirectTo: '/not-found'},
 ];
 

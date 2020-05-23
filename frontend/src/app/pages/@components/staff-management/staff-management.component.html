@@ -1,0 +1,91 @@
+<div class="container">
+  <div class="row text-center mt-4" *ngIf="!isAnyStaff">
+    <div class="col-12">
+      <p class="alert alert-warning rounded-0">Không có nhân viên</p>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="row" *ngIf="isAnyStaff">
+    <div class="col-xl-3 col-md-5 mt-4">
+      <div class="card shadow-sm">
+        <div class="row no-gutters">
+          <div class="col-4 rounded text-center">
+            <i class="fa fa-user pt-4 text-primary" style="font-size: 48px;"></i>
+          </div>
+          <div class="col-8">
+            <div class="card-body">
+              <h6 class="title mb-0" style="font-size: 18px;">Số nhân viên</h6>
+              <p class="card-text mt-0" style="font-size: 20px;">{{this.stats[0]}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-5 col-md-7 mt-4">
+      <div class="card shadow-sm">
+        <div class="row no-gutters">
+          <div class="col-4 rounded text-center">
+            <i class="fa fa-briefcase pt-4 text text-success" style="font-size: 48px;"></i>
+          </div>
+          <div class="col-8">
+            <div class="card-body">
+              <h6 class="title mb-0" style="font-size: 18px;">Lượng việc đã làm</h6>
+              <p class="card-text mt-0" style="font-size: 20px;">{{this.stats[2]}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- TABLE -->
+  <div class="row mt-4" *ngIf="isAnyStaff">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover text-center shadow-sm rounded">
+          <thead>
+          <tr>
+            <th scope="col">Họ tên</th>
+            <th scope="col">Số điện thoại</th>
+            <th scope="col">Lương tháng</th>
+            <th scope="col">Hàng đã thêm</th>
+            <th scope="col">Đơn đã xử lí</th>
+            <th scope="col">Hành động</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <tr *ngFor="let staff of staffs">
+            <td>{{staff.name}}</td>
+            <td>{{staff.phone}}</td>
+            <td>{{staff.salary}}đ</td>
+            <td>{{staff.productWork}}</td>
+            <td>{{staff.orderWork}}</td>
+            <td>
+              <a style="cursor: pointer;" class="mr-2" (click)="editStaffSalary(staff)"><i class="fa fa-edit"></i></a>
+              <a style="cursor: pointer;" (click)="removeStaffRole(staff)"><i class="fa fa-times text-danger"></i></a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4" *ngIf="isAnyStaff">
+    <div class="col-md-6 ml-auto">
+      <ngb-pagination [(page)]="pageNumber"
+                      [pageSize]="pageSize"
+                      [collectionSize]="totalElements"
+                      [maxSize]="5"
+                      [rotate]="true"
+                      [ellipses]="false"
+                      (pageChange)="listStaffs()">
+        <ng-template ngbPaginationPrevious><i class="fa fa-caret-left"></i></ng-template>
+        <ng-template ngbPaginationNext><i class="fa fa-caret-right"></i></ng-template>
+      </ngb-pagination>
+    </div>
+  </div>
+</div>
+
+

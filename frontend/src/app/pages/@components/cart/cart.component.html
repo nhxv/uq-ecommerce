@@ -1,0 +1,49 @@
+<div class="container mt-4 text-center" *ngIf="isEmpty">
+  <p class="alert alert-warning border-0 rounded-0">Không có hàng trong giỏ</p>
+  <div class="display-1 text text-dark"><i class="fa fa-cart-arrow-down"></i></div>
+  <button class="text text-center btn btn-outline-dark rounded-0 mt-4" (click)="onNavigate()">Xem hàng mới</button>
+</div>
+<div class="container" *ngIf="!isEmpty">
+  <div class="row">
+    <div class="col-xl-9">
+      <div *ngIf="errorMessage" class="alert alert-danger mt-4">
+        <p>{{errorMessage}}</p>
+        <ul>
+          <li *ngFor="let itemName of disabledItems">{{itemName}}</li>
+        </ul>
+      </div>
+      <app-cart-item *ngFor="let cartItem of cartItems" [item]="cartItem"></app-cart-item>
+    </div>
+    <div class="col-xl-3 mt-4">
+      <div class="card border-0 rounded-0" style="background: rgb(241, 241, 241) !important;">
+        <div class="card-body">
+          <dl class="dlist-align">
+            <dt>Tổng cộng:</dt>
+            <dd class="text-right b"><strong>{{total}}<u>đ</u></strong></dd>
+          </dl>
+          <hr>
+          <p class="text-center mb-3"></p>
+          <button (click)="onOrder()" class="btn btn-primary btn-block rounded-0"> Thanh toán </button>
+          <a style="cursor: pointer;" (click)="onNavigate()" class="btn btn-light btn-block rounded-0">Tiếp tục mua sắm</a>
+        </div> <!-- card-body.// -->
+      </div> <!-- card.// -->
+      <!-- Account info -->
+      <article class="card rounded-0 mt-4 shadow-sm">
+        <div class="card-body">
+          <figure class="icontext">
+            <div class="text">
+              <h6>Thông tin thanh toán</h6>
+              <p class="mb-3"> <i class="fa fa-user"></i> Họ tên: {{this.account.name}}</p>
+              <p class="mb-3"><i class="fa fa-envelope"></i> Email: {{this.account.email}}</p>
+              <p class="mb-3"><i class="fa fa-phone"></i> Số điện thoại: {{this.account.phone}}</p>
+              <p><i class="fa fa-map-marker"></i> Địa chỉ: {{this.account.address}}</p>
+            </div>
+          </figure>
+          <p>
+            <button class="btn btn-outline-success btn-sm rounded-0" (click)="onEditProfile()"><i class="fa fa-pen"></i> Chỉnh sửa</button>
+          </p>
+        </div> <!-- card-body .// -->
+      </article> <!-- card.// -->
+    </div>
+  </div>
+</div>

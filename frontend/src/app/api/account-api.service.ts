@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Account} from "../account/account.model";
+import {Account} from "../@models/account.model";
 
 @Injectable({providedIn: 'root'})
 export class AccountApiService {
@@ -15,10 +15,6 @@ export class AccountApiService {
 
   getAccountByEmail(email: string): Observable<Account> {
     return this.http.get<Account>(`${this.baseUrl}/profile/${email}`);
-  }
-
-  getAccountList(): Observable<any> {
-    return this.http.get(`${this.baseUrl}`);
   }
 
   getAccountsByRole(page: number, size: number, roleName: string): Observable<any> {
@@ -39,9 +35,5 @@ export class AccountApiService {
 
   updateRole(id: number, account: Account): Observable<any> {
     return this.http.put(`${this.baseUrl}/role/${id}`, account);
-  }
-
-  deleteAccount(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${id}`, {responseType: 'text'});
   }
 }

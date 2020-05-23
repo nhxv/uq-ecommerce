@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {AccountOrder} from "../order/account-order.model";
+import {AccountOrder} from "../@models/account-order.model";
 import {Observable} from "rxjs";
 
 @Injectable({providedIn: 'root'})
@@ -27,10 +27,6 @@ export class OrderApiService {
 
   addOrder(accountOrder: AccountOrder): Observable<Object> {
     return this.http.post(`${this.baseUrl}`, accountOrder);
-  }
-
-  updateOrder(id: number, status: string): Observable<Object> {
-    return this.http.put(`${this.baseUrl}/${id}`, status);
   }
 
   updateByStaff(orderId: number, staffEmail: string, status: String): Observable<Object> {

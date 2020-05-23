@@ -1,0 +1,91 @@
+<div class="container mt-4">
+  <div *ngIf="!isAnyOrder" class="text-center">
+    <p class="alert alert-warning rounded-0 border-0">Chưa có đơn hàng nào</p>
+  </div>
+  <!--  color note -->
+  <div class="row mb-4" *ngIf="isAnyOrder">
+    <div class="col-12">
+      <div class="card border-0">
+        <div class="card-body p-0">
+          <div class="row text-center">
+            <div class="col-4">
+              <p class="mb-0">Hoàn trả</p>
+              <i class="fa fa-square text-danger"></i>
+            </div>
+            <div class="col-4">
+              <p class="mb-0">Đang xử lí</p>
+              <i class="fa fa-square text-warning"></i>
+            </div>
+            <div class="col-4">
+              <p class="mb-0">Hoàn thành</p>
+              <i class="fa fa-square text-success"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center" *ngIf="isAnyOrder">
+    <main class="col-md-10">
+      <article class="card mb-4 rounded-0 border-0 shadow-sm" *ngFor="let order of orders">
+        <div [ngClass]="setOrderColor(order.status)" style="padding: 2px;"></div>
+        <div class="row">
+          <div class="col-xl-8">
+            <header class="card-header border-0 rounded-0 mb-0">
+              <strong class="d-inline-block mr-3">MÃ ĐƠN HÀNG {{order.id}}</strong>
+              <p><small>{{customDate(order.dateCreated)}}</small></p>
+            </header>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-xl-8">
+                  <figure class="media" *ngFor="let productOrder of order.productOrders">
+                    <div class="img-wrap mr-3">
+                      <img src="{{productOrder.imageUrl}}" class="img-sm">
+                    </div>
+                    <figcaption class="media-body">
+                      <a class="title h6" style="color: black;" routerLink="/products/{{productOrder.productId}}">{{productOrder.name}}</a>
+                      <br>
+                      <small>Màu: {{productOrder.color}}, Size: {{productOrder.size}}, Số lượng: {{productOrder.quantity}}</small>
+                      <div class="price-wrap">{{productOrder.unitPrice}}<u>đ</u></div>
+                    </figcaption>
+                  </figure>
+                  <p class="mt-4 mb-0"><strong>Tổng cộng:</strong> {{order.totalPrice}}<u>đ</u></p>
+                </div> <!-- col.// -->
+              </div> <!-- row.// -->
+            </div> <!-- card-body .// -->
+          </div>
+          <div class="col-xl-4">
+            <article class="card rounded-0 border-0">
+              <div class="card-body">
+                <figure class="icontext">
+                  <div class="text">
+                    <p class="mb-3"> <i class="fa fa-user"></i> {{order.name}}</p>
+                    <p class="mb-3"><i class="fa fa-envelope"></i> {{order.email}}</p>
+                    <p class="mb-3"><i class="fa fa-phone"></i> {{order.phone}}</p>
+                    <p class="mb-3"><i class="fa fa-map-marker"></i> {{order.address}}</p>
+                    <button class="btn btn-outline-dark rounded-0 btn-sm" (click)="getOrderPdf(order.id)" *ngIf="order.status === 'DELIVERED'"><i class="fa fa-print"></i> Lấy hoá đơn</button>
+                  </div>
+                </figure>
+              </div> <!-- card-body .// -->
+            </article> <!-- card.// -->
+          </div>
+        </div>
+      </article>
+    </main>
+  </div>
+  <div class="row mt-4" *ngIf="isAnyOrder">
+    <div class="col-md-6 ml-auto">
+      <ngb-pagination [(page)]="pageNumber"
+                      [pageSize]="pageSize"
+                      [collectionSize]="totalElements"
+                      [maxSize]="5"
+                      [rotate]="true"
+                      [ellipses]="false"
+                      (pageChange)="listOrders()">
+        <ng-template ngbPaginationPrevious><i class="fa fa-caret-left"></i></ng-template>
+        <ng-template ngbPaginationNext><i class="fa fa-caret-right"></i></ng-template>
+      </ngb-pagination>
+    </div>
+  </div>
+</div>
+

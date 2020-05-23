@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Product} from "../product/product.model";
+import {Product} from "../@models/product.model";
 
 @Injectable({providedIn: 'root'})
 export class ProductApiService {
@@ -15,10 +15,6 @@ export class ProductApiService {
 
   getAllProducts(page: number, size: number): Observable<CustomPageable> {
     return this.http.get<CustomPageable>(`${this.baseUrl}/pageable?page=${page}&size=${size}`);
-  }
-
-  getProductList(): Observable<Object> {
-    return this.http.get(`${this.baseUrl}`);
   }
 
   getProductsByCategory(page: number, size: number, categoryId: number): Observable<CustomPageable> {
@@ -44,10 +40,6 @@ export class ProductApiService {
   updateProduct(id: number, value: any): Observable<Object> {
     return this.http.put(`${this.baseUrl}/${id}`, value);
   }
-
-  deleteProduct(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${id}`, {responseType: 'text'});
-  }
 }
 
 interface CustomPageable {
@@ -56,16 +48,4 @@ interface CustomPageable {
   totalElements: number;
   totalPages: number;
   number: number;
-}
-
-interface JpaPageable {
-  _embedded: {
-    products: Product[];
-  };
-  page: {
-    size: number,
-    totalElements: number,
-    totalPages: number,
-    number: number
-  };
 }

@@ -1,4 +1,4 @@
-# unique
+# uq shop e-commerce
 
-template admin-frontend
-https://adminlte.io/
+### Description
+A basic e-commerce web application

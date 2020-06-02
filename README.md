@@ -1,6 +1,7 @@
 # uq shop e-commerce
 
 A basic e-commerce web application
+
 Live demo: coming soon
 
 ### Built with

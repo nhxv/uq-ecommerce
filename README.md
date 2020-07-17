@@ -1,6 +1,6 @@
 # e-commerce site
 
-A basic e-commerce web application in Vietnamese.
+An e-commerce web application in Vietnamese.
 
 ### Built with
 HTML, CSS, SCSS, NgBootstrap, Typescript, Angular, Maven, Java, Spring Boot, Spring Security, Spring Data JPA, Hibernate, iText, MySQL

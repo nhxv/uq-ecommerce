@@ -15,5 +15,9 @@ Admin can track product, order and staffs related statistics.
 
 Customers can view, search, put interested products to cart, order products, print invoice and edit their shipping information.
 
+### How to start
+
+Run final-script.sql in sql-script folder to get some sample data.
+
 ### Licenses
 All product images are taken from canifa.com

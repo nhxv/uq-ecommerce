@@ -1,13 +1,13 @@
 import {NgModule} from "@angular/core";
-import {HeaderComponent} from "./shared-components/header/header.component";
+import {HeaderComponent} from "./components/header/header.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
-import { DashboardHeaderComponent } from './shared-components/dashboard-header/dashboard-header.component';
-import {ProductListComponent} from "./shared-components/product-list/product-list.component";
-import {ProductDetailComponent} from "./shared-components/product-detail/product-detail.component";
-import {ProductItemComponent} from "./shared-components/product-list/product-item/product-item.component";
+import { DashboardHeaderComponent } from './components/dashboard-header/dashboard-header.component';
+import {ProductListComponent} from "./components/product-list/product-list.component";
+import {ProductDetailComponent} from "./components/product-detail/product-detail.component";
+import {ProductItemComponent} from "./components/product-list/product-item/product-item.component";
 
 @NgModule({
   declarations: [

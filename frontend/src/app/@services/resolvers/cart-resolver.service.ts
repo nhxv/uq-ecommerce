@@ -1,9 +1,9 @@
 import {Injectable} from "@angular/core";
 import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from "@angular/router";
 import {Observable} from "rxjs";
-import {CartItem} from "../@models/cart-item.model";
-import {CartService} from "./cart.service";
-import {AuthService} from "../auth/auth.service";
+import {CartItem} from "../../@models/cart-item.model";
+import {CartService} from "../cart.service";
+import {AuthService} from "../../auth/auth.service";
 
 @Injectable({providedIn: 'root'})
 export class CartResolverService implements Resolve<CartItem[]> {

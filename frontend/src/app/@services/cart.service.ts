@@ -38,7 +38,7 @@ export class CartService {
   }
 
   addCartItem(cartItem: CartItem) {
-    // khi item không có trong giỏ và giỏ không có quá 10 món hàng
+    // when item isn't already in cart & cart doesn't have more than 10 items
     if (!this.getCartItem(cartItem.name, cartItem.color, cartItem.size) && this.cartItems.length < 10) {
       this.cartError = false;
       this.cartItems.push(cartItem);

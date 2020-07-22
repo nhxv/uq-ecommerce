@@ -1,7 +1,7 @@
 import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
 import {CategoryPageComponent} from "./category-page.component";
-import {CartResolverService} from "../../@services/cart-resolver.service";
+import {CartResolverService} from "../../@services/resolvers/cart-resolver.service";
 
 const routes: Routes = [{
     path: '', component: CategoryPageComponent, resolve: [CartResolverService],

@@ -201,6 +201,7 @@ export class ProductFormComponent implements OnInit {
   }
 
   onImageChange(event) {
+    // console.log(event.target.files[0]);
     for (let i = 0; i < event.target.files.length; i++) {
       // file sizes smaller than 20MB = 20971520 bytes and has to be image type
       if (event.target.files[i].size + this.totalImageSize < 20971520 && event.target.files[i].type.includes('image')) {

@@ -1,13 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Product} from "../../../@models/product.model";
-import {Image} from "../../../@models/image.model";
 import {ProductApiService} from "../../../api/product-api.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ImageApiService} from "../../../api/image-api.service";
 import {CartService} from "../../../@services/cart.service";
 import {CartItem} from "../../../@models/cart-item.model";
 import {AuthService} from "../../../auth/auth.service";
-import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-product-detail',

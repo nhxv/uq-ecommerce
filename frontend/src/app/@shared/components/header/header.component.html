@@ -36,10 +36,9 @@
                 <div class="icon icon-sm rounded-circle"><i class="fa fa-user text-dark"></i></div>
                 <span class="sr-only">Hồ sơ cá nhân</span>
               </a>
-              <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
+              <div class="dropdown-menu shadow border-0 rounded-0 dropdown-menu-right" ngbDropdownMenu>
                 <a class="dropdown-item" style="cursor: pointer;" [routerLink]="['/profile']" ngbDropdownItem>Thông tin tài khoản</a>
                 <a class="dropdown-item" style="cursor: pointer;" [routerLink]="['/orders']" ngbDropdownItem>Đơn hàng</a>
-                <hr class="dropdown-divider">
                 <a class="dropdown-item" style="cursor:pointer;" (click)="onSignOut()" ngbDropdownItem>Đăng xuất</a>
               </div> <!--  dropdown-menu .// -->
             </div>  <!-- widget-header .// -->

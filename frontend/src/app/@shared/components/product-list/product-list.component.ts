@@ -1,7 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Product} from "../../../@models/product.model";
 import {ProductApiService} from "../../../api/product-api.service";
-import {Subscription} from "rxjs";
 import {ProductService} from "../../../@services/product.service";
 import {ActivatedRoute, Router} from "@angular/router";
 
@@ -71,11 +70,9 @@ export class ProductListComponent implements OnInit {
     this.previousCategoryId = this.currentCategoryId;
     if (hasCategoryId) {
       // get products by category
-      console.log('load category');
       this.productApiService.getProductsByCategory(this.pageNumber - 1, this.pageSize, this.currentCategoryId).subscribe(this.processCustomPageable());
     } else {
       // get products by new
-      console.log('load new');
       this.productApiService.getAllProducts(this.pageNumber - 1, this.pageSize).subscribe(this.processCustomPageable());
     }
   }
@@ -86,11 +83,7 @@ export class ProductListComponent implements OnInit {
       this.pageNumber = data.number + 1;
       this.pageSize = data.size;
       this.totalElements = data.totalElements;
-      if (this.products.length === 0) {
-        this.isAnyProduct = false;
-      } else {
-        this.isAnyProduct = true;
-      }
+      this.isAnyProduct = this.products.length !== 0;
     };
   }
 

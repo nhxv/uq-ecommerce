@@ -20,7 +20,6 @@ export class ProductItemComponent implements OnInit {
   }
 
   onNavigate() {
-    console.log(`navigate to ` + `products/${this.id}`);
     this.router.navigate([`products/${this.id}`]);
   }
 }

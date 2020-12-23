@@ -17,7 +17,7 @@ Customers can view, search, put interested products to cart, order products, pri
 
 ### How to start
 
-Run final-script.sql in sql-script folder to get some sample data.
+Run final-script.sql in sql-script folder to load sample data to database.
 
 ### Licenses
 All product images are taken from canifa.com

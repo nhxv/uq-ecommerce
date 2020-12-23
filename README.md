@@ -3,7 +3,7 @@
 An e-commerce web application in Vietnamese.
 
 ### Built with
-HTML, CSS, SCSS, NgBootstrap, Typescript, Angular, Maven, Java, Spring Boot, Spring Security, Spring Data JPA, Hibernate, iText, MySQL
+HTML, CSS, SCSS, NgBootstrap, Typescript, Angular, Maven, Java, Spring Boot, Spring Security, Spring Data JPA, iText, MySQL
 
 ### Features
 

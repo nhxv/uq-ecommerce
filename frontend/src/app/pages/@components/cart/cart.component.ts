@@ -82,7 +82,14 @@ export class CartComponent implements OnInit, OnDestroy {
       }
       const productOrders: ProductOrder[] = [];
       for (let item of this.cartItems) {
-        const productOrder = new ProductOrder(item.color, item.size, item.imageUrl, item.name, item.quantity, item.unitPrice, item.id);
+        const productOrder = new ProductOrder(
+          item.color,
+          item.size,
+          item.imageUrl,
+          item.name,
+          item.quantity,
+          item.unitPrice,
+          item.id);
         productOrders.push(productOrder);
       }
       // 3 states: PROCESSING, DELIVERED, RETURN

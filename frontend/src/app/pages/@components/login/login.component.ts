@@ -78,10 +78,7 @@ export class LoginComponent implements OnInit {
   }
 
   isInvalidField(field: string): boolean {
-    if (!this.loginForm.get(field).valid && this.loginForm.get(field).touched) {
-      return true;
-    }
-    return false;
+    return !this.loginForm.get(field).valid && this.loginForm.get(field).touched;
   }
 
 }

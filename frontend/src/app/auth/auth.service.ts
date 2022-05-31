@@ -6,31 +6,20 @@ export class AuthService {
   constructor(private router: Router) { }
 
   isUser(): boolean {
-    let user = sessionStorage.getItem('username');
-    if (!user) {
-      return false;
-    }
-    return true;
+    const user = sessionStorage.getItem('username');
+    return !!user;
   }
 
   isStaff(): boolean {
     if (this.isUser()) {
-      if (sessionStorage.getItem('role') === 'STAFF') {
-        return true;
-      } else {
-        return false;
-      }
+      return sessionStorage.getItem('role') === 'STAFF';
     }
     return false;
   }
 
   isAdmin(): boolean {
     if (this.isUser()) {
-      if (sessionStorage.getItem('role') === 'ADMIN') {
-        return true;
-      } else {
-        return false;
-      }
+      return sessionStorage.getItem('role') === 'ADMIN';
     }
     return false;
   }

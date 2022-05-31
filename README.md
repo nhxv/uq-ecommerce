@@ -1,6 +1,7 @@
 # Unique Fashion E-commerce
 
 A fullstack clothing e-commerce web application. This is FPT Aptech final project.
+
 Demo: soon™
 
 ### Built with
@@ -15,11 +16,15 @@ HTML, CSS, SCSS, NgBootstrap, Typescript, Angular, Java, Spring Boot, Spring Sec
     - open uq folder and start Spring server
 
 Admin account:
+
 account: admin@gmail.com
+
 p/w: password
 
 Other accounts:
+
 account: vinh@gmail.com | trieu@gmail.com | toan@gmail.com
+
 p/w: 12345678
 
 ### Main features

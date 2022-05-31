@@ -14,6 +14,8 @@ HTML, CSS, SCSS, NgBootstrap, Typescript, Angular, Java, Spring Boot, Spring Sec
     - run final-script.sql in uq/sql-script folder to add sample clothing data
     - open uq/frontend folder and start Angular server
     - open uq folder and start Spring server
+    - go to web address localhost:4200 
+    - login as admin to view the store management section (account info below)
 
 Admin account:
 
@@ -25,7 +27,7 @@ password: password
 
 Other accounts:
 
-account: vinh@gmail.com | trieu@gmail.com | toan@gmail.com
+account: vinh@gmail.com | trieu@gmail.com | tung@gmail.com
 
 password: 12345678
 

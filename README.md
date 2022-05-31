@@ -19,13 +19,15 @@ Admin account:
 
 account: admin@gmail.com
 
-p/w: password
+password: password
+
+---
 
 Other accounts:
 
 account: vinh@gmail.com | trieu@gmail.com | toan@gmail.com
 
-p/w: 12345678
+password: 12345678
 
 ### Main features
 

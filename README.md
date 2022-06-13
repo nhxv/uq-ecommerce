@@ -1,6 +1,6 @@
 # Unique Fashion E-commerce
 
-A fullstack clothing e-commerce web application. This is FPT Aptech final project.
+A clothing e-commerce fullstack web application. This is FPT Aptech final project.
 
 Demo: soon™
 
@@ -10,12 +10,14 @@ HTML, CSS, SCSS, NgBootstrap, Typescript, Angular, Java, Spring Boot, Spring Sec
 ### How to run locally
 
     - install Angular 9+, Java 8, MySQL
-    - create sql connection, user and schema according to the information provided in application.properties
+    - create sql connection, sql user and schema according to the information provided in application.properties
     - run final-script.sql in uq/sql-script folder to add sample clothing data
     - open uq/frontend folder and start Angular server
     - open uq folder and start Spring server
     - go to web address localhost:4200 
     - login as admin to view the store management section (account info below)
+
+---
 
 Admin account:
 
@@ -31,15 +33,23 @@ account: vinh@gmail.com | trieu@gmail.com | tung@gmail.com
 
 password: 12345678
 
+---
+
 ### Main features
 
-Admin and staffs can add, edit and disable out of stock products.
+Customers can
 
-Admin and staffs can handle customer orders.
+    - view, search clothes 
+    - put products to cart 
+    - order products 
+    - print receipt 
+    - edit shipping info
 
-Admin can track product, order and staffs related statistics.
+Admin and staffs can
 
-Customers can view, search, put interested products to cart, order products, print invoice and edit their shipping information.
+    - add, edit and disable out of stock products
+    - handle customer orders
+    - track product, order and staffs statistics
 
 ### Licenses
 All product images are taken from canifa.com

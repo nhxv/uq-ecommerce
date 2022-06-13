@@ -1,6 +1,6 @@
 # Unique Fashion E-commerce
 
-A clothing e-commerce fullstack web application. This is FPT Aptech final project.
+A clothing e-commerce fullstack web application, based on FPT Aptech final project requirements.
 
 Demo: soon™
 
